@@ -1,6 +1,6 @@
 # User stories
 
-As a new user,	
+As a new user,
 I want to create a new account,
 So that	I can start using this awesome app.
 
