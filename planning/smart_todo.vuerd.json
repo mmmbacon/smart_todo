@@ -3,8 +3,8 @@
     "version": "2.0.10",
     "width": 2000,
     "height": 2000,
-    "scrollTop": -198.61110321901583,
-    "scrollLeft": -230.55554639410147,
+    "scrollTop": -176.38888187982474,
+    "scrollLeft": -356.2499858438991,
     "zoomLevel": 0.8,
     "show": {
       "tableComment": true,
@@ -115,9 +115,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 155.72916842583157,
-          "top": 75.52083430604915,
-          "zIndex": 209,
+          "left": 324.13193951188464,
+          "top": 59.89583492693083,
+          "zIndex": 8,
           "widthName": 60,
           "widthComment": 60
         },
@@ -174,9 +174,9 @@
             "id": "1e13b113-b405-4bd1-ba2b-a6363b77fbe5"
           },
           {
-            "name": "title",
+            "name": "description_id",
             "comment": "",
-            "dataType": "VARCHAR(255)",
+            "dataType": "SERIAL",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -187,14 +187,14 @@
             "ui": {
               "active": false,
               "pk": false,
-              "fk": false,
+              "fk": true,
               "pfk": false,
-              "widthName": 60,
+              "widthName": 83,
               "widthComment": 60,
-              "widthDataType": 95,
+              "widthDataType": 60,
               "widthDefault": 60
             },
-            "id": "f01bcd79-abb6-4c72-9bce-ef45436534e0"
+            "id": "5e62a40c-cbca-4d5f-a8b7-7c505bd8e3b2"
           },
           {
             "name": "category",
@@ -314,13 +314,74 @@
         ],
         "ui": {
           "active": false,
-          "left": 709.5485908634673,
-          "top": 90.2777781641052,
-          "zIndex": 234,
+          "left": 1064.955322772619,
+          "top": 25.669645810766838,
+          "zIndex": 2,
           "widthName": 60,
           "widthComment": 60
         },
         "id": "767cb243-d4cb-4b02-aae3-4b527d3478a5"
+      },
+      {
+        "name": "categories",
+        "comment": "",
+        "columns": [
+          {
+            "name": "id",
+            "comment": "",
+            "dataType": "SERIAL",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": true,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": true,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "df4a6afe-f09e-477a-8daf-1bbe711d747f"
+          },
+          {
+            "name": "name",
+            "comment": "",
+            "dataType": "VARCHAR(255)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 95,
+              "widthDefault": 60
+            },
+            "id": "ae695ad4-57a2-4ba1-b2f9-b187a390665a"
+          }
+        ],
+        "ui": {
+          "active": false,
+          "left": 327.25693938770894,
+          "top": 288.5416591746945,
+          "zIndex": 7,
+          "widthName": 62,
+          "widthComment": 60
+        },
+        "id": "38386a4f-858e-4ac5-b127-4ac7d0f097b7"
       }
     ],
     "indexes": []
@@ -339,8 +400,8 @@
           "columnIds": [
             "31eba308-4891-4a10-ad48-d223ec5b1f37"
           ],
-          "x": 537.7291684258316,
-          "y": 140.77083430604915,
+          "x": 706.1319395118846,
+          "y": 125.14583492693083,
           "direction": "right"
         },
         "end": {
@@ -348,11 +409,35 @@
           "columnIds": [
             "1e13b113-b405-4bd1-ba2b-a6363b77fbe5"
           ],
-          "x": 709.5485908634673,
-          "y": 206.7777781641052,
+          "x": 1064.955322772619,
+          "y": 83.91964581076684,
           "direction": "left"
         },
         "id": "97a4fea4-ac10-4090-8926-09ae14fab28a"
+      },
+      {
+        "identification": false,
+        "relationshipType": "OneN",
+        "startRelationshipType": "Dash",
+        "start": {
+          "tableId": "38386a4f-858e-4ac5-b127-4ac7d0f097b7",
+          "columnIds": [
+            "df4a6afe-f09e-477a-8daf-1bbe711d747f"
+          ],
+          "x": 709.2569393877089,
+          "y": 343.5416591746945,
+          "direction": "right"
+        },
+        "end": {
+          "tableId": "767cb243-d4cb-4b02-aae3-4b527d3478a5",
+          "columnIds": [
+            "5e62a40c-cbca-4d5f-a8b7-7c505bd8e3b2"
+          ],
+          "x": 1064.955322772619,
+          "y": 200.41964581076684,
+          "direction": "left"
+        },
+        "id": "3f34606f-f416-466f-a46a-5c525f1da4be"
       }
     ]
   }
