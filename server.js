@@ -37,20 +37,35 @@ const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
 
 //B's
+
+//Item manipulation routes
 const allItemsRoutes = require('./routes/allItems');
+const singleItemRoutes = require('./routes/singleItem');
+const deleteItemRoutes = require('./routes/deleteItem');
+
+//Category routes
 const booksListRoutes = require('./routes/booksList');
 const eateriesListRoutes = require('./routes/eateriesList');
 const moviesListRoutes = require('./routes/moviesList');
 const productsListRoutes = require('./routes/productsList');
-const deleteItemRoutes = require('./routes/deleteItem');
-const singleItemRoutes = require('./routes/singleItem');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 
+// B's
+//Item manipulation routes--only did the get, how to handle the other verbs?
+app.use("/users/:userid/items", allItemsRoutes.getItems(db));
+app.use("/users/:userid/items/:itemid", singleItemRoutes.getSingleItem(db));
 
+app.use("/users/:userid/delete", deleteItemRoutes(db));
+
+//Category routes
+app.use("/users/:userid/books", booksListRoutes(db));
+app.use("/users/:userid/eateries", eateriesListRoutes(db));
+app.use("/users/:userid/movies", moviesListRoutes(db));
+app.use("/users/:userid/products", productsListRoutes(db));
 
 
 // Note: mount other resources here, using the same pattern above
