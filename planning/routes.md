@@ -11,9 +11,9 @@ BREAD - BROWSE, READ, EDIT, ADD DELETE
 
 ### items
 
-* B **GET**     items/          <-- Get all Items
-* B **GET**     items/:category <-- All items in a category
+* **B GET**     items/          <-- Get all Items
+* **B GET**     items/:category <-- All items in a category
 * *R GET    items/:id           <-- Get specific Item(maybe)*
-* E **PUT**     items/:id       <-- Editing(completed) a specific Item
-* A **POST**    items/:id       <-- Create a new Item
-* D **DELETE**  items/:id       <-- Delete an Item
+* **E PUT**     items/:id       <-- Editing(completed) a specific Item
+* **A POST**    items/:id       <-- Create a new Item
+* **D DELETE**  items/:id       <-- Delete an Item
