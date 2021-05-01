@@ -1,6 +1,13 @@
 ### Details
 
 * Single Page App
+* API Key and requests must be on the server
+* Do we need a table for keywords?
+  * Keep Keywords simple for now
+
+### Stretch
+
+* Fetch information for an item when you click it
 
 ### Roadmap
 
@@ -10,7 +17,7 @@
   * Write Database query Logic
     * Users
     * Items
-    
+
 * REST API
 
   * Write Endpoint Logic
@@ -41,10 +48,11 @@
         * Item Category Panels
   * Write front end Script 
     * AJAX
-      * Endpoints to match REST API
+      * Endpoints to match our REST API
+      * 
     * jQuery
       * Animations for sliding the form panels up and down
       * (Stretch) Drag and drop items to recategorize
 
 * TESTING
-
+  * stretch
