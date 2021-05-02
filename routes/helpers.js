@@ -1,3 +1,4 @@
+const require = require("request"); //for movies api
 
 const sortCategories = function (object) {
   //create an array of the keys
@@ -8,6 +9,29 @@ const sortCategories = function (object) {
 
   return sortedCategories;
 }
+
+
+const isItAMovie = function (userEntry) {
+  //???? Lily to make entry safe, or me?
+  const options = {
+    method: 'GET',
+    url: `https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/${userEntry}`,
+    headers: {
+      'x-rapidapi-key': MOVIE_KEY,
+      'x-rapidapi-host': 'imdb-internet-movie-database-unofficial.p.rapidapi.com',
+      useQueryString: true
+    }
+  };
+
+  request(options, function (error, response, body) {
+    if (error) throw new Error(error);
+
+    console.log(body);
+    return body
+  });
+}
+
+console.log(isItAMovie(lordoftherings));
 
 // console.log(sortCategories({books: 5, movies: 11, eateries: 3}));
 
