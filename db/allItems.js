@@ -1,6 +1,5 @@
 const db = require('./db');
 
-
 /**
  * Postgres query function for returning all items given a user id
  * @param { string } user_id The user id
@@ -15,9 +14,13 @@ const allItems = function(user_id) {
   `;
   const params = [`${user_id}`];
 
-  db.query(queryString, params)
-    .then((res)=> res.rows)
-    .catch((err)=> err);
+  return db.query(queryString, params)
+    .then((res)=> {
+      return res.rows;
+    })
+    .catch((err)=> {
+      return err;
+    });
 };
 
 module.exports = allItems;
