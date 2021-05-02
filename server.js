@@ -45,7 +45,7 @@ app.use("/api/widgets", widgetsRoutes(db));
 
 // B's
 //Item manipulation routes--only did the get, how to handle the other verbs????
-app.use("/users/:userid/items", allItemsRoutes.getItems(db));
+app.use("/users", allItemsRoutes(db));
 app.use("/users/:userid/items/:itemid", singleItemRoutes.getSingleItem(db));
 
 app.use("/users/:userid/delete", deleteItemRoutes(db));
