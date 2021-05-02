@@ -29,8 +29,7 @@ const sortCategories = function (object) {
 //   }
 //   return 'imma product'
 // }
-const sortedCategories = ['movies','eateries','books']
-console.log(test(sortedCategories))
+// const sortedCategories = ['movies','eateries','books']
 
 
 module.exports = { sortCategories }
