@@ -12,16 +12,37 @@ describe('database', function() {
 
   //Add new items into the database first!//
 
-  it('should return an array of objects', function() {
-    return deleteItem(userId, itemId).should.eventually.be.an('array');
+  it('should return an array of objects', function(done) {
+    deleteItem(userId, itemId)
+      .then((res) => {
+        res.should.be.an('array');
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
   });
 
-  it('should be 3 items long', function() {
-    return deleteItem(userId, itemId).should.eventually.have.length.of(3);
+  it('should be 3 items long', function(done) {
+    deleteItem(userId, itemId)
+      .then((res) => {
+        res.should.have.length(3);
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
   });
 
-  it('should not be undefined', function() {
-    return deleteItem(userId, itemId).should.eventually.not.be.undefined;
+  it('should not be undefined', function(done) {
+    deleteItem(userId, itemId)
+      .then((res) => {
+        res.should.not.be.undefined;
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
   });
 
   it('should contain the email and user password', function(done) {

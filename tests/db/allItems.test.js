@@ -11,13 +11,27 @@ describe('database', function() {
 
   const userId = 1;
 
-  it('should return an array of objects', function() {
-    return allItems(userId).should.eventually.be.an('array');
+  it('should return an array of objects', function(done) {
+    allItems(userId)
+      .then((res) => {
+        res.should.be.an('array');
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
   });
 
-  it('should not be undefined', function() {
+  it('should not be undefined', function(done) {
 
-    return allItems(userId).should.eventually.not.be.undefined;
+    allItems(userId)
+      .then((res) => {
+        res.should.not.be.undefined;
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
   });
 
   it('should contain the email and user password', function(done) {
