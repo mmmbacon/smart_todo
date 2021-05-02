@@ -9,7 +9,7 @@ const allItems = require('./allItems');
  * @param { string } priority The item description
  * @returns { array } an array of user items
  */
-const deleteItem = function(userId, categoryId, description, priority) {
+const createItem = function(userId, categoryId, description, priority) {
 
   const queryString = `
   INSERT INTO items ( user_id, category_id, description, priority )
@@ -26,4 +26,4 @@ const deleteItem = function(userId, categoryId, description, priority) {
     });
 };
 
-module.exports = deleteItem;
+module.exports = createItem;
