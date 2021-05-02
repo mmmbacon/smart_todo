@@ -15,22 +15,37 @@ const isItAMovie = function (userEntry) {
     method: 'GET',
     url: `https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/${userEntry}`,
     headers: {
+      //key will be undefined if you node helpers.js, have to do it with the server running
       'x-rapidapi-key': process.env.MOVIE_KEY,
       'x-rapidapi-host': 'imdb-internet-movie-database-unofficial.p.rapidapi.com',
       useQueryString: true
     }
   };
 
-  request(options, function (error, response, body) {
-    if (error) throw new Error(error);
-    const parsedBody = JSON.parse(body);
-    console.log(parsedBody.title)
+  return new Promise((res, rej) => {
+    request(options, function (error, response, body) {
+      if (error) rej(error);
+      const movieTitle = JSON.parse(body).title;
+      // console.log('title:', movieTitle)
+
+      if (movieTitle.length > 0) {
+        res(true);
+      } else {
+        res(false);
+      }
+    });
   });
 }
 
-//need to switch to request with promises
 
-// console.log('isitamovie call',isItAMovie('lordoftherings'))
+isItAMovie('lordof the rings')
+  .then(res => {
+    // console.log('res:',res)
+    if (res) {
+      console.log('yes, it is a movie, add to database as a movie')
+    }
+    return;
+  })
 
 
 const isItABook = function (userEntry) {
