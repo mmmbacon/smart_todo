@@ -14,7 +14,7 @@ const allItems = function(user_id) {
   `;
   const params = [`${user_id}`];
 
-  db.query(queryString, params)
+  return db.query(queryString, params)
     .then((res)=> res.rows)
     .catch((err)=> err)
     .finally();
