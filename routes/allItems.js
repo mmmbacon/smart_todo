@@ -8,15 +8,17 @@ module.exports = {
     //route is just "/" because full route is already in server.js
     router.get("/", (req, res) => {
       allItems(1)
-        .then(res => {
-          res.json({ res }) //this was in the user examples, let's see what it does
-          return res.rows
+        .then(items => {
+          // console.log(items);
+          res.json({ items }); //so Brianna can see what she's got
+          return items;
         })
         .catch(error => {
           console.log(error);
           res
           .status(500)
-          .json({ error: err.message })
+          .json({ error: error.message })
+          //should figure out how to trigger this for testing
         });
     });
     return router;
