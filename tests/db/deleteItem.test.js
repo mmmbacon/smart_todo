@@ -1,10 +1,9 @@
-const { expect } = require('chai');
 const chai = require("chai");
 chai.should();
 
 const deleteItem = require('../../db/deleteItem');
 
-describe('database', function() {
+describe('Delete Item from Database', function() {
 
   const userId = 1;
   const itemId = 1;

@@ -1,10 +1,9 @@
-const { expect } = require('chai');
 const chai = require("chai");
 chai.should();
 
 const allItems = require('../../db/allItems');
 
-describe('database', function() {
+describe('Get All Items from Database', function() {
 
   const userId = 1;
 
@@ -24,7 +23,6 @@ describe('database', function() {
     allItems(userId)
       .then((res) => {
         res.should.not.be.undefined;
-        done();
       })
       .catch((err) => {
         done(err);
@@ -45,7 +43,7 @@ describe('database', function() {
       });
   });
 
-  it('should contain the id_, user_id, category_id, description, date_created and completed status', function(done) {
+  it('an item in the array should contain the id_, user_id, category_id, description, date_created and completed status', function(done) {
     allItems(userId)
       .then((res) => {
         for (const item of res) {
