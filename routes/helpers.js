@@ -1,4 +1,4 @@
-const require = require("request"); //for movies api
+const request = require("request"); //for movies api
 
 const sortCategories = function (object) {
   //create an array of the keys
@@ -17,7 +17,7 @@ const isItAMovie = function (userEntry) {
     method: 'GET',
     url: `https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/${userEntry}`,
     headers: {
-      'x-rapidapi-key': MOVIE_KEY,
+      'x-rapidapi-key': process.env.MOVIE_KEY,
       'x-rapidapi-host': 'imdb-internet-movie-database-unofficial.p.rapidapi.com',
       useQueryString: true
     }
@@ -26,34 +26,21 @@ const isItAMovie = function (userEntry) {
   request(options, function (error, response, body) {
     if (error) throw new Error(error);
 
-    console.log(body);
+    console.log(body.title);
     return body
   });
 }
 
-console.log(isItAMovie(lordoftherings));
+console.log(isItAMovie('lordoftherings'));
 
-// console.log(sortCategories({books: 5, movies: 11, eateries: 3}));
-
-// const test = function (array) {
-//   for (const i of array) {
-//       if (i === 'books') {
-//         console.log('imma book')
-//         continue;
-//       }
-//       if (i === 'movies') {
-//         console.log('imma movie')
-//         continue;
-//       }
-//       if (i === 'eateries') {
-//         console.log('imma eatery')
-//         continue;
-//     }
-
-//   }
-//   return 'imma product'
-// }
-// const sortedCategories = ['movies','eateries','books']
+const isItABook = function(userEntry) {
 
 
-module.exports = { sortCategories }
+};
+const isItAnEatery = function(userEntry) {
+
+
+};
+
+
+module.exports = { sortCategories, isItAMovie, isItABook, isItAnEatery }
