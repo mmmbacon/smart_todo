@@ -32,8 +32,6 @@ const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
 
 //B's
-
-//Item manipulation routes
 const itemsRoutes = require('./routes/items');
 
 
@@ -43,7 +41,6 @@ app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 
 // B's
-//Item manipulation routes--only did the get, how to handle the other verbs????
 app.use("/users", itemsRoutes(db));
 
 
