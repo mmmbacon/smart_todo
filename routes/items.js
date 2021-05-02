@@ -3,6 +3,7 @@ const allItems = require('../db/allItems.js');
 const router = express.Router();
 const { sortCategories, isItAMovie, isItABook, isItAnEatery } = require('./helpers.js');
 
+const priority = 1; //will actually be req.body.something, to check with Lily
 
 module.exports = (db) => {
   //Get all items routes
@@ -21,7 +22,8 @@ module.exports = (db) => {
   });
   // (still in progress)
   router.post("/:userid/items", (req, res) => {
-    const userEntry = 'lordoftherings' //eventually grab from frontend
+    //convenicen variable for the to-do the user submitted
+    const userEntry = req.body.text;
 
     //check for keywords (db? just an array?)
 
@@ -41,47 +43,56 @@ module.exports = (db) => {
     for (const category of sortedCategories) {
       if (category === 'books') {
         isItABook(userEntry)
-        .then(res => {
-          if (res) {
-            //add to database as a book
-          }
-          return;
-        })
+          .then(res => {
+            if (res) {
+              createItem(req.params.userid, 2, userEntry, priority)
+            }
+            return;
+          })
         continue; //i think i can cut these actually
 
       }
       if (category === 'movies') {
 
         isItAMovie(userEntry)
-        .then(res => {
-          if (res) {
-            //add to database as a movie
-          }
-          return;
-        })
+          .then(res => {
+            if (res) {
+              createItem(req.params.userid, 1, userEntry, 'priority')
+            }
+            return;
+          })
 
         continue;
       }
       if (category === 'eateries') {
 
         isItAnEatery(userEntry)
-        .then(res => {
-          if (res) {
-            //add to database as an eatery
-          }
-          return;
-        })
+          .then(res => {
+            if (res) {
+              createItem(req.params.userid, 3, userEntry, priority)
+            }
+            return;
+          })
         continue;
       }
     }
 
     //if it was none of those things, add to database as a product
-
+    createItem(req.params.userid, 4, userEntry, priority)
 
   });
   //Get individual items routes
   router.get("/:userid/items/:itemid", (req, res) => {
-    console.log('req.params.userid', req.params.userid, 'req.params.itemid', req.params.itemid)
+    getItem(req.params.userid, req.params.itemid)
+      .then(item => {
+        res.json({ item });
+      })
+      .catch(error => {
+        console.log(error);
+        res
+          .status(500)
+          .json({ error: error.message })
+      });
   });
 
   //Edit individual item
