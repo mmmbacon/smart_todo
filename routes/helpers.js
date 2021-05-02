@@ -11,24 +11,24 @@ const sortCategories = function (object) {
 
 // console.log(sortCategories({books: 5, movies: 11, eateries: 3}));
 
-const test = function (array) {
-  for (const i of array) {
-      if (i === 'books') {
-        console.log('imma book')
-        continue;
-      }
-      if (i === 'movies') {
-        console.log('imma movie')
-        continue;
-      }
-      if (i === 'eateries') {
-        console.log('imma eatery')
-        continue;
-    }
+// const test = function (array) {
+//   for (const i of array) {
+//       if (i === 'books') {
+//         console.log('imma book')
+//         continue;
+//       }
+//       if (i === 'movies') {
+//         console.log('imma movie')
+//         continue;
+//       }
+//       if (i === 'eateries') {
+//         console.log('imma eatery')
+//         continue;
+//     }
 
-  }
-  return 'imma product'
-}
+//   }
+//   return 'imma product'
+// }
 const sortedCategories = ['movies','eateries','books']
 console.log(test(sortedCategories))
 
