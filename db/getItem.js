@@ -6,7 +6,7 @@ const db = require('./db');
  * @param { string } item_id The item id
  * @returns { array } an array of items
  */
-const deleteItem = function(userId, itemId) {
+const getItem = function(userId, itemId) {
 
   const queryString = `
   SELECT * FROM items
@@ -23,4 +23,4 @@ const deleteItem = function(userId, itemId) {
     });
 };
 
-module.exports = deleteItem;
+module.exports = getItem;
