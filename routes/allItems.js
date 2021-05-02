@@ -1,7 +1,9 @@
 const express = require('express');
 const allItems = require('../db/allItems.js');
 const router = express.Router();
-const { sortCategories } = require('./helpers.js');
+const { sortCategories, isItAMovie, isItABook, isItAnEatery } = require('./helpers.js');
+
+const userEntry = 'lordoftherings' //eventually grab from frontend
 
 module.exports = {
   getItems: (db) => {
@@ -44,16 +46,15 @@ module.exports = {
 
       for (const category of sortedCategories) {
         if (category === 'books') {
-          //call function that returns book api data
-          if ('it was in the api' === true) {
+          if (isItABook(userEntry)) {
             return 'it was in the api, its a book' //add to database
           }
           continue; //i think i can cut these actually
 
         }
         if (category === 'movies') {
-          //call function that returns movie api data
-          if ('it was in the api' === true) {
+
+          if (isItAMovie(userEntry)) {
             return 'it was in the api, its a movie' //add to database
           }
 
@@ -61,7 +62,7 @@ module.exports = {
         }
         if (category === 'eateries') {
           //call function that returns movie api data
-          if ('it was in the api' === true) {
+          if (isItAnEatery(userEntry)) {
             return 'it was in the api, its an eatery' //add to database
           }
           continue;
