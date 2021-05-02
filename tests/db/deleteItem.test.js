@@ -10,6 +10,8 @@ describe('database', function() {
   const userId = 1;
   const itemId = 1;
 
+  //Add new items into the database first!//
+
   it('should return an array of objects', function() {
     return deleteItem(userId, itemId).should.eventually.be.an('array');
   });
@@ -22,18 +24,36 @@ describe('database', function() {
     return deleteItem(userId, itemId).should.eventually.not.be.undefined;
   });
 
-  it('should contain the email and user password', function() {
-    deleteItem(userId, itemId).should.eventually.have.property('email');
-    deleteItem(userId, itemId).should.eventually.have.property('password');
+  it('should contain the email and user password', function(done) {
+    deleteItem(userId, itemId)
+      .then((res) => {
+        for (const item of res) {
+          item.should.have.property('email');
+          item.should.have.property('password');
+        }
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
   });
 
-  it('should contain the id_, user_id, category_id, description, date_created and completed status', function() {
-    deleteItem(userId, itemId).should.eventually.have.property('id');
-    deleteItem(userId, itemId).should.eventually.have.property('user_id');
-    deleteItem(userId, itemId).should.eventually.have.property('category_id');
-    deleteItem(userId, itemId).should.eventually.have.property('description');
-    deleteItem(userId, itemId).should.eventually.have.property('date_created');
-    deleteItem(userId, itemId).should.eventually.have.property('completed');
-  });
+  it('should contain the id_, user_id, category_id, description, date_created and completed status', function(done) {
 
+    deleteItem(userId, itemId)
+      .then((res) => {
+        for (const item of res) {
+          item.should.have.property('id');
+          item.should.have.property('user_id');
+          item.should.have.property('category_id');
+          item.should.have.property('description');
+          item.should.have.property('date_created');
+          item.should.have.property('completed');
+        }
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
 });
