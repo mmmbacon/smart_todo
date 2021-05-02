@@ -1,6 +1,5 @@
 const { expect } = require('chai');
 const chai = require("chai");
-chai.use(require("chai-as-promised"));
 chai.should();
 
 const deleteItem = require('../../db/deleteItem');
