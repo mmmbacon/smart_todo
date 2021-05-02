@@ -30,7 +30,7 @@ const isItAMovie = function (userEntry) {
 
 //need to switch to request with promises
 
-console.log('isitamovie call',isItAMovie('lordoftherings'))
+// console.log('isitamovie call',isItAMovie('lordoftherings'))
 
 
 const isItABook = function (userEntry) {

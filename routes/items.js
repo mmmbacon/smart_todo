@@ -5,7 +5,7 @@ const { sortCategories, isItAMovie, isItABook, isItAnEatery } = require('./helpe
 
 
 module.exports = (db) => {
-  //route skips "/users" because that part is already in server.js
+//Get all items routes
   router.get("/:userid/items", (req, res) => {
     allItems(req.params.userid)
       .then(items => {
@@ -19,7 +19,7 @@ module.exports = (db) => {
         //should figure out how to trigger this for testing
       });
   });
-//router.post still in progress
+// (still in progress)
   router.post("/:userid/items", (req, res) => {
     const userEntry = 'lordoftherings' //eventually grab from frontend
 
@@ -67,5 +67,29 @@ module.exports = (db) => {
 
 
   });
+//Get individual items routes
+router.get("/:userid/items/:itemid", (req, res) => {
+  console.log('req.params.userid',req.params.userid, 'req.params.itemid',req.params.itemid)
+});
+
+//Edit individual item
+router.put("/:userid/items/:itemid", (req, res) => {
+
+});
+
+//Delete individual item
+router.delete("/:userid/items/:itemid", (req, res) => {
+  deleteItem(req.params.userid, req.params.itemid)
+    .then(items => {
+      res.json({ items }); //so Brianna can see what she's got
+    })
+    .catch(error => {
+      console.log(error);
+      res
+        .status(500)
+        .json({ error: error.message })
+    });
+});
+
   return router;
 }
