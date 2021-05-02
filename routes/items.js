@@ -5,7 +5,7 @@ const { sortCategories, isItAMovie, isItABook, isItAnEatery } = require('./helpe
 
 
 module.exports = (db) => {
-//Get all items routes
+  //Get all items routes
   router.get("/:userid/items", (req, res) => {
     allItems(req.params.userid)
       .then(items => {
@@ -19,7 +19,7 @@ module.exports = (db) => {
         //should figure out how to trigger this for testing
       });
   });
-// (still in progress)
+  // (still in progress)
   router.post("/:userid/items", (req, res) => {
     const userEntry = 'lordoftherings' //eventually grab from frontend
 
@@ -40,25 +40,37 @@ module.exports = (db) => {
 
     for (const category of sortedCategories) {
       if (category === 'books') {
-        if (isItABook(userEntry)) {
-          return 'it was in the api, its a book' //add to database
-        }
+        isItABook(userEntry)
+        .then(res => {
+          if (res) {
+            //add to database as a book
+          }
+          return;
+        })
         continue; //i think i can cut these actually
 
       }
       if (category === 'movies') {
 
-        if (isItAMovie(userEntry)) {
-          return 'it was in the api, its a movie' //add to database
-        }
+        isItAMovie(userEntry)
+        .then(res => {
+          if (res) {
+            //add to database as a movie
+          }
+          return;
+        })
 
         continue;
       }
       if (category === 'eateries') {
-        //call function that returns movie api data
-        if (isItAnEatery(userEntry)) {
-          return 'it was in the api, its an eatery' //add to database
-        }
+
+        isItAnEatery(userEntry)
+        .then(res => {
+          if (res) {
+            //add to database as an eatery
+          }
+          return;
+        })
         continue;
       }
     }
@@ -67,29 +79,29 @@ module.exports = (db) => {
 
 
   });
-//Get individual items routes
-router.get("/:userid/items/:itemid", (req, res) => {
-  console.log('req.params.userid',req.params.userid, 'req.params.itemid',req.params.itemid)
-});
+  //Get individual items routes
+  router.get("/:userid/items/:itemid", (req, res) => {
+    console.log('req.params.userid', req.params.userid, 'req.params.itemid', req.params.itemid)
+  });
 
-//Edit individual item
-router.put("/:userid/items/:itemid", (req, res) => {
+  //Edit individual item
+  router.put("/:userid/items/:itemid", (req, res) => {
 
-});
+  });
 
-//Delete individual item
-router.delete("/:userid/items/:itemid", (req, res) => {
-  deleteItem(req.params.userid, req.params.itemid)
-    .then(items => {
-      res.json({ items }); //so Brianna can see what she's got
-    })
-    .catch(error => {
-      console.log(error);
-      res
-        .status(500)
-        .json({ error: error.message })
-    });
-});
+  //Delete individual item
+  router.delete("/:userid/items/:itemid", (req, res) => {
+    deleteItem(req.params.userid, req.params.itemid)
+      .then(items => {
+        res.json({ items }); //so Brianna can see what she's got
+      })
+      .catch(error => {
+        console.log(error);
+        res
+          .status(500)
+          .json({ error: error.message })
+      });
+  });
 
   return router;
 }
