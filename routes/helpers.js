@@ -9,10 +9,8 @@ const sortCategories = function (object) {
 
   return sortedCategories;
 }
-
-
+//Movie logic
 const isItAMovie = function (userEntry) {
-  //???? Lily to make entry safe, or me?
   const options = {
     method: 'GET',
     url: `https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/${userEntry}`,
@@ -25,19 +23,21 @@ const isItAMovie = function (userEntry) {
 
   request(options, function (error, response, body) {
     if (error) throw new Error(error);
-
-    console.log(body.title);
-    return body
+    const parsedBody = JSON.parse(body);
+    console.log(parsedBody.title)
   });
 }
 
-console.log(isItAMovie('lordoftherings'));
+//need to switch to request with promises
 
-const isItABook = function(userEntry) {
+console.log('isitamovie call',isItAMovie('lordoftherings'))
+
+
+const isItABook = function (userEntry) {
 
 
 };
-const isItAnEatery = function(userEntry) {
+const isItAnEatery = function (userEntry) {
 
 
 };
