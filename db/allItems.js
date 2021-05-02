@@ -15,9 +15,12 @@ const allItems = function(user_id) {
   const params = [`${user_id}`];
 
   return db.query(queryString, params)
-    .then((res)=> res.rows)
-    .catch((err)=> err)
-    .finally();
+    .then((res)=> {
+      return res.rows;
+    })
+    .catch((err)=> {
+      return err;
+    });
 };
 
 module.exports = allItems;

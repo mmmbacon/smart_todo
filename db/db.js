@@ -4,10 +4,10 @@ const dbParams = require('../lib/db.js');
 const db = new Pool(dbParams);
 db.connect()
   .then((msg) => {
-    console.log(msg);
+    console.log("Connected to Database");
   })
   .catch((err) => {
-    console.log(err);
+    console.log("Error: " + err);
   });
 
 module.exports = db;
