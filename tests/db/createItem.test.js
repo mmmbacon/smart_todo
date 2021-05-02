@@ -1,15 +1,17 @@
-const { expect } = require('chai');
 const chai = require("chai");
 chai.should();
 
-const allItems = require('../../db/allItems');
+const createItem = require('../../db/createItem');
 
 describe('database', function() {
 
   const userId = 1;
+  const categoryId = 0;
+  const description = 'Watch Lord of the Rings';
+  const priority = 0;
 
-  it('should return an array of objects', function(done) {
-    allItems(userId)
+  it('should return an array', function(done) {
+    createItem(userId, categoryId, description, priority)
       .then((res) => {
         res.should.be.an('array');
         done();
@@ -19,9 +21,19 @@ describe('database', function() {
       });
   });
 
-  it('should not be undefined', function(done) {
+  it('should return an array 4 items long', function(done) {
+    createItem(userId, categoryId, description, priority)
+      .then((res) => {
+        res.should.have.length(6);
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
 
-    allItems(userId)
+  it('should not be undefined', function(done) {
+    createItem(userId, categoryId, description, priority)
       .then((res) => {
         res.should.not.be.undefined;
         done();
@@ -31,22 +43,8 @@ describe('database', function() {
       });
   });
 
-  it('should contain the email and user password', function(done) {
-    allItems(userId)
-      .then((res) => {
-        for (const item of res) {
-          item.should.have.property('email');
-          item.should.have.property('password');
-        }
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
-  });
-
-  it('should contain the id_, user_id, category_id, description, date_created and completed status', function(done) {
-    allItems(userId)
+  it('should contain the id, user_id, category_id, description, date_created, date_due, priority, and completed status', function(done) {
+    createItem(userId, categoryId, description, priority)
       .then((res) => {
         for (const item of res) {
           item.should.have.property('id');
@@ -62,5 +60,4 @@ describe('database', function() {
         done(err);
       });
   });
-
 });

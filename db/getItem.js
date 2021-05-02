@@ -1,5 +1,4 @@
 const db = require('./db');
-const allItems = require('./allItems');
 
 /**
  * Postgres query function for returning all items given a user id
@@ -10,14 +9,14 @@ const allItems = require('./allItems');
 const deleteItem = function(userId, itemId) {
 
   const queryString = `
-  DELETE FROM items
+  SELECT * FROM items
   WHERE items.user_id = $1 AND items.id = $2;
   `;
   const params = [`${userId}`, `${itemId}`];
 
   return db.query(queryString, params)
     .then((res)=> {
-      return allItems(userId);
+      return res.rows[0];
     })
     .catch((err)=> {
       return err;
