@@ -1,26 +1,27 @@
 const db = require('./db');
+const allItems = require('./allItems');
 
 /**
  * Postgres query function for returning all items given a user id
  * @param { string } user_id The user id
+ * @param { string } item_id The item id
  * @returns { array } an array of items
  */
 const deleteItem = function(user_id, item_id) {
 
   const queryString = `
-  SELECT * from items
-  JOIN users ON items.user_id = users.id
-  WHERE items.user_id = $1
+  DELETE FROM items
+  WHERE items.user_id = $1 AND items.id = $2;
   `;
-  const params = [`${user_id}`];
+  const params = [`${user_id}`, `${item_id}`];
 
   return db.query(queryString, params)
     .then((res)=> {
-      return res.rows;
+      return allItems(user_id);
     })
     .catch((err)=> {
       return err;
     });
 };
 
-module.exports = allItems;
+module.exports = deleteItem;
