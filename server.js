@@ -32,11 +32,8 @@ const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
 
 //B's
+const itemsRoutes = require('./routes/items');
 
-//Item manipulation routes
-const allItemsRoutes = require('./routes/allItems');
-const singleItemRoutes = require('./routes/singleItem');
-const deleteItemRoutes = require('./routes/deleteItem');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -44,11 +41,8 @@ app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 
 // B's
-//Item manipulation routes--only did the get, how to handle the other verbs????
-app.use("/users/:userid/items", allItemsRoutes.getItems(db));
-app.use("/users/:userid/items/:itemid", singleItemRoutes.getSingleItem(db));
+app.use("/users", itemsRoutes(db));
 
-app.use("/users/:userid/delete", deleteItemRoutes(db));
 
 
 // Note: mount other resources here, using the same pattern above
