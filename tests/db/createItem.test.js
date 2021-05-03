@@ -3,7 +3,7 @@ chai.should();
 
 const createItem = require('../../db/createItem');
 
-describe('database', function() {
+describe('Create Item in Database', function() {
 
   const userId = 1;
   const categoryId = 0;
