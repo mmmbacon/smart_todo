@@ -65,14 +65,14 @@ const isItABook = function (userEntry) {
 };
 
 //testcode
-// isItABook('do not say we have nothing')
-//   .then(res => {
-//     // console.log('res:',res)
-//     if (res) {
-//       console.log('yes, it is a book, add to database as a book')
-//     }
-//     return;
-//   })
+isItABook('do not say we have nothing')
+  .then(res => {
+    // console.log('res:',res)
+    if (res) {
+      console.log('yes, it is a book, add to database as a book')
+    }
+    return;
+  })
 
 //Eatery logic
 const getLocation = function () {
