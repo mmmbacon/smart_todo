@@ -3,8 +3,8 @@ const allItems = require('./allItems');
 
 /**
  * Postgres query function for returning all items given a user id
- * @param { string } user_id The user id
- * @param { string } item_id The item id
+ * @param { string } userId The user id
+ * @param { string } itemId The item id
  * @returns { array } an array of items
  */
 const deleteItem = function(userId, itemId) {

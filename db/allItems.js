@@ -2,7 +2,7 @@ const db = require('./db');
 
 /**
  * Postgres query function for returning all items given a user id
- * @param { string } user_id The user id
+ * @param { string } userId The user id
  * @returns { array } an array of items
  */
 const allItems = function(userId) {
