@@ -30,8 +30,8 @@ module.exports = (db) => {
   // (still in progress)
   router.post("/:userid/items", (req, res) => {
     //convenience variable for the to-do the user submitted
-    //sanitize this on the frontend???
-    const userEntry = req.body.text;
+    const userEntry = req.body.text; //body is an empty object--front-end issue?
+    console.log('userentry',userEntry);
 
     //check for keywords (db? just an array?)
 
@@ -54,13 +54,18 @@ module.exports = (db) => {
           .then(res => {
             if (res) {
               console.log('It is a book, adding to database...')
-              console.log('req.params.userid', req.params.userid)
               createItem(req.params.userid, 2, userEntry, priority)
-                //itemS because db returns the full item list
+                // itemS because db returns the full item list
                 .then(items => {
                   res.json({ items })
-                  return;
                 })
+                .catch(error => {
+                  console.log(error);
+                  res
+                  .status(500)
+                  .json({ error: error.message })
+                });
+                return;
             }
           })
 
@@ -72,10 +77,16 @@ module.exports = (db) => {
             if (res) {
               console.log('It is a movie, adding to database...')
               createItem(req.params.userid, 1, userEntry, priority)
-                .then(items => {
-                  res.json({ items })
-                  return;
-                })
+              // .then(items => {
+              //   res.json({ items })
+              // })
+              // .catch(error => {
+              //   console.log(error);
+              //   res
+              //     .status(500)
+              //     .json({ error: error.message })
+              // });
+              return;
             }
           })
       }
@@ -86,10 +97,16 @@ module.exports = (db) => {
             if (res) {
               console.log('It is an eatery, adding to database...')
               createItem(req.params.userid, 3, userEntry, priority)
-                .then(items => {
-                  res.json({ items })
-                  return;
-                })
+              // .then(items => {
+              //   res.json({ items })
+              // })
+              // .catch(error => {
+              //   console.log(error);
+              //   res
+              //     .status(500)
+              //     .json({ error: error.message })
+              // });
+              return;
             }
           })
       }
@@ -97,7 +114,17 @@ module.exports = (db) => {
 
     //if it was none of those things, add to database as a product--this needs to be asynchronous!!
     console.log('It is a product, adding to database...')
-    createItem(req.params.userid, 4, userEntry, priority);
+    createItem(req.params.userid, 4, userEntry, priority)
+      .then(items => {
+        res.json({ items })
+      })
+      .catch(error => {
+        console.log(error);
+        res
+        .status(500)
+        .json({ error: error.message })
+      });
+      return;
 
   });
   //Get individual items routes
