@@ -1,24 +1,24 @@
 const db = require('./db');
 
 /**
- * Postgres query function for returning all items given a user id
+ * Postgres query function for returning item counts per category
  * @param { string } userId The user id
- * @returns { array } an array of items
+ * @returns { object } object holding all items and their counts
  */
-const allItems = function(userId) {
+const itemsInCategories = function(userId) {
 
   const queryString = `
-  SELECT items.id as item_id, description as item_description, date_created, date_due, priority, completed, category_id, name as category_name
-  FROM items
+  SELECT categories.id, categories.name, COUNT(*) from items
   JOIN users ON items.user_id = users.id
   JOIN categories ON items.category_id = categories.id
   WHERE items.user_id = $1
+  GROUP BY categories.id, categories.name
+  ORDER BY categories.id
   `;
   const params = [`${userId}`];
 
   return db.query(queryString, params)
     .then((res)=> {
-      console.log(res.rows);
       return res.rows;
     })
     .catch((err)=> {
@@ -26,4 +26,4 @@ const allItems = function(userId) {
     });
 };
 
-module.exports = allItems;
+module.exports = itemsInCategories;
