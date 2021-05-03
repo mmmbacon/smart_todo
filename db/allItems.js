@@ -10,6 +10,7 @@ const allItems = function(userId) {
   const queryString = `
   SELECT * from items
   JOIN users ON items.user_id = users.id
+  JOIN categories ON items.category_id = categories.id
   WHERE items.user_id = $1
   `;
   const params = [`${userId}`];
