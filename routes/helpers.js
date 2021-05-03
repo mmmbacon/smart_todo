@@ -16,7 +16,6 @@ const isItAMovie = function (userEntry) {
     method: 'GET',
     url: `https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/${userEntry}`,
     headers: {
-      //key will be undefined if you node helpers.js, have to do it with the server running
       'x-rapidapi-key': process.env.MOVIE_KEY,
       'x-rapidapi-host': 'imdb-internet-movie-database-unofficial.p.rapidapi.com',
       useQueryString: true
@@ -27,9 +26,9 @@ const isItAMovie = function (userEntry) {
     request(options, function (error, response, body) {
       if (error) rej(error);
       const movieTitle = JSON.parse(body).title;
-      // console.log('title:', movieTitle)
 
       if (movieTitle.length > 0) {
+        console.log('IMBD found the title:', movieTitle)
         res(true);
       } else {
         res(false);
@@ -39,7 +38,7 @@ const isItAMovie = function (userEntry) {
 }
 
 //test code
-// isItAMovie('lordof the rings')
+// isItAMovie('do not say we have nothing')
 //   .then(res => {
 //     // console.log('res:',res)
 //     if (res) {
@@ -54,9 +53,9 @@ const isItABook = function (userEntry) {
     request(`https://www.googleapis.com/books/v1/volumes?q=${userEntry}&key=${process.env.BOOK_KEY}`, function (error, response, body) {
       if (error) rej(error);
       const bookTitle = JSON.parse(body).items[0].volumeInfo.title;
-      console.log('title:', bookTitle)
 
       if (bookTitle.length > 0) {
+        console.log('Google found the book title:',bookTitle)
         res(true);
       } else {
         res(false);
@@ -66,7 +65,7 @@ const isItABook = function (userEntry) {
 };
 
 //testcode
-// isItABook('bedlamstacks')
+// isItABook('do not say we have nothing')
 //   .then(res => {
 //     // console.log('res:',res)
 //     if (res) {
@@ -82,20 +81,19 @@ const getLocation = function () {
       if (error) rej(error);
       const location = [];
       location.push(JSON.parse(body).city, JSON.parse(body).region);
-      console.log('location', location);
+      // console.log('location', location);
       res(location);
     });
   });
 
 }
 
-
 const isItAnEatery = function (userEntry) {
 
   //how to call this correctly?
-  const location = getLocation()
+  return getLocation()
     .then(res => {
-      console.log('location array is', res)
+      // console.log('location array is', res)
       return res;
     })
     .then(res => {
@@ -109,35 +107,33 @@ const isItAnEatery = function (userEntry) {
 
       const client = yelp.client(apiKey);
 
-      client.search(searchRequest)
+      return client.search(searchRequest)
         .then(response => {
           const firstResult = response.jsonBody.businesses[0];
           const name = firstResult.name;
           // console.log('firstresult',firstResult) //to see the restaurant's real location
           if (name.length > 0) {
-            console.log('name', name);
-            return name;
+            console.log('Yelp found the restaurant name:', name);
+            return true;
           }
-          return;
+          return false;
         }).catch(error => {
           console.log(error);
         });
-
-
     })
 
     .catch((data, status) => {
       console.log('Request failed');
     })
-
+    //yelp docs code ends
 
 
 };
 
 //test code
-// isItAnEatery('lordoftherings')
+// isItAnEatery('do not say we have nothing')
 // .then(res => {
-//   console.log('res:', res)
+//   // console.log('res:', res)
 //   if (res) {
 //     console.log('yes, it is an eatery, add to database as an eatery')
 //   }
