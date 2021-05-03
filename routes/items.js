@@ -22,7 +22,7 @@ module.exports = (db) => {
   });
   // (still in progress)
   router.post("/:userid/items", (req, res) => {
-    //convenicen variable for the to-do the user submitted
+    //convenience variable for the to-do the user submitted
     const userEntry = req.body.text;
 
     //check for keywords (db? just an array?)
