@@ -1,10 +1,9 @@
-const { expect } = require('chai');
 const chai = require("chai");
 chai.should();
 
 const getItem = require('../../db/getItem');
 
-describe('database', function() {
+describe('Get Item from Database', function() {
 
   const userId = 1;
   const itemId = 1;
