@@ -1,5 +1,12 @@
 const express = require('express');
-const allItems = require('../db/allItems.js');
+const allItems = require('../db/allItems');
+const createItem = require('../db/createItem');
+const deleteItem = require('../db/deleteItem');
+const getItem = require('../db/getItem');
+const getUser = require('../db/getUser');
+const itemsInCategories = require('../db/itemsInCategories');
+
+
 const router = express.Router();
 const { sortCategories, isItAMovie, isItABook, isItAnEatery } = require('./helpers.js');
 
@@ -80,9 +87,9 @@ module.exports = (db) => {
       }
     }
 
-    //if it was none of those things, add to database as a product
+    //if it was none of those things, add to database as a product--this needs to be asynchronous!!
     console.log('It is a product, adding to database...')
-    createItem(req.params.userid, 4, userEntry, priority)
+    createItem(req.params.userid, 4, userEntry, priority);
 
   });
   //Get individual items routes
