@@ -1,11 +1,11 @@
-const request = require("request"); //for movies api
-const yelp = require('yelp-fusion'); //eateries api
+const request = require("request"); //for use in movies and books functions
+const yelp = require('yelp-fusion'); //for use in eateries api
 
 const sortCategories = function (object) {
   //create an array of the keys
   const categories = Object.keys(object)
 
-  //sort the key array from largest to smallest. If two are the same, it leaves them in the order they appear in the array, which is fine because we no have no preference when we're using this to decide which api to consult first
+  //sort the key array from largest to smallest. If two are the same, it leaves them in the order they appear in the array, which is fine? because we no have no preference when we're using this to decide which api to consult first
   const sortedCategories = categories.sort((a, b) => object[b] - object[a]);
 
   return sortedCategories;
