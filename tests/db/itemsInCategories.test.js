@@ -8,13 +8,11 @@ describe('Get Category Count from Database', function() {
   const userId = 1;
 
 
-  it('should not return an array', function(done) {
+  it('should return an array', function(done) {
 
-    const categoryId = 1;
-
-    itemsInCategories(userId, categoryId)
+    itemsInCategories(userId)
       .then((res) => {
-        res.should.not.be.an('array');
+        res.should.be.an('array');
         done();
       })
       .catch((err) => {
@@ -22,13 +20,11 @@ describe('Get Category Count from Database', function() {
       });
   });
 
-  it('should be an object', function(done) {
+  it('should NOT be an object', function(done) {
 
-    const categoryId = 2;
-
-    itemsInCategories(userId, categoryId)
+    itemsInCategories(userId)
       .then((res) => {
-        res.should.be.an('object');
+        res.should.not.be.an('object');
         done();
       })
       .catch((err) => {
@@ -38,9 +34,7 @@ describe('Get Category Count from Database', function() {
 
   it('should not be undefined', function(done) {
 
-    const categoryId = 3;
-
-    itemsInCategories(userId, categoryId)
+    itemsInCategories(userId)
       .then((res) => {
         res.should.not.be.undefined;
         done();
@@ -52,13 +46,13 @@ describe('Get Category Count from Database', function() {
 
   it('should contain the id, name, and count', function(done) {
 
-    const categoryId = 4;
-
-    itemsInCategories(userId, categoryId)
+    itemsInCategories(userId)
       .then((res) => {
-        res.should.have.property('id');
-        res.should.have.property('name');
-        res.should.have.property('count');
+        for (const item of res) {
+          item.should.have.property('id');
+          item.should.have.property('name');
+          item.should.have.property('count');
+        }
         done();
       })
       .catch((err) => {
