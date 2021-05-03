@@ -4,10 +4,11 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "node bin/resetdb.js && mocha",
+    "test-db": "node bin/resetdb.js && mocha",
     "start": "node server.js",
     "local": "./node_modules/.bin/nodemon -L --ignore public/",
-    "db:reset": "node bin/resetdb.js"
+    "db:reset": "node bin/resetdb.js",
+    "test": "node mocha"
   },
   "author": "Lighthouse Labs",
   "license": "ISC",
