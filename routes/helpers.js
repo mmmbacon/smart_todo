@@ -1,4 +1,5 @@
 const request = require("request"); //for movies api
+const yelp = require('yelp-fusion'); //eateries api
 
 const sortCategories = function (object) {
   //create an array of the keys
@@ -37,25 +38,84 @@ const isItAMovie = function (userEntry) {
   });
 }
 
-
-isItAMovie('lordof the rings')
-  .then(res => {
-    // console.log('res:',res)
-    if (res) {
-      console.log('yes, it is a movie, add to database as a movie')
-    }
-    return;
-  })
+//test code
+// isItAMovie('lordof the rings')
+//   .then(res => {
+//     // console.log('res:',res)
+//     if (res) {
+//       console.log('yes, it is a movie, add to database as a movie')
+//     }
+//     return;
+//   })
 
 
 const isItABook = function (userEntry) {
 
 
 };
+
+//Eatery logic
+const getLocation = function () {
+  return new Promise((res, rej) => {
+    request('https://extreme-ip-lookup.com/json/', function (error, response, body) {
+      if (error) rej(error);
+      const location = [];
+      location.push(JSON.parse(body).city, JSON.parse(body).region);
+      console.log('location',location);
+      res(location);
+    });
+  });
+
+}
+
+
 const isItAnEatery = function (userEntry) {
+
+  //how to call this correctly?
+  const location = getLocation()
+    .then(response => {
+      console.log(response)
+    })
+    .catch((data, status) => {
+      console.log('Request failed');
+      const apiKey = process.env.EATERY_KEY;
+
+
+      const searchRequest = {
+        term: userEntry,
+        location: `${location[0]}, ${location[1]}`
+      };
+
+
+      const client = yelp.client(apiKey);
+
+      return client.search(searchRequest)
+      .then(response => {
+        const firstResult = response.jsonBody.businesses[0];
+        const name = firstResult.name;
+        console.log('firstresult',firstResult)
+        if (name.length > 0) {
+          console.log('name', name);
+            return name;
+          }
+          return;
+        }).catch(error => {
+          console.log(error);
+        });
+    })
 
 
 };
+
+//test code
+isItAnEatery('the keg')
+  .then(res => {
+    console.log('res:', res)
+    if (res) {
+      console.log('yes, it is an eatery, add to database as an eatery')
+    }
+    return;
+  })
 
 
 module.exports = { sortCategories, isItAMovie, isItABook, isItAnEatery }
