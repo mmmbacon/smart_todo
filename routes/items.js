@@ -30,6 +30,7 @@ module.exports = (db) => {
   // (still in progress)
   router.post("/:userid/items", (req, res) => {
     //convenience variable for the to-do the user submitted
+    //sanitize this on the frontend???
     const userEntry = req.body.text;
 
     //check for keywords (db? just an array?)
@@ -53,11 +54,15 @@ module.exports = (db) => {
           .then(res => {
             if (res) {
               console.log('It is a book, adding to database...')
+              console.log('req.params.userid', req.params.userid)
               createItem(req.params.userid, 2, userEntry, priority)
+                //itemS because db returns the full item list
+                .then(items => {
+                  res.json({ items })
+                  return;
+                })
             }
-            return;
           })
-        continue; //i think i can cut these actually
 
       }
       if (category === 'movies') {
@@ -66,12 +71,13 @@ module.exports = (db) => {
           .then(res => {
             if (res) {
               console.log('It is a movie, adding to database...')
-              createItem(req.params.userid, 1, userEntry, 'priority')
+              createItem(req.params.userid, 1, userEntry, priority)
+                .then(items => {
+                  res.json({ items })
+                  return;
+                })
             }
-            return;
           })
-
-        continue;
       }
       if (category === 'eateries') {
 
@@ -80,10 +86,12 @@ module.exports = (db) => {
             if (res) {
               console.log('It is an eatery, adding to database...')
               createItem(req.params.userid, 3, userEntry, priority)
+                .then(items => {
+                  res.json({ items })
+                  return;
+                })
             }
-            return;
           })
-        continue;
       }
     }
 
