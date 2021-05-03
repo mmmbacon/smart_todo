@@ -39,7 +39,7 @@ $(document).ready(function() {
   const renderItems = function(items) {
     for (const item of items) {
       const category = getCategoryName(item.category_id);
-      const $item = createItem(item.description);
+      const $item = createItem(item.item_description);
       $(category).append($item);
     }
   }
