@@ -3,7 +3,7 @@ const allItems = require('../db/allItems.js');
 const router = express.Router();
 const { sortCategories, isItAMovie, isItABook, isItAnEatery } = require('./helpers.js');
 
-const priority = 1; //will actually be req.body.something, to check with Lily
+const priority = 1; //will actually be req.body.something, to check with Lily, stretch
 
 module.exports = (db) => {
   //Get all items routes
