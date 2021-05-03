@@ -1,3 +1,20 @@
+### Requirements
+
+Each todo created should be categorized as one of:
+
+  * Film / Series (To watch)
+  * Restaurants, cafes, etc. (To eat)
+  * Books (To read)
+  * Products (To buy)
+
+In order to determine the category the app will probably need to use various API services such as those offered by Google, Wolfram Alpha, Rotten Tomatoes, Amazon, Yelp and others.
+
+API services mentioned above are only suggestions. You will have to investigate how to balance the accurate categorization of items with having to deal with multiple API endpoints.
+
+Users should be able to change a category of an item in case it was mis-categorized or could not be categorized at all.
+
+<s>Users should be able to register, log in, log out and update their profile.</s>
+
 ### TODO
 
 * Come up with a cool name
@@ -17,6 +34,7 @@
 ### Stretch
 
 * Fetch information for an item when you click it
+* Use Keywords to filter automatically
 
 ### Roadmap
 
