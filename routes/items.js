@@ -27,12 +27,12 @@ module.exports = (db) => {
 
     //check for keywords (db? just an array?)
 
-    //if no match, count amount of rows in books, movies, restaurants database (Brandon to supply query to replace null)
+    //if no match, count amount of rows in books, movies, restaurants database (placeholder data currently; will use SQL later)
 
     const apiPriority = {
-      books: null,
-      movies: null,
-      products: null
+      books: 3,
+      movies: 2,
+      eateries: 1
     }
 
     //get the category with the highest count
@@ -45,6 +45,7 @@ module.exports = (db) => {
         isItABook(userEntry)
           .then(res => {
             if (res) {
+              console.log('It is a book, adding to database...')
               createItem(req.params.userid, 2, userEntry, priority)
             }
             return;
@@ -57,6 +58,7 @@ module.exports = (db) => {
         isItAMovie(userEntry)
           .then(res => {
             if (res) {
+              console.log('It is a movie, adding to database...')
               createItem(req.params.userid, 1, userEntry, 'priority')
             }
             return;
@@ -69,6 +71,7 @@ module.exports = (db) => {
         isItAnEatery(userEntry)
           .then(res => {
             if (res) {
+              console.log('It is an eatery, adding to database...')
               createItem(req.params.userid, 3, userEntry, priority)
             }
             return;
@@ -78,6 +81,7 @@ module.exports = (db) => {
     }
 
     //if it was none of those things, add to database as a product
+    console.log('It is a product, adding to database...')
     createItem(req.params.userid, 4, userEntry, priority)
 
   });
