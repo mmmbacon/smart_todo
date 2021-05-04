@@ -141,26 +141,22 @@ module.exports = (db) => {
     if (apiPriority[0].name === 'Movies' && apiPriority[1].name === 'Books' && apiPriority[2].name === 'Dining') {
       console.log('we are in Movie, book, eatery')
       isItAMovie(userEntry)
-      .then(resultMovie => {
-          console.log("result of movie check:", resultMovie)
-          if (resultMovie === 1) {
-            console.log('this should')
-            return resultMovie;
+      .then(result => {
+          if (result === 1) {
+            return result;
           }
-          isItABook(userEntry)
-          .then(resultBook => {
-              console.log("result of book check:",resultBook)
-              if (resultBook === 2) {
-                console.log('in book check result:',resultBook)
-                // console.log(`It is a book`)
-                return resultBook;
+          return isItABook(userEntry)
+          .then(result => {
+              console.log("result of book check:",result)
+              if (result === 2) {
+                console.log('in book check result:',result)
+                return result;
               }
-              isItAnEatery(userEntry)
-                .then(resultEatery => {
-                  console.log("result of eatery check:", resultEatery)
-                  if (resultEatery === 3) {
-                    // console.log(`It is an eatery`)
-                    return resultEatery;
+              return isItAnEatery(userEntry)
+                .then(result => {
+                  console.log("result of eatery check:", result)
+                  if (result === 3) {
+                    return result;
                   }
                   return 4;
                 })
