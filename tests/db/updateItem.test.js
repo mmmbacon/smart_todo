@@ -10,7 +10,7 @@ describe('Get Item from Database', function() {
   const options = {
     description : 'This is a description',
     date_due: '2020-02-05',
-    category: 2,
+    category: 'Books',
     priority: 3,
     completed: true
   };
