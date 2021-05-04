@@ -72,7 +72,7 @@ const isItABook = function (userEntry) {
 //     return;
 //   })
 
-//Eatery logic
+//dining logic
 const getLocation = function () {
   return new Promise((res, rej) => {
     request('https://extreme-ip-lookup.com/json/', function (error, response, body) {
@@ -86,7 +86,7 @@ const getLocation = function () {
 
 }
 
-const isItAnEatery = function (userEntry) {
+const isItDining = function (userEntry) {
 
   //how to call this correctly?
   return getLocation()
@@ -107,10 +107,10 @@ const isItAnEatery = function (userEntry) {
 
       return client.search(searchRequest)
         .then(response => {
-          let eateryName = '';
+          let diningName = '';
           if (response.jsonBody.businesses[0]) {
-            eateryName = response.jsonBody.businesses[0].name
-            console.log('Yelp found the restaurant name:', eateryName);
+            diningName = response.jsonBody.businesses[0].name
+            console.log('Yelp found the restaurant name:', diningName);
             return 3; //database category code
           }
           return false;
@@ -127,14 +127,14 @@ const isItAnEatery = function (userEntry) {
 };
 
 //test code
-// isItAnEatery('do not say we have nothing')
+// isItAndining('do not say we have nothing')
 // .then(res => {
 //   console.log('res:', res)
 //   if (res) {
-//     console.log('yes, it is an eatery, add to database as an eatery')
+//     console.log('yes, it is an dining, add to database as an dining')
 //   }
 //   return;
 // })
 
 
-module.exports = { sortCategories, isItAMovie, isItABook, isItAnEatery }
+module.exports = { sortCategories, isItAMovie, isItABook, isItDining }
