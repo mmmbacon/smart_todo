@@ -52,14 +52,14 @@ const isItABook = function (userEntry) {
   return new Promise((res, rej) => {
     request(`https://www.googleapis.com/books/v1/volumes?q=${userEntry}&key=${process.env.BOOK_KEY}`, function (error, response, body) {
       if (error) rej(error);
-      const bookTitle = JSON.parse(body).items[0].volumeInfo.title;
 
-      if (bookTitle.length > 0) {
-        console.log('Google found the book title:',bookTitle)
+      let bookTitle = '';
+      if (JSON.parse(body).items[0].volumeInfo.title) {
+        bookTitle = JSON.parse(body).items[0].volumeInfo.title;
+        console.log('Google found the book title:', bookTitle)
         res(2); //database category code
-      } else {
-        res(false);
       }
+      res(false);
     });
   });
 };
@@ -125,7 +125,7 @@ const isItAnEatery = function (userEntry) {
     .catch((data, status) => {
       console.log('Request failed');
     })
-    //yelp docs code ends
+  //yelp docs code ends
 
 
 };
