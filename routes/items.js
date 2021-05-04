@@ -20,28 +20,28 @@ const {
 
 module.exports = (db) => {
   //Get all items routes
-  router.get("/:userid/items", (req, res) => {
-    allItems(req.params.userid)
+  router.get("/:userid/items", (request, response) => {
+    allItems(request.params.userid)
       .then((items) => {
-        res.json({ items });
+        response.json({ items });
       })
       .catch((error) => {
         console.log(error);
-        res.status(500).json({ error: error.message });
+        response.status(500).json({ error: error.message });
         //should figure out how to trigger this for testing
       });
     //getting an error, to talk to Brandon
   });
   // (still in progress)
-  router.post("/:userid/items", (req, response) => {
+  router.post("/:userid/items", (request, response) => {
     //convenience variables for the to-do the user submitted
-    const userEntry = req.body["new-item-text"];
-    const userId = req.params.userid;
+    const userEntry = request.body["new-item-text"];
+    const userId = request.params.userid;
 
     //check for keywords (db? just an array?)
 
     //BM - Grab items in order of importance
-    itemsInCategories(req.params.userid, "count", "DESC").then((result) => {
+    itemsInCategories(request.params.userid, "count", "DESC").then((result) => {
       // console.log('result',result)
       const apiPriority = [
         { id: 3, name: "Dining", item_count: 2 },
@@ -111,47 +111,47 @@ module.exports = (db) => {
   });
 
   //Get individual items routes
-  router.get("/:userid/items/:itemid", (req, res) => {
-    getItem(req.params.userid, req.params.itemid)
+  router.get("/:userid/items/:itemid", (request, response) => {
+    getItem(request.params.userid, request.params.itemid)
       .then((item) => {
-        res.json({ item });
+        response.json({ item });
       })
       .catch((error) => {
         console.log(error);
-        res.status(500).json({ error: error.message });
+        response.status(500).json({ error: error.message });
       });
   });
 
   //Edit individual item
-  router.put("/:userid/items/:itemid", (req, res) => {
-    console.log("req.body", req.body);
+  router.put("/:userid/items/:itemid", (request, response) => {
+    console.log("request.body", request.body);
     updateItem(
-      req.params.userid,
-      req.params.itemid,
-      req.body.category_name,
+      request.params.userid,
+      request.params.itemid,
+      request.body.category_name,
       null,
-      req.body.completed,
+      request.body.completed,
       null,
       null
     )
       .then((items) => {
-        res.json({ items });
+        response.json({ items });
       })
       .catch((error) => {
         console.log(error);
-        res.status(500).json({ error: error.message });
+        response.status(500).json({ error: error.message });
       });
   });
 
   //Delete individual item
-  router.delete("/:userid/items/:itemid", (req, res) => {
-    deleteItem(req.params.userid, req.params.itemid)
+  router.delete("/:userid/items/:itemid", (request, response) => {
+    deleteItem(request.params.userid, request.params.itemid)
       .then((items) => {
-        res.json({ items });
+        response.json({ items });
       })
       .catch((error) => {
         console.log(error);
-        res.status(500).json({ error: error.message });
+        response.status(500).json({ error: error.message });
       });
   });
 
