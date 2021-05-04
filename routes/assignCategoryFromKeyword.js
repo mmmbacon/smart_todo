@@ -1,25 +1,26 @@
-
-const assignCategoryFromKeyword = function(userEntry) {
+const assignCategoryFromKeyword = function (userEntry) {
   const userEntryNoCase = userEntry.toLowerCase();
-  const userEntryArray = userEntryNoCase.split(' ');
-  let categoryCode = null;
-  if (userEntryArray.includes('watch') || userEntryArray.includes('movie')) {
-    categoryCode = "Movies";
-  }
-  if (userEntryArray.includes('read') || userEntryArray.includes('book')) {
-    categoryCode = "Books";
-  }
-  if (userEntryArray.includes('eat') || userEntryArray.includes('restaurant')) {
-    categoryCode = "Dining";
-  }
-  if (userEntryArray.includes('buy') || userEntryArray.includes('product')) {
-    categoryCode = "Products";
-  }
-  return categoryCode;
-}
+  const userEntryArray = userEntryNoCase.split(" ");
+  let category = null;
 
+  if (userEntryArray.includes("watch") || userEntryArray.includes("movie")) {
+    category = "Movies";
+  }
+  if (userEntryArray.includes("read") || userEntryArray.includes("book")) {
+    category = "Books";
+  }
+  if (userEntryArray.includes("eat") || userEntryArray.includes("restaurant")) {
+    category = "Dining";
+  }
+  if (userEntryArray.includes("buy") || userEntryArray.includes("product")) {
+    category = "Products";
+  }
+  return category;
+};
 
-//test case
+//test cases
 
-console.log(assignCategoryFromKeyword('Watch burn after reading'));
-console.log(assignCategoryFromKeyword('Buy movie'));
+// console.log(assignCategoryFromKeyword('Watch burn after reading'));
+// console.log(assignCategoryFromKeyword('Buy movie'));
+
+module.exports = assignCategoryFromKeyword;
