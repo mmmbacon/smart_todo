@@ -58,4 +58,16 @@ describe('Get Category Count from Database', function() {
       });
   });
 
+  it('should return an empty object if no properties are provided', function(done) {
+
+    mostRelevantCategory()
+      .then((res) => {
+        res.should.deep.equal({});
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
 });

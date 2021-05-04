@@ -1,11 +1,15 @@
 const db = require('./db');
 
 /**
- * Postgres query function for returning a user with given password
+ * Postgres query function for returning a user
  * @param { string } email The user email address
  * @returns { object } the user object
  */
 const getUser = function(email) {
+
+  if (!email) {
+    return Promise.resolve({});
+  }
 
   const queryString = `
   SELECT users.email, users.first_name, users.last_name, COUNT(*) AS total_item_count
@@ -18,7 +22,6 @@ const getUser = function(email) {
 
   return db.query(queryString, params)
     .then((res)=> {
-      console.log(res.rows[0]);
       return res.rows[0];
     })
     .catch((err)=> {
