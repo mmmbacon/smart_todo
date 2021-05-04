@@ -1,6 +1,7 @@
 const express = require("express");
 const allItems = require("../db/allItems");
 const createItem = require("../db/createItem");
+const updateItem = require("../db/updateItem");
 const assignCategoryFromKeyword = require("../routes/assignCategoryFromKeyword");
 const deleteItem = require("../db/deleteItem");
 const getItem = require("../db/getItem");
@@ -53,7 +54,7 @@ module.exports = (db) => {
       console.log("categoryFromKeyword", categoryFromKeyword);
       if (categoryFromKeyword) {
         console.log("in categoryfromkeyword block");
-        createItem(userId, categoryFromKeyword, userEntry, 1) //1= priority--get from user input if we do this stretch
+        createItem(userId, categoryFromKeyword, userEntry, null)
           .then((items) => {
             response.json({ items });
           })
@@ -127,11 +128,11 @@ module.exports = (db) => {
     updateItem(
       req.params.userid,
       req.params.itemid,
-      categoryName,
-      description,
-      completed,
-      dateDue,
-      priority
+      req.body.category_name,
+      null,
+      req.body.completed,
+      null,
+      null
     )
       .then((items) => {
         res.json({ items });
