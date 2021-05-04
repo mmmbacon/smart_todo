@@ -15,13 +15,15 @@ const createItem = function(userId, categoryName, description, priority) {
     return Promise.resolve([]);
   }
 
+  const params = [userId, categoryName, description, priority];
+
   const queryString = `
   INSERT INTO items ( user_id, category_id, description, priority )
-  SELECT id as category_id FROM categories
-  WHERE categories.id = $2
-  VALUES ( $1, category_id, $3, $4 );
+  VALUES ( $1, (
+    SELECT id FROM categories
+    WHERE name = $2
+  ), $3, $4 );
   `;
-  const params = [userId, categoryName, `${description}`, priority];
 
   return db.query(queryString, params)
     .then((res)=> {

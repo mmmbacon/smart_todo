@@ -20,6 +20,18 @@ describe('Get Category Count from Database', function() {
       });
   });
 
+  it('should return an array of length 3', function(done) {
+
+    itemsInCategories(userId, 'id', 'DESC')
+      .then((res) => {
+        res.should.have.length(3);
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
   it('should NOT be an object', function(done) {
 
     itemsInCategories(userId, 'name', 'ASC')
