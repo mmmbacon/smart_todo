@@ -12,7 +12,7 @@ const allItems = function(userId) {
   }
 
   const queryString = `
-  SELECT items.id as item_id, description as item_description, date_created, date_due, priority, completed, category_id, name as category_name
+  SELECT items.id as item_id, description as item_description, date_created, date_due, priority, completed, category_id, categories.name as category_name
   FROM items
   JOIN users ON items.user_id = users.id
   JOIN categories ON items.category_id = categories.id

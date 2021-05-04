@@ -97,6 +97,18 @@ Users should be able to change a category of an item in case it was mis-categori
   * Thursday
   * Book Breakout
 
+### Presentation Requirements
+
+There is no set format for how you choose to present your midterms, but here are some suggestions on what you could include:
+* Which project you chose and why
+* What each of you did, individually
+* Show us what you built (demo the app and show us the features)
+* What challenges you had and how you overcame them
+(whatever you don't include we’ll likely just ask you about)
+No slide deck required, but we would like everyone to speak equally! You all put a lot of work in and you all deserve some limelight!
+Please ensure that your presentations are 5 minutes or under! We will cut you off at the 5 minute mark.
+This isn't something to stress out about, keep coding away but find some time to rehearse as a group!
+
 
 ### Random Notes
 
