@@ -29,7 +29,7 @@ const isItAMovie = function (userEntry) {
       if (JSON.parse(body).title) {
         const movieTitle = JSON.parse(body).title;
         console.log("IMBD found the title:", movieTitle);
-        res(1); //this is the database category for movies, change to words for clarity/readability?
+        res("Movies");
       }
       res(false);
     });
@@ -58,7 +58,7 @@ const isItABook = function (userEntry) {
         if (JSON.parse(body).items) {
           bookTitle = JSON.parse(body).items[0].volumeInfo.title;
           console.log("Google found the book title:", bookTitle);
-          res(2); //database category code
+          res("Books"); //database category code
         }
         res(false);
       }
@@ -67,13 +67,13 @@ const isItABook = function (userEntry) {
 };
 
 //testcode
-isItABook("zzzzzzzzzzzzzzzzz").then((res) => {
-  // console.log('res:',res)
-  if (res) {
-    console.log("yes, it is a book, add to database as a book");
-  }
-  return;
-});
+// isItABook("zzzzzzzzzzzzzzzzz").then((res) => {
+//   // console.log('res:',res)
+//   if (res) {
+//     console.log("yes, it is a book, add to database as a book");
+//   }
+//   return;
+// });
 
 //dining logic
 const getLocation = function () {
@@ -116,7 +116,7 @@ const isItDining = function (userEntry) {
           if (response.jsonBody.businesses[0]) {
             diningName = response.jsonBody.businesses[0].name;
             console.log("Yelp found the restaurant name:", diningName);
-            return 3; //database category code
+            return "Dining"; //database category code
           }
           return false;
         })
