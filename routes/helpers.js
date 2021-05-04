@@ -52,7 +52,7 @@ const isItABook = function (userEntry) {
       if (error) rej(error);
 
       let bookTitle = '';
-      if (JSON.parse(body).items[0].volumeInfo.title) {
+      if (JSON.parse(body).items) {
         bookTitle = JSON.parse(body).items[0].volumeInfo.title;
         console.log('Google found the book title:', bookTitle)
         res(2); //database category code
@@ -108,7 +108,7 @@ const isItAnEatery = function (userEntry) {
       return client.search(searchRequest)
         .then(response => {
           let eateryName = '';
-          if (response.jsonBody.businesses[0].name) {
+          if (response.jsonBody.businesses[0]) {
             eateryName = response.jsonBody.businesses[0].name
             console.log('Yelp found the restaurant name:', eateryName);
             return 3; //database category code
