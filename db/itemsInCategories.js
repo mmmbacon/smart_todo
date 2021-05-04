@@ -9,6 +9,10 @@ const db = require('./db');
  */
 const itemsInCategories = function(userId, orderBy, direction) {
 
+  if (!userId) {
+    return Promise.resolve([]);
+  }
+
   let queryString = `
   SELECT categories.id, categories.name, COUNT(*) as item_count from items
   JOIN users ON items.user_id = users.id

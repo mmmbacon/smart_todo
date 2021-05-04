@@ -21,10 +21,10 @@ describe('Delete Item from Database', function() {
       });
   });
 
-  it('should be 3 items long', function(done) {
+  it('should be 14 items long', function(done) {
     deleteItem(userId, itemId)
       .then((res) => {
-        res.should.have.length(3);
+        res.should.have.length(14);
         done();
       })
       .catch((err) => {
@@ -43,31 +43,18 @@ describe('Delete Item from Database', function() {
       });
   });
 
-  it('should contain the email and user password', function(done) {
-    deleteItem(userId, itemId)
-      .then((res) => {
-        for (const item of res) {
-          item.should.have.property('email');
-          item.should.have.property('password');
-        }
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
-  });
-
   it('should contain the id_, user_id, category_id, description, date_created and completed status', function(done) {
 
     deleteItem(userId, itemId)
       .then((res) => {
         for (const item of res) {
-          item.should.have.property('id');
-          item.should.have.property('user_id');
-          item.should.have.property('category_id');
-          item.should.have.property('description');
+          item.should.have.property('item_id');
+          item.should.have.property('item_description');
           item.should.have.property('date_created');
+          item.should.have.property('priority');
           item.should.have.property('completed');
+          item.should.have.property('category_id');
+          item.should.have.property('category_name');
         }
         done();
       })
@@ -75,4 +62,17 @@ describe('Delete Item from Database', function() {
         done(err);
       });
   });
+
+  it('should return an empty array if no properties are provided', function(done) {
+
+    deleteItem()
+      .then((res) => {
+        res.should.have.length(0);
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
 });

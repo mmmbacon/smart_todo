@@ -8,6 +8,10 @@ const db = require('./db');
  */
 const getItem = function(userId, itemId) {
 
+  if (!userId || !itemId) {
+    return Promise.resolve([]);
+  }
+
   const queryString = `
   SELECT * FROM items
   JOIN categories ON items.category_id = categories.id

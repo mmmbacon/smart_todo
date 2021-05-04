@@ -11,6 +11,10 @@ const allItems = require('./allItems');
  */
 const createItem = function(userId, categoryId, description, priority) {
 
+  if (!userId || !categoryId) {
+    return Promise.resolve([]);
+  }
+
   const queryString = `
   INSERT INTO items ( user_id, category_id, description, priority )
   VALUES ( $1, $2, $3, $4 );

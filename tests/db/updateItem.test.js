@@ -69,4 +69,37 @@ describe('Get Item from Database', function() {
       });
   });
 
+  it('should still work if not all properties are provided in the update', function(done) {
+
+    updateItem(userId, itemId, options.category)
+      .then((res) => {
+        for (const item of res) {
+          item.should.have.property('item_id');
+          item.should.have.property('item_description');
+          item.should.have.property('date_created');
+          item.should.have.property('date_due');
+          item.should.have.property('priority');
+          item.should.have.property('completed');
+          item.should.have.property('category_id');
+          item.should.have.property('category_name');
+        }
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
+  it('should return an empty array if no properties are provided in the update', function(done) {
+
+    updateItem()
+      .then((res) => {
+        res.should.have.length(0);
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
 });

@@ -8,6 +8,10 @@ const db = require('./db');
  */
 const mostRelevantCategory = function(userId) {
 
+  if (!userId) {
+    return Promise.resolve({});
+  }
+
   const queryString = `
   SELECT categories.id, categories.name, COUNT(*) from items
   JOIN users ON items.user_id = users.id
