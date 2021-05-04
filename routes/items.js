@@ -125,6 +125,16 @@ module.exports = (db) => {
   //Edit individual item
   router.put("/:userid/items/:itemid", (req, res) => {
     console.log("req.body", req.body);
+    console.log(
+      "updateItem inputs:",
+      req.params.userid,
+      req.params.itemid,
+      req.body.category_name,
+      null,
+      req.body.completed,
+      null,
+      null
+    );
     updateItem(
       req.params.userid,
       req.params.itemid,
