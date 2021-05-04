@@ -21,6 +21,7 @@ Users should be able to change a category of an item in case it was mis-categori
 * Update package.json with proper info
 * README.md with Screenshots
 * Develop Schedule / Timeline
+* Look into cookies / hard coded routes
 
 ### Details / Ideas
 
@@ -35,6 +36,7 @@ Users should be able to change a category of an item in case it was mis-categori
 
 * Fetch information for an item when you click it
 * Use Keywords to filter automatically
+* JSDocs? 
 
 ### Roadmap
 
