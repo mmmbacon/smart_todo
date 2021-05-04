@@ -17,11 +17,11 @@ const itemsInCategories = function(userId, orderBy, direction) {
   SELECT categories.id, categories.name, COUNT(*) as item_count from items
   JOIN users ON items.user_id = users.id
   JOIN categories ON items.category_id = categories.id
-  WHERE items.user_id = $1
+  WHERE items.user_id = $1 AND categories.name != 'Products'
   GROUP BY categories.id, categories.name `;
 
   //Order By
-  if (!orderBy || orderBy === 'id') {
+  if (!orderBy || (orderBy !== 'count' || orderBy !== 'name')) {
     queryString += `ORDER BY categories.id `;
   }
 
@@ -46,7 +46,6 @@ const itemsInCategories = function(userId, orderBy, direction) {
 
   return db.query(queryString, params)
     .then((res)=> {
-      console.log(res.rows);
       return res.rows;
     })
     .catch((err)=> {

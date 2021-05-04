@@ -1,10 +1,10 @@
 const db = require('./db');
 
 /**
- * Postgres query function for returning all items given a user id
+ * Postgres query function for returning a single item given a user id and item id
  * @param { string } userId The user id
  * @param { string } itemId The item id
- * @returns { array } an array of items
+ * @returns { object } a single item object
  */
 const getItem = function(userId, itemId) {
 

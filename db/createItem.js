@@ -2,24 +2,26 @@ const db = require('./db');
 const allItems = require('./allItems');
 
 /**
- * Postgres query function for returning all items given a user id
+ * Postgres query function for creating a new item for a given user
  * @param { number } userId
- * @param { number } categoryId The category id
+ * @param { number } categoryName The category id
  * @param { string } description The item description
  * @param { string } priority The item description
  * @returns { array } an array of user items
  */
-const createItem = function(userId, categoryId, description, priority) {
+const createItem = function(userId, categoryName, description, priority) {
 
-  if (!userId || !categoryId) {
+  if (!userId || !categoryName) {
     return Promise.resolve([]);
   }
 
   const queryString = `
   INSERT INTO items ( user_id, category_id, description, priority )
-  VALUES ( $1, $2, $3, $4 );
+  SELECT id as category_id FROM categories
+  WHERE categories.id = $2
+  VALUES ( $1, category_id, $3, $4 );
   `;
-  const params = [userId, categoryId, `${description}`, priority];
+  const params = [userId, categoryName, `${description}`, priority];
 
   return db.query(queryString, params)
     .then((res)=> {
