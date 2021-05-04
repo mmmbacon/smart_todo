@@ -1,16 +1,7 @@
-const request = require("request"); //for use in movies and books functions
-const yelp = require("yelp-fusion"); //for use in eateries api
+const request = require("request"); //for use isItAMovie and isItABook
+const yelp = require("yelp-fusion"); //for use in isItDining
 
-const sortCategories = function (object) {
-  //create an array of the keys
-  const categories = Object.keys(object);
-
-  //sort the key array from largest to smallest. If two are the same, it leaves them in the order they appear in the array, which is fine? because we no have no preference when we're using this to decide which api to consult first
-  const sortedCategories = categories.sort((a, b) => object[b] - object[a]);
-
-  return sortedCategories;
-};
-//Movie logic
+//Check the user to-do against the IMBD database to determine if it's a movie
 const isItAMovie = function (userEntry) {
   const options = {
     method: "GET",
@@ -46,7 +37,7 @@ const isItAMovie = function (userEntry) {
 //     return;
 //   })
 
-//Book logic
+//Check the user to-do against the Google Books database to determine if it's a book
 const isItABook = function (userEntry) {
   return new Promise((res, rej) => {
     request(
@@ -75,7 +66,7 @@ const isItABook = function (userEntry) {
 //   return;
 // });
 
-//dining logic
+//Get the user's location based on their IP address (used as a helper in isItDining)
 const getLocation = function () {
   return new Promise((res, rej) => {
     request(
@@ -91,15 +82,13 @@ const getLocation = function () {
   });
 };
 
+//Check the user to-do against the yelp database to determine if it's a restaurant
 const isItDining = function (userEntry) {
-  //how to call this correctly?
   return getLocation()
     .then((res) => {
-      // console.log('location array is', res)
       return res;
     })
     .then((res) => {
-      //from yelp api documentation starts here
       const apiKey = process.env.EATERY_KEY;
 
       const searchRequest = {
@@ -116,7 +105,7 @@ const isItDining = function (userEntry) {
           if (response.jsonBody.businesses[0]) {
             diningName = response.jsonBody.businesses[0].name;
             console.log("Yelp found the restaurant name:", diningName);
-            return "Dining"; //database category code
+            return "Dining";
           }
           return false;
         })
@@ -124,10 +113,9 @@ const isItDining = function (userEntry) {
           console.log(error);
         });
     })
-    .catch((data, status) => {
-      console.log("Request failed");
+    .catch((error) => {
+      console.log(error);
     });
-  //yelp docs code ends
 };
 
 //test code
@@ -140,4 +128,4 @@ const isItDining = function (userEntry) {
 //   return;
 // })
 
-module.exports = { sortCategories, isItAMovie, isItABook, isItDining };
+module.exports = { isItAMovie, isItABook, isItDining };

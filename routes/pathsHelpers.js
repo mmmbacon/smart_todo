@@ -41,17 +41,14 @@ const bmdOrder = function (userEntry, userId, response) {
   isItABook(userEntry)
     .then((result) => {
       if (result === "Books") {
-        // console.log(`It is a book`)
         return result;
       }
       return isItAMovie(userEntry).then((result) => {
         if (result === "Movies") {
-          // console.log(`It is a movie`)
           return result;
         }
         return isItDining(userEntry).then((result) => {
           if (result === "Dining") {
-            // console.log(`It is an dining`)
             return result;
           }
           return "Products";
@@ -114,17 +111,14 @@ const mdbOrder = function (userEntry, userId, response) {
   isItAMovie(userEntry)
     .then((result) => {
       if (result === "Movies") {
-        // console.log(`It is a movie`)
         return result;
       }
       return isItDining(userEntry).then((result) => {
         if (result === "Dining") {
-          // console.log(`It is an dining`)
           return result;
         }
         return isItABook(userEntry).then((result) => {
           if (result === "Books") {
-            // console.log(`It is a book`)
             return result;
           }
           return "Products";
@@ -150,17 +144,14 @@ const dbmOrder = function (userEntry, userId, response) {
   isItDining(userEntry)
     .then((result) => {
       if (result === "Dining") {
-        // console.log(`It is an dining`)
         return result;
       }
       return isItABook(userEntry).then((result) => {
         if (result === "Books") {
-          // console.log(`It is a book`)
           return result;
         }
         return isItAMovie(userEntry).then((result) => {
           if (result === "Movies") {
-            // console.log(`It is a movie`)
             return result;
           }
           return "Products";
@@ -186,17 +177,14 @@ const dmbOrder = function (userEntry, userId, response) {
   isItDining(userEntry)
     .then((result) => {
       if (result === "Dining") {
-        // console.log(`It is an dining`)
         return result;
       }
       return isItAMovie(userEntry).then((result) => {
         if (result === "Movies") {
-          // console.log(`It is a movie`)
           return result;
         }
         return isItABook(userEntry).then((result) => {
           if (result === "Books") {
-            // console.log(`It is a book`)
             return result;
           }
           return "Products";
