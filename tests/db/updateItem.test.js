@@ -12,13 +12,13 @@ describe('Get Item from Database', function() {
     date_due: '2020-02-05',
     category: 2,
     priority: 3,
-    // completed: true
+    completed: true
   };
 
-  it('should not return an array', function(done) {
-    updateItem(userId, itemId, options)
+  it('should return an array', function(done) {
+    updateItem(userId, itemId, options.category, options.description, options.completed, options.date_due, options.priority)
       .then((res) => {
-        res.should.not.be.an('array');
+        res.should.be.an('array');
         done();
       })
       .catch((err) => {
@@ -26,10 +26,10 @@ describe('Get Item from Database', function() {
       });
   });
 
-  it('should be an object', function(done) {
-    updateItem(userId, itemId)
+  it('should not be an object', function(done) {
+    updateItem(userId, itemId, options.category, options.description, options.completed, options.date_due, options.priority)
       .then((res) => {
-        res.should.be.an('object');
+        res.should.not.be.an('object');
         done();
       })
       .catch((err) => {
@@ -38,7 +38,7 @@ describe('Get Item from Database', function() {
   });
 
   it('should not be undefined', function(done) {
-    updateItem(userId, itemId)
+    updateItem(userId, itemId, options.category, options.description, options.completed, options.date_due, options.priority)
       .then((res) => {
         res.should.not.be.undefined;
         done();
@@ -50,14 +50,18 @@ describe('Get Item from Database', function() {
 
   it('should contain the id, user_id, category_id, description, date_created, date_due, priority, and completed status', function(done) {
 
-    updateItem(userId, itemId)
+    updateItem(userId, itemId, options.category, options.description, options.completed, options.date_due, options.priority)
       .then((res) => {
-        res.should.have.property('id');
-        res.should.have.property('user_id');
-        res.should.have.property('category_id');
-        res.should.have.property('description');
-        res.should.have.property('date_created');
-        res.should.have.property('completed');
+        for (const item of res) {
+          item.should.have.property('item_id');
+          item.should.have.property('item_description');
+          item.should.have.property('date_created');
+          item.should.have.property('date_due');
+          item.should.have.property('priority');
+          item.should.have.property('completed');
+          item.should.have.property('category_id');
+          item.should.have.property('category_name');
+        }
         done();
       })
       .catch((err) => {

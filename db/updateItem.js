@@ -1,4 +1,6 @@
 const db = require('./db');
+const allItems = require('./allItems');
+
 
 /**
  * Postgres query function for updating an item for a particular user
@@ -6,52 +8,49 @@ const db = require('./db');
  * @param { string } itemId The item id
  * @returns { array } an array of a,l the users items
  */
-const getItem = function(userId, itemId, options) {
+const updateItem = function(userId, itemId, category, description, completed, dateDue, priority) {
 
-  let queryString = `UPDATE`;
+  let queryString = `
+  UPDATE items
+  SET`;
   let params = [`${userId}`, `${itemId}`];
-  let length = 0;
 
-  if (options) {
-
-    if (options.description) {
-      queryString += `
-       items SET items.description = $${params.length}${params.length > 3 ? `,` : ` `}`;
-    }
-
-    if (options.date_due) {
-      queryString += `
-       items.date_due = $${params.length}${params.length > 4 ? `,` : ` `}`;
-    }
-
-    if (options.category) {
-      queryString += `
-       items.date_due = $${params.length}${params.length > 5 ? `,` : ` `}`;
-    }
-
-    if (options.priority) {
-      queryString += `
-       items.priority = $${params.length}${params.length > 6 ? `,` : ` `}`;
-    }
-
-    if (options.completed) {
-      queryString += `
-       items.completed = $${params.length}
-       `;
-    }
+  if (category) {
+    params.push(`${category}`); //Type integer
+    queryString += `${ params.length > 3 ? ', \n' : ' ' }category_id = $${params.length}`;
   }
 
-  queryString += `WHERE items.user_id = $1 AND items.id = $2;`;
+  if (description) {
+    params.push(`${description}`); //Type string
+    queryString += `${ params.length > 3 ? ', \n' : ' ' }description = $${params.length}`;
+  }
 
-  console.log(queryString);
+  if (completed) {
+    params.push(`${completed}`); // Type boolean
+    queryString += `${ params.length > 3 ? ', \n' : ' ' }completed = $${params.length}`;
+  }
 
-  return db.query(queryString, options)
+  if (dateDue) {
+    params.push(`${dateDue}`); // Type string
+    queryString += `${ params.length > 3 ? ', \n' : ' ' }date_due = $${params.length}`;
+  }
+
+  if (priority) {
+    params.push(`${priority}`); // Type boolean
+    queryString += `${ params.length > 3 ? ', \n' : ' ' }priority = $${params.length}`;
+  }
+
+  queryString += `
+  WHERE items.user_id = $1
+  AND items.id = $2;`;
+
+  return db.query(queryString, params)
     .then((res)=> {
-      return res.rows[0];
+      return allItems(userId);
     })
     .catch((err)=> {
       return err;
     });
 };
 
-module.exports = getItem;
+module.exports = updateItem;
