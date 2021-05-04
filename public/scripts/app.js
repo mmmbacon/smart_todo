@@ -122,5 +122,25 @@ $(document).ready(function() {
       console.log('Error: ', err);
     });
   });
+
+  // Edit item
+  $('#editItem').on('submit', function(event) {
+    event.preventDefault();
+    const category = $('#edit-category').val();
+    const completed = $('#edit-completed').is(':checked');
+
+    $.ajax({
+      url: `/users/1/items/${globalState.currentItemId}`,
+      method: 'PUT',
+      data: {
+        category_name: category,
+        completed: completed,
+      }
+    }).then((items) => {
+      renderItems(items.items);
+    }).catch((err) => {
+      console.log('Error: ', err);
+    });
+  });
 });
 
