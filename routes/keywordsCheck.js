@@ -4,16 +4,16 @@ const assignCategoryFromKeyword = function(userEntry) {
   const userEntryArray = userEntryNoCase.split(' ');
   let categoryCode = null;
   if (userEntryArray.includes('watch') || userEntryArray.includes('movie')) {
-    categoryCode = 1;
+    categoryCode = "Movies";
   }
   if (userEntryArray.includes('read') || userEntryArray.includes('book')) {
-    categoryCode = 2;
+    categoryCode = "Books";
   }
   if (userEntryArray.includes('eat') || userEntryArray.includes('restaurant')) {
-    categoryCode = 3;
+    categoryCode = "Dining";
   }
   if (userEntryArray.includes('buy') || userEntryArray.includes('product')) {
-    categoryCode = 4;
+    categoryCode = "Products";
   }
   return categoryCode;
 }
