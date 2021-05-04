@@ -7,7 +7,7 @@ describe('Create Item in Database', function() {
 
   const userId = 1;
   const categoryName = 'Books';
-  const description = 'Watch Lord of the Rings';
+  const description = 'THIS IS A NEW ITEM';
   const priority = 0;
 
   it('should return an array', function(done) {
