@@ -1,4 +1,5 @@
 const assignCategoryFromKeyword = function (userEntry) {
+  category = "";
   if (userEntry.match(/book|read/)) {
     category = "Books";
   }
@@ -18,7 +19,7 @@ const assignCategoryFromKeyword = function (userEntry) {
 
 //test cases
 
-console.log(assignCategoryFromKeyword("burn after reading"));
-console.log(assignCategoryFromKeyword("word reading"));
+// console.log(assignCategoryFromKeyword("burn after reading"));
+// console.log(assignCategoryFromKeyword("word reading"));
 
 module.exports = assignCategoryFromKeyword;
