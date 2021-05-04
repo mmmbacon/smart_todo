@@ -122,24 +122,25 @@ module.exports = (db) => {
   });
 
   //Edit individual item
-  router.put("/:userid/items/:itemid", (req, res) => {});
-  console.log("req.body", req.body);
-  updateItem(
-    req.params.userid,
-    req.params.itemid,
-    categoryName,
-    description,
-    completed,
-    dateDue,
-    priority
-  )
-    .then((items) => {
-      res.json({ items });
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(500).json({ error: error.message });
-    });
+  router.put("/:userid/items/:itemid", (req, res) => {
+    console.log("req.body", req.body);
+    updateItem(
+      req.params.userid,
+      req.params.itemid,
+      categoryName,
+      description,
+      completed,
+      dateDue,
+      priority
+    )
+      .then((items) => {
+        res.json({ items });
+      })
+      .catch((error) => {
+        console.log(error);
+        res.status(500).json({ error: error.message });
+      });
+  });
 
   //Delete individual item
   router.delete("/:userid/items/:itemid", (req, res) => {
