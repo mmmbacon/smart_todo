@@ -30,8 +30,8 @@ module.exports = (db) => {
   // (still in progress)
   router.post("/:userid/items", (req, res) => {
     //convenience variable for the to-do the user submitted
-    const userEntry = req.body.text; //body is an empty object--front-end issue?
-    console.log('userentry',userEntry);
+    const userEntry = req.body['new-item-text'];
+    console.log('userentry', userEntry);
 
     //check for keywords (db? just an array?)
 
@@ -51,8 +51,8 @@ module.exports = (db) => {
     for (const category of sortedCategories) {
       if (category === 'books') {
         isItABook(userEntry)
-          .then(res => {
-            if (res) {
+          .then(dbres => {
+            if (dbres) {
               console.log('It is a book, adding to database...')
               createItem(req.params.userid, 2, userEntry, priority)
                 // itemS because db returns the full item list
@@ -62,10 +62,10 @@ module.exports = (db) => {
                 .catch(error => {
                   console.log(error);
                   res
-                  .status(500)
-                  .json({ error: error.message })
+                    .status(500)
+                    .json({ error: error.message })
                 });
-                return;
+              return;
             }
           })
 
@@ -73,19 +73,19 @@ module.exports = (db) => {
       if (category === 'movies') {
 
         isItAMovie(userEntry)
-          .then(res => {
-            if (res) {
+          .then(dbres => {
+            if (dbres) {
               console.log('It is a movie, adding to database...')
               createItem(req.params.userid, 1, userEntry, priority)
-              // .then(items => {
-              //   res.json({ items })
-              // })
-              // .catch(error => {
-              //   console.log(error);
-              //   res
-              //     .status(500)
-              //     .json({ error: error.message })
-              // });
+                .then(items => {
+                  res.json({ items })
+                })
+                .catch(error => {
+                  console.log(error);
+                  res
+                    .status(500)
+                    .json({ error: error.message })
+                });
               return;
             }
           })
@@ -93,19 +93,19 @@ module.exports = (db) => {
       if (category === 'eateries') {
 
         isItAnEatery(userEntry)
-          .then(res => {
-            if (res) {
+          .then(dbres => {
+            if (dbres) {
               console.log('It is an eatery, adding to database...')
               createItem(req.params.userid, 3, userEntry, priority)
-              // .then(items => {
-              //   res.json({ items })
-              // })
-              // .catch(error => {
-              //   console.log(error);
-              //   res
-              //     .status(500)
-              //     .json({ error: error.message })
-              // });
+                .then(items => {
+                  res.json({ items })
+                })
+                .catch(error => {
+                  console.log(error);
+                  res
+                    .status(500)
+                    .json({ error: error.message })
+                });
               return;
             }
           })
@@ -121,12 +121,12 @@ module.exports = (db) => {
       .catch(error => {
         console.log(error);
         res
-        .status(500)
-        .json({ error: error.message })
+          .status(500)
+          .json({ error: error.message })
       });
-      return;
-
+    return;
   });
+
   //Get individual items routes
   router.get("/:userid/items/:itemid", (req, res) => {
     getItem(req.params.userid, req.params.itemid)
