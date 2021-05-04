@@ -49,4 +49,16 @@ describe('Get All Items from Database', function() {
       });
   });
 
+  it('should return an empty array if no properties are provided', function(done) {
+
+    allItems()
+      .then((res) => {
+        res.should.have.length(0);
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
 });

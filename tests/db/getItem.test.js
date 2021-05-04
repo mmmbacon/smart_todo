@@ -58,4 +58,16 @@ describe('Get Item from Database', function() {
       });
   });
 
+  it('should return an empty array if no properties are provided', function(done) {
+
+    getItem()
+      .then((res) => {
+        res.should.have.length(0);
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
 });

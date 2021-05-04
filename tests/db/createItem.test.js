@@ -21,17 +21,6 @@ describe('Create Item in Database', function() {
       });
   });
 
-  it('should return an array 4 items long', function(done) {
-    createItem(userId, categoryId, description, priority)
-      .then((res) => {
-        res.should.have.length(6);
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
-  });
-
   it('should not be undefined', function(done) {
     createItem(userId, categoryId, description, priority)
       .then((res) => {
@@ -60,4 +49,17 @@ describe('Create Item in Database', function() {
         done(err);
       });
   });
+
+  it('should return an empty array if no properties are provided in the update', function(done) {
+
+    createItem()
+      .then((res) => {
+        res.should.have.length(0);
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
 });

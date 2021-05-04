@@ -25,14 +25,12 @@ const isItAMovie = function (userEntry) {
   return new Promise((res, rej) => {
     request(options, function (error, response, body) {
       if (error) rej(error);
-      const movieTitle = JSON.parse(body).title;
-
-      if (movieTitle.length > 0) {
+      if (JSON.parse(body).title) {
+        const movieTitle = JSON.parse(body).title;
         console.log('IMBD found the title:', movieTitle)
         res(1); //this is the database category for movies, change to words for clarity/readability?
-      } else {
-        res(false);
       }
+      res(false);
     });
   });
 }
@@ -52,14 +50,14 @@ const isItABook = function (userEntry) {
   return new Promise((res, rej) => {
     request(`https://www.googleapis.com/books/v1/volumes?q=${userEntry}&key=${process.env.BOOK_KEY}`, function (error, response, body) {
       if (error) rej(error);
-      const bookTitle = JSON.parse(body).items[0].volumeInfo.title;
 
-      if (bookTitle.length > 0) {
-        console.log('Google found the book title:',bookTitle)
+      let bookTitle = '';
+      if (JSON.parse(body).items) {
+        bookTitle = JSON.parse(body).items[0].volumeInfo.title;
+        console.log('Google found the book title:', bookTitle)
         res(2); //database category code
-      } else {
-        res(false);
       }
+      res(false);
     });
   });
 };
@@ -109,11 +107,10 @@ const isItAnEatery = function (userEntry) {
 
       return client.search(searchRequest)
         .then(response => {
-          const firstResult = response.jsonBody.businesses[0];
-          const name = firstResult.name;
-          // console.log('firstresult',firstResult) //to see the restaurant's real location
-          if (name.length > 0) {
-            console.log('Yelp found the restaurant name:', name);
+          let eateryName = '';
+          if (response.jsonBody.businesses[0]) {
+            eateryName = response.jsonBody.businesses[0].name
+            console.log('Yelp found the restaurant name:', eateryName);
             return 3; //database category code
           }
           return false;
@@ -121,11 +118,10 @@ const isItAnEatery = function (userEntry) {
           console.log(error);
         });
     })
-
     .catch((data, status) => {
       console.log('Request failed');
     })
-    //yelp docs code ends
+  //yelp docs code ends
 
 
 };
@@ -133,7 +129,7 @@ const isItAnEatery = function (userEntry) {
 //test code
 // isItAnEatery('do not say we have nothing')
 // .then(res => {
-//   // console.log('res:', res)
+//   console.log('res:', res)
 //   if (res) {
 //     console.log('yes, it is an eatery, add to database as an eatery')
 //   }

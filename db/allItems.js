@@ -7,6 +7,10 @@ const db = require('./db');
  */
 const allItems = function(userId) {
 
+  if (!userId) {
+    return Promise.resolve([]);
+  }
+
   const queryString = `
   SELECT items.id as item_id, description as item_description, date_created, date_due, priority, completed, category_id, name as category_name
   FROM items
@@ -18,7 +22,6 @@ const allItems = function(userId) {
 
   return db.query(queryString, params)
     .then((res)=> {
-      console.log(res.rows);
       return res.rows;
     })
     .catch((err)=> {
