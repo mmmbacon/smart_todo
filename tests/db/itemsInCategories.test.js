@@ -10,7 +10,7 @@ describe('Get Category Count from Database', function() {
 
   it('should return an array', function(done) {
 
-    itemsInCategories(userId)
+    itemsInCategories(userId, 'id', 'DESC')
       .then((res) => {
         res.should.be.an('array');
         done();
@@ -22,7 +22,7 @@ describe('Get Category Count from Database', function() {
 
   it('should NOT be an object', function(done) {
 
-    itemsInCategories(userId)
+    itemsInCategories(userId, 'name', 'ASC')
       .then((res) => {
         res.should.not.be.an('object');
         done();
@@ -34,7 +34,7 @@ describe('Get Category Count from Database', function() {
 
   it('should not be undefined', function(done) {
 
-    itemsInCategories(userId)
+    itemsInCategories(userId, 'count', 'DESC')
       .then((res) => {
         res.should.not.be.undefined;
         done();
@@ -44,14 +44,14 @@ describe('Get Category Count from Database', function() {
       });
   });
 
-  it('should contain the id, name, and count', function(done) {
+  it('should contain the id, name, and item_count', function(done) {
 
-    itemsInCategories(userId)
+    itemsInCategories(userId, 'id', 'DESC')
       .then((res) => {
         for (const item of res) {
           item.should.have.property('id');
           item.should.have.property('name');
-          item.should.have.property('count');
+          item.should.have.property('item_count');
         }
         done();
       })
