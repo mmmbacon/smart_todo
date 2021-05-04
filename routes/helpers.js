@@ -112,8 +112,6 @@ const isItAnEatery = function (userEntry) {
           let eateryName = '';
           if (response.jsonBody.businesses[0].name) {
             eateryName = response.jsonBody.businesses[0].name
-          }
-          if (eateryName.length > 0) {
             console.log('Yelp found the restaurant name:', eateryName);
             return 3; //database category code
           }
