@@ -10,7 +10,7 @@ const itemsInCategories = require('../db/itemsInCategories');
 const router = express.Router();
 const { sortCategories, isItAMovie, isItABook, isItAnEatery } = require('./helpers.js');
 
-const priority = 1; //will actually be req.body.something, to check with Lily, stretch
+
 
 module.exports = (db) => {
   //Get all items routes
@@ -29,9 +29,9 @@ module.exports = (db) => {
   });
   // (still in progress)
   router.post("/:userid/items", (req, res) => {
-    //convenience variable for the to-do the user submitted
+    //convenience variables for the to-do the user submitted
     const userEntry = req.body['new-item-text'];
-    console.log('userentry', userEntry);
+    const priority = 1; //will actually be req.body.something, to check with Lily, stretch
 
     //check for keywords (db? just an array?)
 
@@ -48,6 +48,10 @@ module.exports = (db) => {
 
     // query the apis in order--to write
 
+    //far-reaching? make the first two thens in the book funciton 55-67
+    // const book = await (serious of thens)
+    //if reusing, make it's own function
+
 //book, movie, eatery
     isItABook(userEntry)
       .then(bookResult => {
@@ -61,7 +65,7 @@ module.exports = (db) => {
       .then(result => {
         if (result === 2) {
           return 2;
-        }
+        }//end
         isItAMovie(userEntry)
           .then(movieResult => {
             if (movieResult) {
@@ -74,7 +78,7 @@ module.exports = (db) => {
       .then(result => {
         if (result !== 4) {
           return result;
-        }
+        }//end
         isItAnEatery(userEntry)
           .then(eateryResult => {
             if (eateryResult) {
@@ -122,7 +126,7 @@ module.exports = (db) => {
   router.delete("/:userid/items/:itemid", (req, res) => {
     deleteItem(req.params.userid, req.params.itemid)
       .then(items => {
-        res.json({ items }); //so Brianna can see what she's got
+        res.json({ items });
       })
       .catch(error => {
         console.log(error);
