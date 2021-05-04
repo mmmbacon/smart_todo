@@ -25,14 +25,12 @@ const isItAMovie = function (userEntry) {
   return new Promise((res, rej) => {
     request(options, function (error, response, body) {
       if (error) rej(error);
-      const movieTitle = JSON.parse(body).title;
-
-      if (movieTitle.length > 0) {
+      if (JSON.parse(body).title) {
+        const movieTitle = JSON.parse(body).title;
         console.log('IMBD found the title:', movieTitle)
         res(1); //this is the database category for movies, change to words for clarity/readability?
-      } else {
-        res(false);
       }
+      res(false);
     });
   });
 }
