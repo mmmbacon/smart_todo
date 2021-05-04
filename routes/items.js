@@ -46,86 +46,58 @@ module.exports = (db) => {
     //get the category with the highest count
     const sortedCategories = sortCategories(apiPriority);
 
-    // query the apis in order
+    // query the apis in order--to write
 
-    for (const category of sortedCategories) {
-      if (category === 'books') {
-        isItABook(userEntry)
-          .then(dbres => {
-            if (dbres) {
-              console.log('It is a book, adding to database...')
-              createItem(req.params.userid, 2, userEntry, priority)
-                // itemS because db returns the full item list
-                .then(items => {
-                  res.json({ items })
-                })
-                .catch(error => {
-                  console.log(error);
-                  res
-                    .status(500)
-                    .json({ error: error.message })
-                });
-              return;
-            }
-          })
-
-      }
-      if (category === 'movies') {
-
-        isItAMovie(userEntry)
-          .then(dbres => {
-            if (dbres) {
-              console.log('It is a movie, adding to database...')
-              createItem(req.params.userid, 1, userEntry, priority)
-                .then(items => {
-                  res.json({ items })
-                })
-                .catch(error => {
-                  console.log(error);
-                  res
-                    .status(500)
-                    .json({ error: error.message })
-                });
-              return;
-            }
-          })
-      }
-      if (category === 'eateries') {
-
-        isItAnEatery(userEntry)
-          .then(dbres => {
-            if (dbres) {
-              console.log('It is an eatery, adding to database...')
-              createItem(req.params.userid, 3, userEntry, priority)
-                .then(items => {
-                  res.json({ items })
-                })
-                .catch(error => {
-                  console.log(error);
-                  res
-                    .status(500)
-                    .json({ error: error.message })
-                });
-              return;
-            }
-          })
-      }
-    }
-
-    //if it was none of those things, add to database as a product--this needs to be asynchronous!!
-    console.log('It is a product, adding to database...')
-    createItem(req.params.userid, 4, userEntry, priority)
-      .then(items => {
-        res.json({ items })
+//book, movie, eatery
+    isItABook(userEntry)
+      .then(bookResult => {
+        if (bookResult) {
+          console.log(`It is a book`)
+          //can we use the category names? better readibility
+          return 2;
+        }
+        return 4;
       })
-      .catch(error => {
-        console.log(error);
-        res
-          .status(500)
-          .json({ error: error.message })
+      .then(result => {
+        if (result === 2) {
+          return 2;
+        }
+        isItAMovie(userEntry)
+          .then(movieResult => {
+            if (movieResult) {
+              console.log(`It is a movie`)
+              return 1;
+            }
+            return 4;
+          })
+      })
+      .then(result => {
+        if (result !== 4) {
+          return result;
+        }
+        isItAnEatery(userEntry)
+          .then(eateryResult => {
+            if (eateryResult) {
+              console.log(`It is an eatery`)
+              return 3;
+            }
+            return 4;
+          })
+      })
+      .then(result => {
+        createItem(req.params.userid, result, userEntry, priority)
+          .then(items => {
+            res.json({ items })
+          })
+          .catch(error => {
+            console.log(error);
+            res
+              .status(500)
+              .json({ error: error.message })
+          });
+        return;
       });
-    return;
-  });
+  })
 
   //Get individual items routes
   router.get("/:userid/items/:itemid", (req, res) => {
