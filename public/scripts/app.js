@@ -43,7 +43,7 @@ $(document).ready(function() {
     const displayItem = `
       <div id="item-container" class="list-item list-group-item list-group-item-action" data-id="${item.item_id}">
         <span>
-          <input class="form-check-input" type="checkbox" id="completed">
+          <input class="form-check-input" type="checkbox">
           <label class="form-check-label item" for="completed">${escape(item.item_description)}</label>
         </span>
         <span>
