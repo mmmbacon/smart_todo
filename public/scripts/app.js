@@ -10,6 +10,10 @@
 // });
 
 $(document).ready(function() {
+  let globalState = {
+    currentItemId: null,
+  };
+
   // Prevent cross-site scripting
   const escape = function(str) {
     let div = document.createElement('div');
@@ -37,13 +41,16 @@ $(document).ready(function() {
   // Create HTML to display each item
   const createItem = function(item) {
     const displayItem = `
-        <div class="list-item list-group-item list-group-item-action">
-          <span>${escape(item)}</span>
-          <span>
-            <i class="bi bi-pencil-square" data-bs-toggle="modal" data-bs-target="#editModal"></i>
-          </span>
-         </div>
-      `;
+      <div id="item-container" class="list-item list-group-item list-group-item-action" data-id="${item.item_id}">
+        <span>
+          <input class="form-check-input" type="checkbox" id="completed">
+          <label class="form-check-label item" for="completed">${escape(item.item_description)}</label>
+        </span>
+        <span>
+          <i class="fas fa-edit edit" data-bs-toggle="modal" data-bs-target="#editModal"></i>
+        </span>
+      </div>
+    `;
     return displayItem;
   };
 
@@ -56,7 +63,7 @@ $(document).ready(function() {
 
     for (const item of items) {
       const category = getCategoryName(item.category_id);
-      const $item = createItem(item.item_description);
+      const $item = createItem(item);
       $(category).append($item);
     }
   };
@@ -76,7 +83,7 @@ $(document).ready(function() {
   loadItems();
 
   // Add a new item
-  $('form').on('submit', function(event) {
+  $('#newItem').on('submit', function(event) {
     event.preventDefault();
     $('#error').hide();
 
@@ -96,4 +103,24 @@ $(document).ready(function() {
       console.log('Error: ', err);
     });
   });
+
+  // Carry over item id
+  $('#category-container').on('click', '#item-container', function(event) {
+    globalState.currentItemId = event.currentTarget.dataset.id;
+  });
+
+  // Delete item
+  $('#delete').on('click', function(event) {
+    event.preventDefault();
+
+    $.ajax({
+      url: `/users/1/items/${globalState.currentItemId}`,
+      method: 'DELETE',
+    }).then((items) => {
+      renderItems(items.items);
+    }).catch((err) => {
+      console.log('Error: ', err);
+    });
+  });
 });
+
