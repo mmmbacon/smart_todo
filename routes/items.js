@@ -26,6 +26,10 @@ module.exports = (db) => {
           .json({ error: error.message })
         //should figure out how to trigger this for testing
       });
+    //getting an error, to talk to Brandon
+    // itemsInCategories(req.params.userid, 'Books', 'ASC')
+    //   .then(res => console.log(res))
+
   });
   // (still in progress)
   router.post("/:userid/items", (req, res) => {
@@ -37,21 +41,39 @@ module.exports = (db) => {
 
     //if no match, count amount of rows in books, movies, restaurants database (placeholder data currently; will use SQL later)
 
-    const apiPriority = {
-      books: 3,
-      movies: 2,
-      eateries: 1
+    // item counts are strings in Brandon's function
+    const apiPriority = [
+    {id: 3, name: 'Dining',item_count: 2},
+    {id: 1, name: 'Movies',item_count: 3},
+    {id: 2, name: 'Books',item_count: 4},
+    {id: 4, name: 'Products',item_count: 1}]
+
+    if (apiPriority[0].name === 'Books' && apiPriority[1].name === 'Movies' && apiPriority[2] === 'Dining') {
+
     }
 
-    //get the category with the highest count
-    const sortedCategories = sortCategories(apiPriority);
+    if (apiPriority[0].name === 'Books'  && apiPriority[1] === 'Dining' && apiPriority[2].name === 'Movies') {
 
-    // query the apis in order--to write
+    }
 
-    //far-reaching? make the first two thens in the book funciton 55-67
-    // const book = await (serious of thens)
-    //if reusing, make it's own function
+    if (apiPriority[0].name === 'Movies' && apiPriority[1].name === 'Books' && apiPriority[2] === 'Dining') {
 
+    }
+
+    if (apiPriority[0].name === 'Movies'  && apiPriority[1] === 'Dining' && apiPriority[2].name === 'Books') {
+
+    }
+
+    if (apiPriority[0].name === 'Dining' && apiPriority[1].name === 'Books' && apiPriority[2] === 'Movies') {
+
+    }
+
+    if (apiPriority[0].name === 'Dining'  && apiPriority[1] === 'Movies' && apiPriority[2].name === 'Books') {
+
+    }
+
+
+    ///////////////////////////Book first paths
     //Book then movie then eatery
     isItABook(userEntry)
       .then(result => {
@@ -93,6 +115,7 @@ module.exports = (db) => {
           });
         return;
       });
+
     //Book then eatery then movie
     isItABook(userEntry)
       .then(result => {
@@ -116,7 +139,158 @@ module.exports = (db) => {
               })
           })
       })
+      .then(categoryCode => {
+        createItem(req.params.userid, categoryCode, userEntry, priority)
+          .then(items => {
+            res.json({ items })
+          })
+          .catch(error => {
+            console.log(error);
+            res
+              .status(500)
+              .json({ error: error.message })
+          });
+        return;
+      });
 
+
+    ///////////////////////////Movie first paths
+    //Movie, book, eatery
+    isItAMovie(userEntry)
+      .then(result => {
+        if (result === 1) {
+          // console.log(`It is a movie`)
+          return result;
+        }
+        isItABook(userEntry)
+          .then(result => {
+            if (result === 2) {
+              // console.log(`It is a book`)
+              return result;
+            }
+            isItAnEatery(userEntry)
+              .then(result => {
+                if (result === 3) {
+                  // console.log(`It is an eatery`)
+                  return result;
+                }
+                return 4;
+              })
+          })
+      })
+      .then(categoryCode => {
+        createItem(req.params.userid, categoryCode, userEntry, priority)
+          .then(items => {
+            res.json({ items })
+          })
+          .catch(error => {
+            console.log(error);
+            res
+              .status(500)
+              .json({ error: error.message })
+          });
+        return;
+      });
+
+
+    //Movie, eatery, book
+    isItAMovie(userEntry)
+      .then(result => {
+        if (result === 1) {
+          // console.log(`It is a movie`)
+          return result;
+        }
+        isItAnEatery(userEntry)
+          .then(result => {
+            if (result === 3) {
+              // console.log(`It is an eatery`)
+              return result;
+            }
+            isItABook(userEntry)
+              .then(result => {
+                if (result === 2) {
+                  // console.log(`It is a book`)
+                  return result;
+                }
+                return 4;
+              })
+          })
+      })
+      .then(categoryCode => {
+        createItem(req.params.userid, categoryCode, userEntry, priority)
+          .then(items => {
+            res.json({ items })
+          })
+          .catch(error => {
+            console.log(error);
+            res
+              .status(500)
+              .json({ error: error.message })
+          });
+        return;
+      });
+    ///////////////////////////Eatery first paths
+    //Eatery, movie, book
+    isItAnEatery(userEntry)
+      .then(result => {
+        if (result === 3) {
+          // console.log(`It is an eatery`)
+          return result;
+        }
+        isItAMovie(userEntry)
+          .then(result => {
+            if (result === 1) {
+              // console.log(`It is a movie`)
+              return result;
+            }
+            isItABook(userEntry)
+              .then(result => {
+                if (result === 2) {
+                  // console.log(`It is a book`)
+                  return result;
+                }
+                return 4;
+              })
+          })
+      })
+      .then(categoryCode => {
+        createItem(req.params.userid, categoryCode, userEntry, priority)
+          .then(items => {
+            res.json({ items })
+          })
+          .catch(error => {
+            console.log(error);
+            res
+              .status(500)
+              .json({ error: error.message })
+          });
+        return;
+      });
+
+
+    //Eatery, book, movie
+    isItAnEatery(userEntry)
+      .then(result => {
+        if (result === 3) {
+          // console.log(`It is an eatery`)
+          return result;
+        }
+        isItABook(userEntry)
+          .then(result => {
+            if (result === 2) {
+              // console.log(`It is a book`)
+              return result;
+            }
+            isItAMovie(userEntry)
+              .then(result => {
+                if (result === 1) {
+                  // console.log(`It is a movie`)
+                  return result;
+                }
+                return 4;
+              })
+          })
+      })
       .then(categoryCode => {
         createItem(req.params.userid, categoryCode, userEntry, priority)
           .then(items => {
