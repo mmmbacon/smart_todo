@@ -27,8 +27,7 @@ module.exports = (db) => {
         //should figure out how to trigger this for testing
       });
     //getting an error, to talk to Brandon
-    // itemsInCategories(req.params.userid, 'Books', 'ASC')
-    //   .then(res => console.log(res))
+
 
   });
   // (still in progress)
@@ -42,56 +41,44 @@ module.exports = (db) => {
     //if no match, count amount of rows in books, movies, restaurants database (placeholder data currently; will use SQL later)
 
     // ultimately get this object from Brandon's function. Item counts are strings there (I don't think I care since he's already sorted them?) but function throws errors
-    const apiPriority = [
-      { id: 3, name: 'Books', item_count: 4 },
-      { id: 1, name: 'Movies', item_count: 3 },
-      { id: 2, name: 'Dining', item_count: 2 },
-      { id: 4, name: 'Products', item_count: 1 }]
-
-    ///////////////////////////Book first paths
-    //Book then movie then eatery
-    if (apiPriority[0].name === 'Books' && apiPriority[1].name === 'Movies' && apiPriority[2].name === 'Dining') {
-      console.log('we are in Book then movie then eatery')
-      isItABook(userEntry)
-        .then(result => {
-          //"Result" variable will either be the userEntry's character id # (which means, yes, it's a book) or false. If it's a book, return the code and jump to the next outer then (the one with param categoryCode), where we'll create the new item
-          if (result === 2) { //or is true
-            console.log(`It is a book`)
-            return result; //this will be 2
+    //BM - Grab items in order of importance
+    itemsInCategories(req.params.userid, 'item_count', 'DESC')
+      .then(res => {
+        //First item category
+        for(const item of res){
+          if(item.name === 'Book'){
+            IsItABook //promise
           }
-          //If it wasn't a book, check if it was a movie (code 1). If yes, jump to next then
-          return isItAMovie(userEntry)
-            .then(result => {
-              if (result === 1) {
-                console.log(`It is a movie`)
-                return result;
-              }
-              //If it wasn't a movie either, check if it was an eatery (code 3). If yes, jump to next then
-              return isItAnEatery(userEntry)
-                .then(result => {
-                  if (result === 3) {
-                    console.log(`It is an eatery`)
-                    return result;
-                  }
-                  //If none of the apis picked anything up, assume it's a product and return 4 for the product category code
-                  return 4;
-                })
-            })
-        })
-        .then(categoryCode => {
-          createItem(req.params.userid, categoryCode, userEntry, priority)
-            .then(items => {
-              res.json({ items })
-            })
-            .catch(error => {
-              console.log(error);
-              res
-                .status(500)
-                .json({ error: error.message })
-            });
-          return;
-        });
+
+          if(item.name === 'Book'){
+            IsItABook
+          }
+
+          if(item.name === 'Book'){
+            IsItABook
+          }
+
+          if(item.name === 'Book'){
+            IsItABook
+          }
+
+
+        }
+
+
+      })
+    // const apiPriority = [
+    //   { id: 3, name: 'Books', item_count: 4 },
+    //   { id: 2, name: 'Dining', item_count: 3 },
+    //   { id: 1, name: 'Movies', item_count: 2 },
+    //   { id: 4, name: 'Products', item_count: 1 }]
+
+
+    const iIAB = function(){
+
     }
+
+
 
     //Book then eatery then movie
     if (apiPriority[0].name === 'Books' && apiPriority[1].name === 'Dining' && apiPriority[2].name === 'Movies') {
