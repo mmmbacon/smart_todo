@@ -37,7 +37,12 @@ $(document).ready(function() {
   // Create HTML to display each item
   const createItem = function(item) {
     const displayItem = `
-        <div class="list-group-item list-group-item-action">${escape(item)}</div>
+        <div class="list-item list-group-item list-group-item-action">
+          <span>${escape(item)}</span>
+          <span>
+            <i class="bi bi-pencil-square" data-bs-toggle="modal" data-bs-target="#editModal"></i>
+          </span>
+         </div>
       `;
     return displayItem;
   };
