@@ -22,7 +22,6 @@ const allItems = function(userId) {
 
   return db.query(queryString, params)
     .then((res)=> {
-      console.log(res.rows);
       return res.rows;
     })
     .catch((err)=> {
