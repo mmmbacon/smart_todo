@@ -54,4 +54,16 @@ describe('Get Item from Database', function() {
       });
   });
 
+  it('should return an empty object if no properties are provided', function(done) {
+
+    getUser()
+      .then((res) => {
+        res.should.deep.equal({});
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
 });

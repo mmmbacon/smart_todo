@@ -7,6 +7,10 @@ const db = require('./db');
  */
 const getUser = function(email) {
 
+  if (!email) {
+    return Promise.resolve({});
+  }
+
   const queryString = `
   SELECT users.email, users.first_name, users.last_name, COUNT(*) AS total_item_count
   FROM items
