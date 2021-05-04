@@ -52,7 +52,7 @@ module.exports = (db) => {
     // const book = await (serious of thens)
     //if reusing, make it's own function
 
-    //book, movie, eatery
+    //Book then movie then eatery
     isItABook(userEntry)
       .then(result => {
         //"Result" variable will either be the userEntry's character id # (which means, yes, it's a book) or false. If it's a book, return the code and jump to the next outer then (the one with param categoryCode), where we'll create the new item
@@ -79,6 +79,44 @@ module.exports = (db) => {
               })
           })
       })
+
+      .then(categoryCode => {
+        createItem(req.params.userid, categoryCode, userEntry, priority)
+          .then(items => {
+            res.json({ items })
+          })
+          .catch(error => {
+            console.log(error);
+            res
+              .status(500)
+              .json({ error: error.message })
+          });
+        return;
+      });
+    //Book then eatery then movie
+    isItABook(userEntry)
+      .then(result => {
+        if (result === 2) {
+          // console.log(`It is a book`)
+          return result;
+        }
+        isItAnEatery(userEntry)
+          .then(result => {
+            if (result === 3) {
+              // console.log(`It is an eatery`)
+              return result;
+            }
+            isItAMovie(userEntry)
+              .then(result => {
+                if (result === 1) {
+                  // console.log(`It is a movie`)
+                  return result;
+                }
+                return 4;
+              })
+          })
+      })
+
       .then(categoryCode => {
         createItem(req.params.userid, categoryCode, userEntry, priority)
           .then(items => {
@@ -93,6 +131,7 @@ module.exports = (db) => {
         return;
       });
   })
+
 
   //Get individual items routes
   router.get("/:userid/items/:itemid", (req, res) => {
