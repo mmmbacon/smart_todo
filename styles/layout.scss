@@ -9,7 +9,7 @@ body {
 }
 
 main {
-  width: 95%;
+  width: 100%;
   margin: 0 auto;
   padding: 2em;
 }
@@ -19,6 +19,29 @@ main {
 }
 
 /* Whitespace after Font Awesome icons */
-i {
+i.fas {
   padding-right: .75em;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+i.edit {
+  padding: 0 0 0 .75em;
+
+  &:hover {
+    color: #ff0000;
+    cursor: pointer;
+  }
+}
+
+input[type=checkbox]:checked + label.item{
+  text-decoration: line-through;
+  }
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
 }

@@ -6,12 +6,12 @@ const createItem = require('../../db/createItem');
 describe('Create Item in Database', function() {
 
   const userId = 1;
-  const categoryId = 0;
+  const categoryName = 'Books';
   const description = 'Watch Lord of the Rings';
   const priority = 0;
 
   it('should return an array', function(done) {
-    createItem(userId, categoryId, description, priority)
+    createItem(userId, categoryName, description, priority)
       .then((res) => {
         res.should.be.an('array');
         done();
@@ -21,8 +21,19 @@ describe('Create Item in Database', function() {
       });
   });
 
+  it('should return an array of length 17', function(done) {
+    createItem(userId, categoryName, description, priority)
+      .then((res) => {
+        res.should.have.length(17);
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+
   it('should not be undefined', function(done) {
-    createItem(userId, categoryId, description, priority)
+    createItem(userId, categoryName, description, priority)
       .then((res) => {
         res.should.not.be.undefined;
         done();
@@ -32,16 +43,18 @@ describe('Create Item in Database', function() {
       });
   });
 
-  it('should contain the id, user_id, category_id, description, date_created, date_due, priority, and completed status', function(done) {
-    createItem(userId, categoryId, description, priority)
+  it('should contain the id, user_id, category_id, category_name, description, date_created, date_due, priority, and completed status', function(done) {
+    createItem(userId, categoryName, description, priority)
       .then((res) => {
         for (const item of res) {
-          item.should.have.property('id');
-          item.should.have.property('user_id');
-          item.should.have.property('category_id');
-          item.should.have.property('description');
+          item.should.have.property('item_id');
+          item.should.have.property('item_description');
           item.should.have.property('date_created');
+          item.should.have.property('date_due');
+          item.should.have.property('priority');
           item.should.have.property('completed');
+          item.should.have.property('category_id');
+          item.should.have.property('category_name');
         }
         done();
       })
