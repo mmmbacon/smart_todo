@@ -1,7 +1,8 @@
 const { isItAMovie, isItABook, isItDining } = require('./helpers.js');
+const createItem = require('../db/createItem');
 
 //Call apis in this order: book then dining then movie
-const bdmOrder = function (userEntry) {
+const bdmOrder = function (userEntry, userId, response) {
     console.log('order: book then dining then movie')
     isItABook(userEntry)
       .then(result => {
@@ -26,7 +27,7 @@ const bdmOrder = function (userEntry) {
           })
       })
       .then(categoryCode => {
-        createItem(req.params.userid, categoryCode, userEntry, priority)
+        createItem(userId, categoryCode, userEntry, priority)
           .then(items => {
             res.json({ items })
           })
@@ -42,7 +43,7 @@ const bdmOrder = function (userEntry) {
   }
 
 //Call apis in this order: book then movie then dining
-const bmdOrder = function (userEntry) {
+const bmdOrder = function (userEntry, userId, response) {
 
     console.log('order: book then movie then dining')
     isItABook(userEntry)
@@ -68,7 +69,7 @@ const bmdOrder = function (userEntry) {
           })
       })
       .then(categoryCode => {
-        createItem(req.params.userid, categoryCode, userEntry, priority)
+        createItem(userId, categoryCode, userEntry, priority)
           .then(items => {
             res.json({ items })
           })
@@ -85,7 +86,7 @@ const bmdOrder = function (userEntry) {
 
 
 //Call apis in this order: movie then book then dining
-const mbdOrder = function (userEntry) {
+const mbdOrder = function (userEntry, userId, response) {
 
     console.log('order: movie then book then dining')
     isItAMovie(userEntry)
@@ -112,7 +113,7 @@ const mbdOrder = function (userEntry) {
       })
       .then(categoryCode => {
         console.log('categorycode', categoryCode);
-        createItem(req.params.userid, categoryCode, userEntry, priority)
+        createItem(userId, categoryCode, userEntry, priority)
           .then(items => {
             res.json({ items })
           })
@@ -129,7 +130,7 @@ const mbdOrder = function (userEntry) {
 
 
 //Call apis in this order: movie then dining then book
-const mdbOrder = function (userEntry) {
+const mdbOrder = function (userEntry, userId, response) {
 
     console.log('order: movie then dining then book')
     isItAMovie(userEntry)
@@ -155,7 +156,7 @@ const mdbOrder = function (userEntry) {
           })
       })
       .then(categoryCode => {
-        createItem(req.params.userid, categoryCode, userEntry, priority)
+        createItem(userId, categoryCode, userEntry, priority)
           .then(items => {
             res.json({ items })
           })
@@ -172,7 +173,7 @@ const mdbOrder = function (userEntry) {
 
 
 //Call apis in this order: dining then book then movie
-const dbmOrder = function (userEntry) {
+const dbmOrder = function (userEntry, userId, response) {
 
     console.log('order: dining then book then movie')
     isItDining(userEntry)
@@ -198,7 +199,7 @@ const dbmOrder = function (userEntry) {
           })
       })
       .then(categoryCode => {
-        createItem(req.params.userid, categoryCode, userEntry, priority)
+        createItem(userId, categoryCode, userEntry, priority)
           .then(items => {
             res.json({ items })
           })
@@ -214,7 +215,7 @@ const dbmOrder = function (userEntry) {
 
 
 //Call apis in this order: dining then movie then book
-const dmbOrder = function (userEntry) {
+const dmbOrder = function (userEntry, userId, response) {
 
     console.log('order: dining then movie then book')
     isItDining(userEntry)
@@ -240,13 +241,13 @@ const dmbOrder = function (userEntry) {
           })
       })
       .then(categoryCode => {
-        createItem(req.params.userid, categoryCode, userEntry, priority)
+        createItem(userId, categoryCode, userEntry, 1) //1= priority--get from user input if we do this stretch
           .then(items => {
-            res.json({ items })
+            response.json({ items })
           })
           .catch(error => {
             console.log(error);
-            res
+            response
               .status(500)
               .json({ error: error.message })
           });
