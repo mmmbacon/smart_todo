@@ -1,10 +1,9 @@
 const db = require('./db');
 
 /**
- * Postgres query function for returning item counts per category
+ * Postgres query function for returning the single most relevant item category
  * @param { string } userId The user id
- * @param { string } categoryId The user id
- * @returns { object } an object showing the single most relevant item type
+ * @returns { object } an object showing the single most relevant item category
  */
 const mostRelevantCategory = function(userId) {
 
@@ -24,7 +23,6 @@ const mostRelevantCategory = function(userId) {
 
   return db.query(queryString, params)
     .then((res)=> {
-      console.log(res.rows[0]);
       return res.rows[0];
     })
     .catch((err)=> {
