@@ -54,11 +54,10 @@ module.exports = (db) => {
 
 //book, movie, eatery
     isItABook(userEntry)
-      .then(bookResult => {
-        if (bookResult) {
+      .then(result => {
+        if (result === 2) {
           console.log(`It is a book`)
-          //can we use the category names? better readibility
-          return 2;
+          return result;
         }
         return 4;
       })
@@ -67,23 +66,23 @@ module.exports = (db) => {
           return 2;
         }//end
         isItAMovie(userEntry)
-          .then(movieResult => {
-            if (movieResult) {
+          .then(result => {
+            if (result === 1) {
               console.log(`It is a movie`)
-              return 1;
+              return result;
             }
             return 4;
           })
       })
       .then(result => {
-        if (result !== 4) {
+        if (result === 1 || result === 2) {
           return result;
         }//end
         isItAnEatery(userEntry)
-          .then(eateryResult => {
-            if (eateryResult) {
+          .then(result => {
+            if (result === 3) {
               console.log(`It is an eatery`)
-              return 3;
+              return result;
             }
             return 4;
           })

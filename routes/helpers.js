@@ -29,7 +29,7 @@ const isItAMovie = function (userEntry) {
 
       if (movieTitle.length > 0) {
         console.log('IMBD found the title:', movieTitle)
-        res(true);
+        res(1); //this is the database category for movies, change to words for clarity/readability?
       } else {
         res(false);
       }
@@ -56,7 +56,7 @@ const isItABook = function (userEntry) {
 
       if (bookTitle.length > 0) {
         console.log('Google found the book title:',bookTitle)
-        res(true);
+        res(2); //database category code
       } else {
         res(false);
       }
@@ -114,7 +114,7 @@ const isItAnEatery = function (userEntry) {
           // console.log('firstresult',firstResult) //to see the restaurant's real location
           if (name.length > 0) {
             console.log('Yelp found the restaurant name:', name);
-            return true;
+            return 3; //database category code
           }
           return false;
         }).catch(error => {
