@@ -43,8 +43,8 @@ module.exports = (db) => {
 
     // ultimately get this object from Brandon's function. Item counts are strings there (I don't think I care since he's already sorted them?) but function throws errors
     const apiPriority = [
-      { id: 3, name: 'Movies', item_count: 4 },
-      { id: 1, name: 'Books', item_count: 3 },
+      { id: 3, name: 'Books', item_count: 4 },
+      { id: 1, name: 'Movies', item_count: 3 },
       { id: 2, name: 'Dining', item_count: 2 },
       { id: 4, name: 'Products', item_count: 1 }]
 
@@ -60,14 +60,14 @@ module.exports = (db) => {
             return result; //this will be 2
           }
           //If it wasn't a book, check if it was a movie (code 1). If yes, jump to next then
-          isItAMovie(userEntry)
+          return isItAMovie(userEntry)
             .then(result => {
               if (result === 1) {
                 console.log(`It is a movie`)
                 return result;
               }
               //If it wasn't a movie either, check if it was an eatery (code 3). If yes, jump to next then
-              isItAnEatery(userEntry)
+              return isItAnEatery(userEntry)
                 .then(result => {
                   if (result === 3) {
                     console.log(`It is an eatery`)
@@ -102,13 +102,13 @@ module.exports = (db) => {
             // console.log(`It is a book`)
             return result;
           }
-          isItAnEatery(userEntry)
+          return isItAnEatery(userEntry)
             .then(result => {
               if (result === 3) {
                 // console.log(`It is an eatery`)
                 return result;
               }
-              isItAMovie(userEntry)
+              return isItAMovie(userEntry)
                 .then(result => {
                   if (result === 1) {
                     // console.log(`It is a movie`)
@@ -188,13 +188,13 @@ module.exports = (db) => {
             // console.log(`It is a movie`)
             return result;
           }
-          isItAnEatery(userEntry)
+          return isItAnEatery(userEntry)
             .then(result => {
               if (result === 3) {
                 // console.log(`It is an eatery`)
                 return result;
               }
-              isItABook(userEntry)
+              return isItABook(userEntry)
                 .then(result => {
                   if (result === 2) {
                     // console.log(`It is a book`)
@@ -232,13 +232,13 @@ module.exports = (db) => {
             // console.log(`It is an eatery`)
             return result;
           }
-          isItABook(userEntry)
+          return isItABook(userEntry)
             .then(result => {
               if (result === 2) {
                 // console.log(`It is a book`)
                 return result;
               }
-              isItAMovie(userEntry)
+              return isItAMovie(userEntry)
                 .then(result => {
                   if (result === 1) {
                     // console.log(`It is a movie`)
@@ -271,13 +271,13 @@ module.exports = (db) => {
             // console.log(`It is an eatery`)
             return result;
           }
-          isItAMovie(userEntry)
+          return isItAMovie(userEntry)
             .then(result => {
               if (result === 1) {
                 // console.log(`It is a movie`)
                 return result;
               }
-              isItABook(userEntry)
+              return isItABook(userEntry)
                 .then(result => {
                   if (result === 2) {
                     // console.log(`It is a book`)
@@ -302,9 +302,6 @@ module.exports = (db) => {
         });
 
     }
-
-
-
   })
 
 
