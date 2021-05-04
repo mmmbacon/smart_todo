@@ -21,4 +21,5 @@ const assignCategoryFromKeyword = function(userEntry) {
 
 //test case
 
-console.log(assignCategoryFromKeyword('Watch burn after Reading'));
+console.log(assignCategoryFromKeyword('Watch burn after reading'));
+console.log(assignCategoryFromKeyword('Buy movie'));
