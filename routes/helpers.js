@@ -109,11 +109,12 @@ const isItAnEatery = function (userEntry) {
 
       return client.search(searchRequest)
         .then(response => {
-          const firstResult = response.jsonBody.businesses[0];
-          const name = firstResult.name;
-          // console.log('firstresult',firstResult) //to see the restaurant's real location
-          if (name.length > 0) {
-            console.log('Yelp found the restaurant name:', name);
+          let eateryName = '';
+          if (response.jsonBody.businesses[0].name) {
+            eateryName = response.jsonBody.businesses[0].name
+          }
+          if (eateryName.length > 0) {
+            console.log('Yelp found the restaurant name:', eateryName);
             return 3; //database category code
           }
           return false;
@@ -121,7 +122,6 @@ const isItAnEatery = function (userEntry) {
           console.log(error);
         });
     })
-
     .catch((data, status) => {
       console.log('Request failed');
     })
@@ -133,7 +133,7 @@ const isItAnEatery = function (userEntry) {
 //test code
 // isItAnEatery('do not say we have nothing')
 // .then(res => {
-//   // console.log('res:', res)
+//   console.log('res:', res)
 //   if (res) {
 //     console.log('yes, it is an eatery, add to database as an eatery')
 //   }
