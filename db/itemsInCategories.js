@@ -21,7 +21,7 @@ const itemsInCategories = function(userId, orderBy, direction) {
   GROUP BY categories.id, categories.name `;
 
   //Order By
-  if (!orderBy || (orderBy !== 'count' || orderBy !== 'name')) {
+  if (!orderBy) {
     queryString += `ORDER BY categories.id `;
   }
 
@@ -41,6 +41,8 @@ const itemsInCategories = function(userId, orderBy, direction) {
   if (direction === 'ASC') {
     queryString += `ASC;`;
   }
+
+  console.log(queryString);
 
   const params = [`${userId}`];
 
