@@ -10,9 +10,8 @@
 // });
 
 $(document).ready(function() {
-  let globalState = {
-    currentItemId: null,
-  };
+  // To carry item_id into the modal
+  let modalStateId = null;
 
   // Prevent cross-site scripting
   const escape = function(str) {
@@ -22,8 +21,8 @@ $(document).ready(function() {
   };
 
   // Assign category name to item based on id
-  const getCategoryName = function(category_id) {
-    switch (category_id) {
+  const getCategoryName = function(categoryId) {
+    switch (categoryId) {
     case 1:
       return '#watch-container';
     case 2:
@@ -32,10 +31,23 @@ $(document).ready(function() {
       return '#eat-container';
     case 4:
       return '#buy-container';
-        // Is there a scenario where an item may have a NULL category_id?
-        // default:
-          // return '#all';
     }
+  };
+
+  // Toggle completed checkbox
+  const checkboxClicked = function() {
+    const id = $(this).parent().parent().data('id');
+    const completed = $(this).is(':checked');
+
+    $.ajax({
+      url: `/users/1/items/${id}`,
+      method: 'PUT',
+      data: {
+        completed: completed,
+      }
+    }).catch((err) => {
+      console.log('Error: ', err);
+    });
   };
 
   // Create HTML to display each item
@@ -43,7 +55,7 @@ $(document).ready(function() {
     const displayItem = `
       <div id="item-container" class="list-item list-group-item list-group-item-action" data-id="${item.item_id}">
         <span>
-          <input class="form-check-input" type="checkbox">
+          <input class="form-check-input completed" type="checkbox" name="completed" id="item_${item.item_id}">
           <label class="form-check-label item" for="completed">${escape(item.item_description)}</label>
         </span>
         <span>
@@ -65,7 +77,16 @@ $(document).ready(function() {
       const category = getCategoryName(item.category_id);
       const $item = createItem(item);
       $(category).append($item);
+
+      // Check off completed items
+      if (item.completed) {
+        $(`#item_${item.item_id}`).prop('checked', true);
+      }
+
     }
+
+    // Listen for checkbox click
+    $('input[type=checkbox]').on('click', checkboxClicked);
   };
 
   // Display existing items on page load
@@ -104,9 +125,9 @@ $(document).ready(function() {
     });
   });
 
-  // Carry over item id
+  // Link item_id to item in container
   $('#category-container').on('click', '#item-container', function(event) {
-    globalState.currentItemId = event.currentTarget.dataset.id;
+    modalStateId = event.currentTarget.dataset.id;
   });
 
   // Delete item
@@ -114,7 +135,7 @@ $(document).ready(function() {
     event.preventDefault();
 
     $.ajax({
-      url: `/users/1/items/${globalState.currentItemId}`,
+      url: `/users/1/items/${modalStateId}`,
       method: 'DELETE',
     }).then((items) => {
       renderItems(items.items);
@@ -130,18 +151,20 @@ $(document).ready(function() {
     const completed = $('#edit-completed').is(':checked');
 
     $.ajax({
-      url: `/users/1/items/${globalState.currentItemId}`,
+      url: `/users/1/items/${modalStateId}`,
       method: 'PUT',
       data: {
         category_name: category,
         completed: completed,
       }
-    }).then((items) => {
-      renderItems(items.items);
+    }).then(() => {
+      console.log(category, completed);
+      loadItems();
       $('#editModal').modal('hide');
     }).catch((err) => {
       console.log('Error: ', err);
     });
   });
 });
+
 
