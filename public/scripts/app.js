@@ -1,14 +1,3 @@
-// $(() => {
-//   $.ajax({
-//     method: "GET",
-//     url: "/api/users"
-//   }).done((users) => {
-//     for(user of users) {
-//       $("<div>").text(user.name).appendTo($("body"));
-//     }
-//   });;
-// });
-
 $(document).ready(function() {
   // To carry item_id into the modal
   let modalStateId = null;
@@ -78,11 +67,10 @@ $(document).ready(function() {
       const $item = createItem(item);
       $(category).append($item);
 
-      // Check off completed items
+      // Set completed items to checked
       if (item.completed) {
         $(`#item_${item.item_id}`).prop('checked', true);
       }
-
     }
 
     // Listen for checkbox click
@@ -144,6 +132,29 @@ $(document).ready(function() {
     });
   });
 
+  // Pre-populate edit form
+  $(window).on('shown.bs.modal', function() {
+    $('#editModal').modal('show');
+    let isComplete = false;
+
+    $.ajax({
+      url: `/users/1/items/${modalStateId}`,
+      method: 'GET',
+    }).then((items) => {
+      $('input[name="edit-description"]').val(`${items.item.item_description}`);
+
+      $(`select#edit-category option[value="${items.item.category_name}"]`).attr('selected', 'selected');
+
+      if (items.item.completed) {
+        isComplete = true;
+      }
+
+      $('#edit-completed').prop('checked', isComplete);
+    }).catch((err) => {
+      console.log('Error: ', err);
+    });
+  });
+
   // Edit item
   $('#editItem').on('submit', function(event) {
     event.preventDefault();
@@ -158,7 +169,6 @@ $(document).ready(function() {
         completed: completed,
       }
     }).then(() => {
-      console.log(category, completed);
       loadItems();
       $('#editModal').modal('hide');
     }).catch((err) => {
