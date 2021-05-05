@@ -42,14 +42,10 @@ $(document).ready(function() {
   // Create HTML to display each item
   const createItem = function(item) {
     const displayItem = `
-      <div id="item-container" class="list-item list-group-item list-group-item-action" data-id="${item.item_id}">
-        <span>
+      <div class="item-container list-item list-group-item" data-id="${item.item_id}">
           <input class="form-check-input completed" type="checkbox" name="completed" id="item_${item.item_id}">
-          <label class="form-check-label item" for="completed">${escape(item.item_description)}</label>
-        </span>
-        <span>
-          <i class="fas fa-edit edit" data-bs-toggle="modal" data-bs-target="#editModal"></i>
-        </span>
+          <div class="flex-grow-1"><label class="form-check-label item" for="completed">${escape(item.item_description)}</label></div>
+          <i class="bi bi-pencil-square edit" data-bs-toggle="modal" data-bs-target="#editModal"></i>
       </div>
     `;
     return displayItem;
@@ -114,7 +110,7 @@ $(document).ready(function() {
   });
 
   // Link item_id to item in container
-  $('#category-container').on('click', '#item-container', function(event) {
+  $('#category-container').on('click', '.item-container', function(event) {
     modalStateId = event.currentTarget.dataset.id;
   });
 
