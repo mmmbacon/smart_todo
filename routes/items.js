@@ -54,13 +54,6 @@ module.exports = (db) => {
     }
     //Check the length of the user's list and query the corresponding APIs in order of longest to shortest list to get most relevant resonse. (For example, if a user enters "Lord of the Rings" and has 20 items on the movies list and 0 on the books, the user probably wants the movie.)
     itemsInCategories(request.params.userid, "count", "DESC").then((result) => {
-      // const apiPriority = [
-      //   { id: 3, name: "Dining", item_count: 2 },
-      //   { id: 1, name: "Books", item_count: 3 },
-      //   { id: 2, name: "Movies", item_count: 4 },
-      //   { id: 4, name: "Products", item_count: 1 },
-      // ];
-
       const pri = orderCategoriesByPopularity(result);
 
       if (+_.isEqual(pri, ["Books", "Dining", "Movies"])) {
