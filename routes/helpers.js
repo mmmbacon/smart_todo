@@ -3,7 +3,7 @@ const yelp = require("yelp-fusion"); //for use in isItDining
 const apiValidate = require("../helpers/apiValidate");
 
 //Check the user to-do against the IMBD database to determine if it's a movie
-const isItAMovie = function (userEntry) {
+const isItAMovie = function(userEntry) {
   const options = {
     method: "GET",
     url: `https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/${userEntry}`,
@@ -16,7 +16,7 @@ const isItAMovie = function (userEntry) {
   };
 
   return new Promise((res, rej) => {
-    request(options, function (error, response, body) {
+    request(options, function(error, response, body) {
       if (error) rej(error);
       if (JSON.parse(body).title) {
         const movieTitle = JSON.parse(body).title;
@@ -34,20 +34,36 @@ const isItAMovie = function (userEntry) {
 };
 
 // //test code
-// isItAMovie("jaws").then((res) => {
-//   // console.log('res:',res)
-//   if (res) {
-//     console.log("yes, it is a movie, add to database as a movie");
-//   }
-//   return;
-// });
+isItAMovie("jaws").then((res) => {
+  // console.log('res:',res)
+  if (res) {
+    console.log("yes, it is a movie, add to database as a movie");
+  }
+  return;
+});
+
+isItAMovie("Red Lobster").then((res) => {
+  // console.log('res:',res)
+  if (res) {
+    console.log("yes, it is a movie, add to database as a movie");
+  }
+  return;
+});
+
+isItAMovie("Taco Time").then((res) => {
+  // console.log('res:',res)
+  if (res) {
+    console.log("yes, it is a movie, add to database as a movie");
+  }
+  return;
+});
 
 //Check the user to-do against the Google Books database to determine if it's a book
-const isItABook = function (userEntry) {
+const isItABook = function(userEntry) {
   return new Promise((res, rej) => {
     request(
       `https://www.googleapis.com/books/v1/volumes?q=intitle:${userEntry}&key=${process.env.BOOK_KEY}`,
-      function (error, response, body) {
+      function(error, response, body) {
         if (error) rej(error);
 
         let bookTitle = "";
@@ -67,20 +83,44 @@ const isItABook = function (userEntry) {
 };
 
 //testcode
-// isItABook("zzzzzzzzzzzzzzzzz").then((res) => {
-//   // console.log('res:',res)
-//   if (res) {
-//     console.log("yes, it is a book, add to database as a book");
-//   }
-//   return;
-// });
+isItABook("The Joy of Cooking").then((res) => {
+  console.log('res:',res);
+  if (res) {
+    console.log("yes, it is a book, add to database as a book");
+  }
+  return;
+});
+
+isItABook("The Third Wave").then((res) => {
+  console.log('res:',res);
+  if (res) {
+    console.log("yes, it is a book, add to database as a book");
+  }
+  return;
+});
+
+isItABook("Taco Time").then((res) => {
+  console.log('res:',res);
+  if (res) {
+    console.log("yes, it is a book, add to database as a book");
+  }
+  return;
+});
+
+isItABook("Canadian Tire").then((res) => {
+  console.log('res:',res);
+  if (res) {
+    console.log("yes, it is a book, add to database as a book");
+  }
+  return;
+});
 
 //Get the user's location based on their IP address (used as a helper in isItDining)
-const getLocation = function () {
+const getLocation = function() {
   return new Promise((res, rej) => {
     request(
       "https://extreme-ip-lookup.com/json/",
-      function (error, response, body) {
+      function(error, response, body) {
         if (error) rej(error);
         const location = [];
         location.push(JSON.parse(body).city, JSON.parse(body).region);
@@ -92,7 +132,7 @@ const getLocation = function () {
 };
 
 //Check the user to-do against the yelp database to determine if it's a restaurant
-const isItDining = function (userEntry) {
+const isItDining = function(userEntry) {
   return getLocation()
     .then((res) => {
       return res;
@@ -114,7 +154,7 @@ const isItDining = function (userEntry) {
           let diningName = "";
           if (response.jsonBody.businesses[0]) {
             diningName = response.jsonBody.businesses[0].name;
-            const matchScore = apiValidate(userEntry, bookTitle);
+            const matchScore = apiValidate(userEntry, diningName);
             if (matchScore > 0.5) {
               console.log("Yelp found the restaurant name:", diningName);
               return "Dining";
@@ -132,13 +172,40 @@ const isItDining = function (userEntry) {
 };
 
 //test code
-// isItAndining('do not say we have nothing')
-// .then(res => {
-//   console.log('res:', res)
-//   if (res) {
-//     console.log('yes, it is an dining, add to database as an dining')
-//   }
-//   return;
-// })
+isItDining('Model Milk')
+  .then(res => {
+    console.log('res:', res);
+    if (res) {
+      console.log('yes, it is an dining, add to database as an dining');
+    }
+    return;
+  });
+
+isItDining('Red Lobster')
+  .then(res => {
+    console.log('res:', res);
+    if (res) {
+      console.log('yes, it is an dining, add to database as an dining');
+    }
+    return;
+  });
+
+isItDining('The Hidden Fox Cafe')
+  .then(res => {
+    console.log('res:', res);
+    if (res) {
+      console.log('yes, it is an dining, add to database as an dining');
+    }
+    return;
+  });
+
+isItDining('Pak Daang')
+  .then(res => {
+    console.log('res:', res);
+    if (res) {
+      console.log('yes, it is an dining, add to database as an dining');
+    }
+    return;
+  });
 
 module.exports = { isItAMovie, isItABook, isItDining };

@@ -2,10 +2,10 @@ const chai = require("chai");
 chai.should();
 const { isItAMovie } = require("../../routes/helpers");
 
-describe("helpers", function () {
+describe("helpers", function() {
   //happy path
-  it("should return Movies for Fellowship Of The Ring", () => {
-    return isItAMovie("Fellowship Of The Ring")
+  it("should return Movies for Fellowship Of The Ring", (done) => {
+    isItAMovie("Jaws")
       .then((res) => {
         res.should.equal("Movies");
         done();
@@ -15,8 +15,8 @@ describe("helpers", function () {
       });
   });
 
-  it("should return Movies for Amelie", () => {
-    return isItAMovie("Amelie")
+  it("should return Movies for Amelie", (done) => {
+    isItAMovie("Amelie")
       .then((res) => {
         res.should.equal("Movies");
         done();
@@ -27,8 +27,8 @@ describe("helpers", function () {
   });
 
   //unhappy path
-  it("should return false for keysmashad;iudaf;iudd", () => {
-    return isItAMovie("keysmashad;iudaf;iudd")
+  it("should return false for keysmashad;iudaf;iudd", (done) => {
+    isItAMovie("keysmashad;iudaf;iudd")
       .then((res) => {
         res.should.equal(false);
         done();
@@ -39,8 +39,8 @@ describe("helpers", function () {
   });
 });
 
-it("should return false for Do Not Say We Have Nothing (book)", () => {
-  return isItAMovie("Do Not Say We Have Nothing")
+it("should return false for Do Not Say We Have Nothing (book)", (done) => {
+  isItAMovie("Do Not Say We Have Nothing")
     .then((res) => {
       res.should.equal(false);
       done();
@@ -50,8 +50,8 @@ it("should return false for Do Not Say We Have Nothing (book)", () => {
     });
 });
 
-it("should return false for Murchie's (dining)", () => {
-  return isItAMovie("Murchie's")
+it("should return false for Murchie's (dining)", (done) => {
+  isItAMovie("Murchie's")
     .then((res) => {
       res.should.equal(false);
       done();
