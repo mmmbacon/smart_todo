@@ -54,24 +54,23 @@ module.exports = (db) => {
     }
     //Check the length of the user's list and query the corresponding APIs in order of longest to shortest list to get most relevant resonse. (For example, if a user enters "Lord of the Rings" and has 20 items on the movies list and 0 on the books, the user probably wants the movie.)
     itemsInCategories(request.params.userid, "count", "DESC").then((result) => {
-      const pri = orderCategoriesByPopularity(result);
-
-      if (+_.isEqual(pri, ["Books", "Dining", "Movies"])) {
+      const orderedCategories = orderCategoriesByPopularity(result);
+      if (+_.isEqual(orderedCategories, ["Books", "Dining", "Movies"])) {
         bdmOrder(userEntry, userId, response);
       }
-      if (+_.isEqual(pri, ["Books", "Movies", "Dining"])) {
+      if (+_.isEqual(orderedCategories, ["Books", "Movies", "Dining"])) {
         bmdOrder(userEntry, userId, response);
       }
-      if (+_.isEqual(pri, ["Movies", "Books", "Dining"])) {
+      if (+_.isEqual(orderedCategories, ["Movies", "Books", "Dining"])) {
         mbdOrder(userEntry, userId, response);
       }
-      if (+_.isEqual(pri, ["Movies", "Dining", "Books"])) {
+      if (+_.isEqual(orderedCategories, ["Movies", "Dining", "Books"])) {
         mdbOrder(userEntry, userId, response);
       }
-      if (+_.isEqual(pri, ["Dining", "Books", "Movies"])) {
+      if (+_.isEqual(orderedCategories, ["Dining", "Books", "Movies"])) {
         dbmOrder(userEntry, userId, response);
       }
-      if (+_.isEqual(pri, ["Dining", "Movies", "Books"])) {
+      if (+_.isEqual(orderedCategories, ["Dining", "Movies", "Books"])) {
         dmbOrder(userEntry, userId, response);
       }
 
