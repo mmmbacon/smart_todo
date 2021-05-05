@@ -46,11 +46,6 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-//Since it's an SPA, send the user back to the main page rather than giving them a 404 page
-app.get("/*", (req, res) => {
-  res.redirect("/");
-});
-
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
