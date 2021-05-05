@@ -1,25 +1,62 @@
 const chai = require("chai");
-const { isItAnEatery } = require("../../routes/helpers");
+chai.should();
+const { isItDining } = require("../../routes/helpers");
 
 describe("helpers", function () {
   //happy path
-  it("if you are in Victoria, should return Dining for murchie's", () => {
-    chai.assertEqual(isItAnEatery("murchie's"), "Dining");
+  it("If tester in Victoria, should return Dining for Murchie's", () => {
+    return isItDining("Murchie's")
+      .then((res) => {
+        res.should.equal("Dining");
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
   });
 
-  it("if you are in Victoria, should return Dining for the keg", () => {
-    chai.assertEqual(isItAnEatery("the keg"), "Dining");
+  it("If tester in Victoria, should return Dining for Cake Etc", () => {
+    return isItDining("Cake Etc")
+      .then((res) => {
+        res.should.equal("Dining");
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
   });
 
-  //sad path
-  it("if you are in Victoria, should return false for keysmashad;iudaf;iudd", () => {
-    chai.assertEqual(isItAnEatery("keysmashad;iudaf;iudd"), false);
+  //unhappy path
+  it("If tester in Victoria, should return false for keysmashad;iudaf;iudd", () => {
+    return isItDining("keysmashad;iudaf;iudd")
+      .then((res) => {
+        res.should.equal(false);
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
   });
+});
 
-  it("if you are in Victoria, should return false for do not say we have nothing (book)", () => {
-    chai.assertEqual(isItAnEatery("do not say we have nothing"), false);
-  });
-  it("if you are in Victoria, should return false for burn after reading (movie)", () => {
-    chai.assertEqual(isItAnEatery("burn after reading"), false);
-  });
+it("If tester in Victoria, should return false for Do Not Say We Have Nothing (book)", () => {
+  return isItDining("Do Not Say We Have Nothing")
+    .then((res) => {
+      res.should.equal(false);
+      done();
+    })
+    .catch((err) => {
+      done(err);
+    });
+});
+
+it("If tester in Victoria, should return false for Jaws (dining)", () => {
+  return isItDining("Jaws")
+    .then((res) => {
+      res.should.equal(false);
+      done();
+    })
+    .catch((err) => {
+      done(err);
+    });
 });

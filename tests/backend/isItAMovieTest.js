@@ -1,26 +1,62 @@
 const chai = require("chai");
+chai.should();
 const { isItAMovie } = require("../../routes/helpers");
 
 describe("helpers", function () {
   //happy path
-  it("should return Movies for fellowship of the ring", () => {
-    chai.assertEqual(isItAMovie("fellowship of the ring"), "Movies");
+  it("should return Movies for Fellowship Of The Ring", () => {
+    return isItAMovie("Fellowship Of The Ring")
+      .then((res) => {
+        res.should.equal("Movies");
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
   });
 
-  it("should return Movies for avatar", () => {
-    chai.assertEqual(isItAMovie("amelie"), "Movies");
+  it("should return Movies for Amelie", () => {
+    return isItAMovie("Amelie")
+      .then((res) => {
+        res.should.equal("Movies");
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
   });
 
-  //sad (?) path
+  //unhappy path
   it("should return false for keysmashad;iudaf;iudd", () => {
-    chai.assertEqual(isItAMovie("keysmashad;iudaf;iudd"), false);
+    return isItAMovie("keysmashad;iudaf;iudd")
+      .then((res) => {
+        res.should.equal(false);
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
   });
+});
 
-  it("should return false for murchie's (eatery)", () => {
-    chai.assertEqual(isItAMovie("murchie's"), false);
-  });
+it("should return false for Do Not Say We Have Nothing (book)", () => {
+  return isItAMovie("Do Not Say We Have Nothing")
+    .then((res) => {
+      res.should.equal(false);
+      done();
+    })
+    .catch((err) => {
+      done(err);
+    });
+});
 
-  it("should return false for do not say we have nothing (book)", () => {
-    chai.assertEqual(isItAMovie("do not say we have nothing"), false);
-  });
+it("should return false for Murchie's (dining)", () => {
+  return isItAMovie("Murchie's")
+    .then((res) => {
+      res.should.equal(false);
+      done();
+    })
+    .catch((err) => {
+      done(err);
+    });
 });
