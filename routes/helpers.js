@@ -94,6 +94,7 @@ const isItDining = function (userEntry) {
       const searchRequest = {
         term: userEntry,
         location: `${res[0]}, ${res[1]}`,
+        limit: 1,
       };
 
       const client = yelp.client(apiKey);
