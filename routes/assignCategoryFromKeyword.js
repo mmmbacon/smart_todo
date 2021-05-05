@@ -1,18 +1,17 @@
 const assignCategoryFromKeyword = function (userEntry) {
-  const userEntryNoCase = userEntry.toLowerCase();
-  const userEntryArray = userEntryNoCase.split(" ");
-  let category = null;
-
-  if (userEntryArray.includes("watch") || userEntryArray.includes("movie")) {
-    category = "Movies";
-  }
-  if (userEntryArray.includes("read") || userEntryArray.includes("book")) {
+  category = "";
+  if (userEntry.match(/book|read/)) {
     category = "Books";
   }
-  if (userEntryArray.includes("eat") || userEntryArray.includes("restaurant")) {
+
+  if (userEntry.match(/movie|watch/)) {
+    category = "Movies";
+  }
+
+  if (userEntry.match(/dining|eat/)) {
     category = "Dining";
   }
-  if (userEntryArray.includes("buy") || userEntryArray.includes("product")) {
+  if (userEntry.match(/product|buy/)) {
     category = "Products";
   }
   return category;
@@ -20,7 +19,7 @@ const assignCategoryFromKeyword = function (userEntry) {
 
 //test cases
 
-// console.log(assignCategoryFromKeyword('Watch burn after reading'));
-// console.log(assignCategoryFromKeyword('Buy movie'));
+// console.log(assignCategoryFromKeyword("burn after reading"));
+// console.log(assignCategoryFromKeyword("word reading"));
 
 module.exports = assignCategoryFromKeyword;

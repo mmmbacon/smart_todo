@@ -1,30 +1,62 @@
-const chai = require('chai');
-const { isItAMovie } = require('../../routes/helpers');
+const chai = require("chai");
+chai.should();
+const { isItAMovie } = require("../../routes/helpers");
 
-describe('helpers', function() {
+describe("helpers", function() {
   //happy path
-  it('should return true for fellowship of the ring', () => {
-    chai.assertEqual(isItAMovie('fellowship of the ring'),true)
+  it("should return Movies for Fellowship Of The Ring", (done) => {
+    isItAMovie("Jaws")
+      .then((res) => {
+        res.should.equal("Movies");
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
   });
 
-  it('should return true for avatar', () => {
-    chai.assertEqual(isItAMovie('amelie'),true)
+  it("should return Movies for Amelie", (done) => {
+    isItAMovie("Amelie")
+      .then((res) => {
+        res.should.equal("Movies");
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
   });
 
-  //sad (?) path
-  it('should return false for keysmashad;iudaf;iudd', () => {
-    chai.assertEqual(isItAMovie('keysmashad;iudaf;iudd'),false)
+  //unhappy path
+  it("should return false for keysmashad;iudaf;iudd", (done) => {
+    isItAMovie("keysmashad;iudaf;iudd")
+      .then((res) => {
+        res.should.equal(false);
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
   });
-
-  it('should return false for murchie\'s (eatery)', () => {
-    chai.assertEqual(isItAMovie('murchie\'s'),false)
-  });
-
-  it('should return false for do not say we have nothing (book)' , () => {
-    chai.assertEqual(isItAMovie('do not say we have nothing'),false)
-  });
-
 });
 
+it("should return false for Do Not Say We Have Nothing (book)", (done) => {
+  isItAMovie("Do Not Say We Have Nothing")
+    .then((res) => {
+      res.should.equal(false);
+      done();
+    })
+    .catch((err) => {
+      done(err);
+    });
+});
 
-
+it("should return false for Murchie's (dining)", (done) => {
+  isItAMovie("Murchie's")
+    .then((res) => {
+      res.should.equal(false);
+      done();
+    })
+    .catch((err) => {
+      done(err);
+    });
+});

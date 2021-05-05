@@ -1,17 +1,9 @@
-const request = require("request"); //for use in movies and books functions
-const yelp = require("yelp-fusion"); //for use in eateries api
+const request = require("request"); //for use isItAMovie and isItABook
+const yelp = require("yelp-fusion"); //for use in isItDining
+const apiValidate = require("../helpers/apiValidate");
 
-const sortCategories = function (object) {
-  //create an array of the keys
-  const categories = Object.keys(object);
-
-  //sort the key array from largest to smallest. If two are the same, it leaves them in the order they appear in the array, which is fine? because we no have no preference when we're using this to decide which api to consult first
-  const sortedCategories = categories.sort((a, b) => object[b] - object[a]);
-
-  return sortedCategories;
-};
-//Movie logic
-const isItAMovie = function (userEntry) {
+//Check the user to-do against the IMBD database to determine if it's a movie
+const isItAMovie = function(userEntry) {
   const options = {
     method: "GET",
     url: `https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/${userEntry}`,
@@ -24,41 +16,65 @@ const isItAMovie = function (userEntry) {
   };
 
   return new Promise((res, rej) => {
-    request(options, function (error, response, body) {
+    request(options, function(error, response, body) {
       if (error) rej(error);
       if (JSON.parse(body).title) {
         const movieTitle = JSON.parse(body).title;
-        console.log("IMBD found the title:", movieTitle);
-        res("Movies");
+        const matchScore = apiValidate(userEntry, movieTitle);
+        if (matchScore > 0.5) {
+          //keyword match between userinput and api return--api return contains ANY keywords. Something more complicated won't even work--we don't have enough control
+          console.log("IMBD found the title:", movieTitle);
+          res("Movies");
+        }
+        res(false);
       }
       res(false);
     });
   });
 };
 
-//test code
-// isItAMovie('do not say we have nothing')
-//   .then(res => {
-//     // console.log('res:',res)
-//     if (res) {
-//       console.log('yes, it is a movie, add to database as a movie')
-//     }
-//     return;
-//   })
+// //test code
+isItAMovie("jaws").then((res) => {
+  // console.log('res:',res)
+  if (res) {
+    console.log("yes, it is a movie, add to database as a movie");
+  }
+  return;
+});
 
-//Book logic
-const isItABook = function (userEntry) {
+isItAMovie("Red Lobster").then((res) => {
+  // console.log('res:',res)
+  if (res) {
+    console.log("yes, it is a movie, add to database as a movie");
+  }
+  return;
+});
+
+isItAMovie("Taco Time").then((res) => {
+  // console.log('res:',res)
+  if (res) {
+    console.log("yes, it is a movie, add to database as a movie");
+  }
+  return;
+});
+
+//Check the user to-do against the Google Books database to determine if it's a book
+const isItABook = function(userEntry) {
   return new Promise((res, rej) => {
     request(
       `https://www.googleapis.com/books/v1/volumes?q=intitle:${userEntry}&key=${process.env.BOOK_KEY}`,
-      function (error, response, body) {
+      function(error, response, body) {
         if (error) rej(error);
 
         let bookTitle = "";
         if (JSON.parse(body).items) {
           bookTitle = JSON.parse(body).items[0].volumeInfo.title;
-          console.log("Google found the book title:", bookTitle);
-          res("Books"); //database category code
+          const matchScore = apiValidate(userEntry, bookTitle);
+          if (matchScore > 0.5) {
+            console.log("Google found the book title:", bookTitle);
+            res("Books");
+          }
+          res(false);
         }
         res(false);
       }
@@ -67,20 +83,44 @@ const isItABook = function (userEntry) {
 };
 
 //testcode
-// isItABook("zzzzzzzzzzzzzzzzz").then((res) => {
-//   // console.log('res:',res)
-//   if (res) {
-//     console.log("yes, it is a book, add to database as a book");
-//   }
-//   return;
-// });
+isItABook("The Joy of Cooking").then((res) => {
+  console.log('res:',res);
+  if (res) {
+    console.log("yes, it is a book, add to database as a book");
+  }
+  return;
+});
 
-//dining logic
-const getLocation = function () {
+isItABook("The Third Wave").then((res) => {
+  console.log('res:',res);
+  if (res) {
+    console.log("yes, it is a book, add to database as a book");
+  }
+  return;
+});
+
+isItABook("Taco Time").then((res) => {
+  console.log('res:',res);
+  if (res) {
+    console.log("yes, it is a book, add to database as a book");
+  }
+  return;
+});
+
+isItABook("Canadian Tire").then((res) => {
+  console.log('res:',res);
+  if (res) {
+    console.log("yes, it is a book, add to database as a book");
+  }
+  return;
+});
+
+//Get the user's location based on their IP address (used as a helper in isItDining)
+const getLocation = function() {
   return new Promise((res, rej) => {
     request(
       "https://extreme-ip-lookup.com/json/",
-      function (error, response, body) {
+      function(error, response, body) {
         if (error) rej(error);
         const location = [];
         location.push(JSON.parse(body).city, JSON.parse(body).region);
@@ -91,20 +131,19 @@ const getLocation = function () {
   });
 };
 
-const isItDining = function (userEntry) {
-  //how to call this correctly?
+//Check the user to-do against the yelp database to determine if it's a restaurant
+const isItDining = function(userEntry) {
   return getLocation()
     .then((res) => {
-      // console.log('location array is', res)
       return res;
     })
     .then((res) => {
-      //from yelp api documentation starts here
       const apiKey = process.env.EATERY_KEY;
 
       const searchRequest = {
         term: userEntry,
         location: `${res[0]}, ${res[1]}`,
+        limit: 1,
       };
 
       const client = yelp.client(apiKey);
@@ -115,8 +154,11 @@ const isItDining = function (userEntry) {
           let diningName = "";
           if (response.jsonBody.businesses[0]) {
             diningName = response.jsonBody.businesses[0].name;
-            console.log("Yelp found the restaurant name:", diningName);
-            return "Dining"; //database category code
+            const matchScore = apiValidate(userEntry, diningName);
+            if (matchScore > 0.5) {
+              console.log("Yelp found the restaurant name:", diningName);
+              return "Dining";
+            }
           }
           return false;
         })
@@ -124,20 +166,46 @@ const isItDining = function (userEntry) {
           console.log(error);
         });
     })
-    .catch((data, status) => {
-      console.log("Request failed");
+    .catch((error) => {
+      console.log(error);
     });
-  //yelp docs code ends
 };
 
 //test code
-// isItAndining('do not say we have nothing')
-// .then(res => {
-//   console.log('res:', res)
-//   if (res) {
-//     console.log('yes, it is an dining, add to database as an dining')
-//   }
-//   return;
-// })
+isItDining('Model Milk')
+  .then(res => {
+    console.log('res:', res);
+    if (res) {
+      console.log('yes, it is an dining, add to database as an dining');
+    }
+    return;
+  });
 
-module.exports = { sortCategories, isItAMovie, isItABook, isItDining };
+isItDining('Red Lobster')
+  .then(res => {
+    console.log('res:', res);
+    if (res) {
+      console.log('yes, it is an dining, add to database as an dining');
+    }
+    return;
+  });
+
+isItDining('The Hidden Fox Cafe')
+  .then(res => {
+    console.log('res:', res);
+    if (res) {
+      console.log('yes, it is an dining, add to database as an dining');
+    }
+    return;
+  });
+
+isItDining('Pak Daang')
+  .then(res => {
+    console.log('res:', res);
+    if (res) {
+      console.log('yes, it is an dining, add to database as an dining');
+    }
+    return;
+  });
+
+module.exports = { isItAMovie, isItABook, isItDining };
