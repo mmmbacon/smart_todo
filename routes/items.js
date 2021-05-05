@@ -74,6 +74,14 @@ module.exports = (db) => {
       if (+_.isEqual(pri, ["Dining", "Movies", "Books"])) {
         dmbOrder(userEntry, userId, response);
       }
+
+      //if we decide to do yelp first always:
+      // if (+_.isEqual(pri, ["Books", "Movies"])) {
+      //   dbmOrder(userEntry, userId, response);
+      // }
+      // if (+_.isEqual(pri, ["Movies", "Books"])) {
+      //   dmbOrder(userEntry, userId, response);
+      // }
     });
   });
 
