@@ -41,16 +41,16 @@ describe('Get Item from Database', function() {
       });
   });
 
-  it('should contain the id, user_id, category_id, description, date_created, date_due, priority, and completed status', function(done) {
-
+  it('each item in the array should contain the expected properties', function(done) {
     getItem(userId, itemId)
       .then((res) => {
-        res.should.have.property('id');
-        res.should.have.property('user_id');
-        res.should.have.property('category_id');
-        res.should.have.property('description');
+        res.should.have.property('item_id');
+        res.should.have.property('item_description');
         res.should.have.property('date_created');
+        res.should.have.property('priority');
         res.should.have.property('completed');
+        res.should.have.property('category_id');
+        res.should.have.property('category_name');
         done();
       })
       .catch((err) => {
