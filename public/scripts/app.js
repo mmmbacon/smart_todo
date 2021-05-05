@@ -13,19 +13,19 @@ $(document).ready(function() {
   const getCategoryName = function(categoryId) {
     switch (categoryId) {
     case 1:
-      return '#watch-container';
+      return 'watch';
     case 2:
-      return '#read-container';
+      return 'read';
     case 3:
-      return '#eat-container';
+      return 'eat';
     case 4:
-      return '#buy-container';
+      return 'buy';
     }
   };
 
   // Toggle completed checkbox
   const checkboxClicked = function() {
-    const id = $(this).parent().parent().data('id');
+    const id = $(this).parent().data('id');
     const completed = $(this).is(':checked');
 
     $.ajax({
@@ -61,7 +61,7 @@ $(document).ready(function() {
     for (const item of items) {
       const category = getCategoryName(item.category_id);
       const $item = createItem(item);
-      $(category).append($item);
+      $(`#${category}-container`).append($item);
 
       // Set completed items to checked
       if (item.completed) {
@@ -101,9 +101,19 @@ $(document).ready(function() {
       url: '/users/1/items',
       method: 'POST',
       data: $(this).serialize(),
-    }).then(() => {
+    }).then((items) => {
+      const index = items.items.length - 1;
+      const newItemCategoryId = items.items[index].category_id;
+      newItemCateogry = getCategoryName(newItemCategoryId);
+
       loadItems();
       $('#new-item-text').val('').focus();
+
+      // Display message
+      $('#confirm').show().html(`<i class="far fa-check-circle"></i> The item was added to the <strong>${newItemCateogry}</strong> category.`);
+      setTimeout(function() {
+        $("#confirm").hide({}, 5000)
+      }, 5000);
     }).catch((err) => {
       console.log('Error: ', err);
     });
