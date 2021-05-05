@@ -98,11 +98,12 @@ module.exports = (db) => {
 
   //Edit individual item route
   router.put("/:userid/items/:itemid", (request, response) => {
+    console.log("request.body.item_description", request.body.item_description);
     updateItem(
       request.params.userid,
       request.params.itemid,
       request.body.category_name,
-      null,
+      request.body.item_description,
       request.body.completed,
       null,
       null
