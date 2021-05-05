@@ -110,10 +110,10 @@
           </div>
           <div class="modal-body">
             <form method="POST" action="/users/1/items" name="editItem" id="editItem">
+              <label for="new-item-text"></label>
+              <input type="text" name="edit-description" id="edit-description" class="form-control">
               <div class="input-group mb-3">
-                <select class="form-select" id="edit-category" name="edit-category"
-                  aria-label="Example select with button addon">
-                  <option selected value="">Select category</option>
+                <select class="form-select" id="edit-category" name="edit-category">
                   <option value="Movies">To watch</option>
                   <option value="Books">To read</option>
                   <option value="Dining">To eat</option>
