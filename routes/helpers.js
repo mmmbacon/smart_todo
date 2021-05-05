@@ -19,6 +19,7 @@ const isItAMovie = function (userEntry) {
       if (error) rej(error);
       if (JSON.parse(body).title) {
         const movieTitle = JSON.parse(body).title;
+        //keyword match between userinput and api return--api return contains ANY keywords. Something more complicated won't even work--we don't have enough control
         console.log("IMBD found the title:", movieTitle);
         res("Movies");
       }

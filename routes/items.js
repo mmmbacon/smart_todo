@@ -60,6 +60,9 @@ module.exports = (db) => {
         { id: 4, name: "Products", item_count: 1 },
       ];
 
+      //create function to make apipriotiry into simple array
+      //lodash to compare array
+
       if (
         apiPriority[0].name === "Books" &&
         apiPriority[1].name === "Dining" &&
