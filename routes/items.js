@@ -1,11 +1,13 @@
 const express = require("express");
+const _ = require("lodash");
 const allItems = require("../db/allItems");
 const createItem = require("../db/createItem");
 const updateItem = require("../db/updateItem");
-const assignCategoryFromKeyword = require("../routes/assignCategoryFromKeyword");
+const assignCategoryFromKeyword = require("../helpers/assignCategoryFromKeyword");
 const deleteItem = require("../db/deleteItem");
 const getItem = require("../db/getItem");
 const itemsInCategories = require("../db/itemsInCategories");
+const orderCategoriesByPopularity = require("../helpers/orderCategoriesByPopularity");
 
 const router = express.Router();
 const {
@@ -15,7 +17,7 @@ const {
   mdbOrder,
   dbmOrder,
   dmbOrder,
-} = require("./pathsHelpers");
+} = require("../helpers/apiOrdering");
 
 module.exports = (db) => {
   //////Get all items route
@@ -52,57 +54,31 @@ module.exports = (db) => {
     }
     //Check the length of the user's list and query the corresponding APIs in order of longest to shortest list to get most relevant resonse. (For example, if a user enters "Lord of the Rings" and has 20 items on the movies list and 0 on the books, the user probably wants the movie.)
     itemsInCategories(request.params.userid, "count", "DESC").then((result) => {
-      // console.log("result", result); FIXFIX
-      const apiPriority = [
-        { id: 3, name: "Movies", item_count: 2 },
-        { id: 1, name: "Books", item_count: 3 },
-        { id: 2, name: "Dining", item_count: 4 },
-        { id: 4, name: "Products", item_count: 1 },
-      ];
+      // const apiPriority = [
+      //   { id: 3, name: "Dining", item_count: 2 },
+      //   { id: 1, name: "Books", item_count: 3 },
+      //   { id: 2, name: "Movies", item_count: 4 },
+      //   { id: 4, name: "Products", item_count: 1 },
+      // ];
 
-      //create function to make apipriotiry into simple array
-      //lodash to compare array
+      const pri = orderCategoriesByPopularity(result);
 
-      if (
-        apiPriority[0].name === "Books" &&
-        apiPriority[1].name === "Dining" &&
-        apiPriority[2].name === "Movies"
-      ) {
+      if (+_.isEqual(pri, ["Books", "Dining", "Movies"])) {
         bdmOrder(userEntry, userId, response);
       }
-      if (
-        apiPriority[0].name === "Books" &&
-        apiPriority[1].name === "Movie" &&
-        apiPriority[2].name === "Dining"
-      ) {
+      if (+_.isEqual(pri, ["Books", "Movies", "Dining"])) {
         bmdOrder(userEntry, userId, response);
       }
-      if (
-        apiPriority[0].name === "Movies" &&
-        apiPriority[1].name === "Books" &&
-        apiPriority[2].name === "Dining"
-      ) {
+      if (+_.isEqual(pri, ["Movies", "Books", "Dining"])) {
         mbdOrder(userEntry, userId, response);
       }
-      if (
-        apiPriority[0].name === "Movies" &&
-        apiPriority[1].name === "Dining" &&
-        apiPriority[2].name === "Books"
-      ) {
+      if (+_.isEqual(pri, ["Movies", "Dining", "Books"])) {
         mdbOrder(userEntry, userId, response);
       }
-      if (
-        apiPriority[0].name === "Dining" &&
-        apiPriority[1].name === "Books" &&
-        apiPriority[2].name === "Movies"
-      ) {
+      if (+_.isEqual(pri, ["Dining", "Books", "Movies"])) {
         dbmOrder(userEntry, userId, response);
       }
-      if (
-        apiPriority[0].name === "Dining" &&
-        apiPriority[1].name === "Movies" &&
-        apiPriority[2].name === "Books"
-      ) {
+      if (+_.isEqual(pri, ["Dining", "Movies", "Books"])) {
         dmbOrder(userEntry, userId, response);
       }
     });
