@@ -138,6 +138,7 @@ $(document).ready(function() {
       }
     }).then((items) => {
       renderItems(items.items);
+      $('#editModal').modal('hide');
     }).catch((err) => {
       console.log('Error: ', err);
     });
