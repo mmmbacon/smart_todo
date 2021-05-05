@@ -1,5 +1,6 @@
 const request = require("request"); //for use isItAMovie and isItABook
 const yelp = require("yelp-fusion"); //for use in isItDining
+const apiValidate = require("../helpers/apiValidate");
 
 //Check the user to-do against the IMBD database to determine if it's a movie
 const isItAMovie = function (userEntry) {
@@ -19,24 +20,27 @@ const isItAMovie = function (userEntry) {
       if (error) rej(error);
       if (JSON.parse(body).title) {
         const movieTitle = JSON.parse(body).title;
-        //keyword match between userinput and api return--api return contains ANY keywords. Something more complicated won't even work--we don't have enough control
-        console.log("IMBD found the title:", movieTitle);
-        res("Movies");
+        const matchScore = apiValidate(userEntry, movieTitle);
+        if (matchScore > 0.5) {
+          //keyword match between userinput and api return--api return contains ANY keywords. Something more complicated won't even work--we don't have enough control
+          console.log("IMBD found the title:", movieTitle);
+          res("Movies");
+        }
+        res(false);
       }
       res(false);
     });
   });
 };
 
-//test code
-// isItAMovie('do not say we have nothing')
-//   .then(res => {
-//     // console.log('res:',res)
-//     if (res) {
-//       console.log('yes, it is a movie, add to database as a movie')
-//     }
-//     return;
-//   })
+// //test code
+// isItAMovie("jaws").then((res) => {
+//   // console.log('res:',res)
+//   if (res) {
+//     console.log("yes, it is a movie, add to database as a movie");
+//   }
+//   return;
+// });
 
 //Check the user to-do against the Google Books database to determine if it's a book
 const isItABook = function (userEntry) {
@@ -49,8 +53,12 @@ const isItABook = function (userEntry) {
         let bookTitle = "";
         if (JSON.parse(body).items) {
           bookTitle = JSON.parse(body).items[0].volumeInfo.title;
-          console.log("Google found the book title:", bookTitle);
-          res("Books"); //database category code
+          const matchScore = apiValidate(userEntry, bookTitle);
+          if (matchScore > 0.5) {
+            console.log("Google found the book title:", bookTitle);
+            res("Books");
+          }
+          res(false);
         }
         res(false);
       }
@@ -106,8 +114,11 @@ const isItDining = function (userEntry) {
           let diningName = "";
           if (response.jsonBody.businesses[0]) {
             diningName = response.jsonBody.businesses[0].name;
-            console.log("Yelp found the restaurant name:", diningName);
-            return "Dining";
+            const matchScore = apiValidate(userEntry, bookTitle);
+            if (matchScore > 0.5) {
+              console.log("Yelp found the restaurant name:", diningName);
+              return "Dining";
+            }
           }
           return false;
         })

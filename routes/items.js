@@ -54,9 +54,9 @@ module.exports = (db) => {
     itemsInCategories(request.params.userid, "count", "DESC").then((result) => {
       // console.log("result", result); FIXFIX
       const apiPriority = [
-        { id: 3, name: "Dining", item_count: 2 },
-        { id: 1, name: "Movies", item_count: 3 },
-        { id: 2, name: "Books", item_count: 4 },
+        { id: 3, name: "Movies", item_count: 2 },
+        { id: 1, name: "Books", item_count: 3 },
+        { id: 2, name: "Dining", item_count: 4 },
         { id: 4, name: "Products", item_count: 1 },
       ];
 
@@ -120,24 +120,8 @@ module.exports = (db) => {
       });
   });
 
-<<<<<<< HEAD
-  //Edit individual item
-  router.put("/:userid/items/:itemid", (req, res) => {
-    console.log("req.body", req.body);
-    console.log(
-      "updateItem inputs:",
-      req.params.userid,
-      req.params.itemid,
-      req.body.category_name,
-      null,
-      req.body.completed,
-      null,
-      null
-    );
-=======
   //Edit individual item route
   router.put("/:userid/items/:itemid", (request, response) => {
->>>>>>> vendorAPIs
     updateItem(
       request.params.userid,
       request.params.itemid,
