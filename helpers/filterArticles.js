@@ -9,8 +9,11 @@ const filteredArticles = function(sentence) {
   const articles = ['the', 'as', 'a'];
 
   if (sentence) {
-    const lowerCase = sentence.toLowerCase();
+    let cleaned = sentence.replace(/^\s+/, '');
+    cleaned = sentence.replace(/\s+$/, '');
+    const lowerCase = cleaned.toLowerCase();
     const splitSentence = lowerCase.split(' ');
+
     filtered = splitSentence.filter((word)=>{
       for (const article in articles) {
         if (word === article) {
