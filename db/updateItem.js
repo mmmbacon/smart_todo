@@ -27,7 +27,9 @@ const updateItem = function(userId, itemId, categoryName, description, completed
 
   if (categoryName) {
     params.push(`${categoryName}`); //Type integer
-    queryString += `${ params.length > 3 ? ', \n' : ' ' }category_id = $${params.length}`;
+    queryString += `${ params.length > 3 ? ', \n' : ' ' }category_id = (
+      SELECT id FROM categories WHERE name = $${params.length}
+    )`;
   }
 
   if (description) {
@@ -52,7 +54,7 @@ const updateItem = function(userId, itemId, categoryName, description, completed
 
   queryString += `
   WHERE items.user_id = $1
-  AND items.id = $2;`;
+  AND id = $2;`;
 
   return db.query(queryString, params)
     .then((res)=> {

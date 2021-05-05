@@ -1,6 +1,6 @@
 const { isItAMovie, isItABook, isItDining } = require("./helpers.js");
 const createItem = require("../db/createItem");
-const priority = null; //stretch
+const priority = null; //stretch FIXFIX
 
 //Call apis in this order: book then dining then movie
 const bdmOrder = function (userEntry, userId, response) {
@@ -8,20 +8,17 @@ const bdmOrder = function (userEntry, userId, response) {
   isItABook(userEntry)
     .then((result) => {
       if (result === "Books") {
-        // console.log(`It is a book`)
         return result;
       }
       return isItDining(userEntry).then((result) => {
         if (result === "Dining") {
-          // console.log(`It is an dining`)
           return result;
         }
         return isItAMovie(userEntry).then((result) => {
           if (result === "Movies") {
-            // console.log(`It is a movie`)
             return result;
           }
-          return 4;
+          return "Products";
         });
       });
     })
@@ -44,20 +41,17 @@ const bmdOrder = function (userEntry, userId, response) {
   isItABook(userEntry)
     .then((result) => {
       if (result === "Books") {
-        // console.log(`It is a book`)
         return result;
       }
       return isItAMovie(userEntry).then((result) => {
         if (result === "Movies") {
-          // console.log(`It is a movie`)
           return result;
         }
         return isItDining(userEntry).then((result) => {
           if (result === "Dining") {
-            // console.log(`It is an dining`)
             return result;
           }
-          return 4;
+          return "Products";
         });
       });
     })
@@ -93,7 +87,7 @@ const mbdOrder = function (userEntry, userId, response) {
           if (result === "Dining") {
             return result;
           }
-          return 4;
+          return "Products";
         });
       });
     })
@@ -117,20 +111,17 @@ const mdbOrder = function (userEntry, userId, response) {
   isItAMovie(userEntry)
     .then((result) => {
       if (result === "Movies") {
-        // console.log(`It is a movie`)
         return result;
       }
       return isItDining(userEntry).then((result) => {
         if (result === "Dining") {
-          // console.log(`It is an dining`)
           return result;
         }
         return isItABook(userEntry).then((result) => {
           if (result === "Books") {
-            // console.log(`It is a book`)
             return result;
           }
-          return 4;
+          return "Products";
         });
       });
     })
@@ -153,20 +144,17 @@ const dbmOrder = function (userEntry, userId, response) {
   isItDining(userEntry)
     .then((result) => {
       if (result === "Dining") {
-        // console.log(`It is an dining`)
         return result;
       }
       return isItABook(userEntry).then((result) => {
         if (result === "Books") {
-          // console.log(`It is a book`)
           return result;
         }
         return isItAMovie(userEntry).then((result) => {
           if (result === "Movies") {
-            // console.log(`It is a movie`)
             return result;
           }
-          return 4;
+          return "Products";
         });
       });
     })
@@ -189,20 +177,17 @@ const dmbOrder = function (userEntry, userId, response) {
   isItDining(userEntry)
     .then((result) => {
       if (result === "Dining") {
-        // console.log(`It is an dining`)
         return result;
       }
       return isItAMovie(userEntry).then((result) => {
         if (result === "Movies") {
-          // console.log(`It is a movie`)
           return result;
         }
         return isItABook(userEntry).then((result) => {
           if (result === "Books") {
-            // console.log(`It is a book`)
             return result;
           }
-          return 4;
+          return "Products";
         });
       });
     })
