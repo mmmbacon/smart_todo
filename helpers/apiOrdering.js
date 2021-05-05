@@ -1,4 +1,4 @@
-const { isItAMovie, isItABook, isItDining } = require("./helpers.js");
+const { isItAMovie, isItABook, isItDining } = require("./apiQueries.js");
 const createItem = require("../db/createItem");
 const priority = null; //stretch FIXFIX
 
