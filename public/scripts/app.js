@@ -158,6 +158,7 @@ $(document).ready(function() {
   // Edit item
   $('#editItem').on('submit', function(event) {
     event.preventDefault();
+    const description = $('#edit-description').val();
     const category = $('#edit-category').val();
     const completed = $('#edit-completed').is(':checked');
 
@@ -165,6 +166,7 @@ $(document).ready(function() {
       url: `/users/1/items/${modalStateId}`,
       method: 'PUT',
       data: {
+        item_description: description,
         category_name: category,
         completed: completed,
       }
