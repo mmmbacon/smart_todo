@@ -228,8 +228,12 @@ svg{
 
 // Drag and drop styles
 #item-container.ui-sortable-helper {
-
+  box-shadow: 3px 3px 8px rgba(0,0,0,0.8);
 }
 #item-container.ui-sortable-placeholder {
+  box-shadow: 3px 3px 8px rgba(0,0,0,0.8);
 
-  }
+}
+.connected-sortable {
+   min-height: 10vh;
+}
