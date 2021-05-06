@@ -1,31 +1,43 @@
-$(document).ready(function() {
+$(document).ready(function () {
+
+  //Set up drag and drop
+  $(init);
+
+  function init() {
+    //Bug alert!! Can't drag and drop if the list is empty
+    $("#read-container, #watch-container, #eat-container, #buy-container").sortable({
+      connectWith: ".connected-sortable",
+    }).disableSelection();
+  }
+
+
   // To carry item_id into the modal
   let modalStateId = null;
 
   // Prevent cross-site scripting
-  const escape = function(str) {
+  const escape = function (str) {
     let div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
   };
 
   // Assign category name to item based on id
-  const getCategoryName = function(categoryId) {
+  const getCategoryName = function (categoryId) {
     switch (categoryId) {
-    case 1:
-      return 'watch';
-    case 2:
-      return 'read';
-    case 3:
-      return 'eat';
-    case 4:
-      return 'buy';
+      case 1:
+        return '#watch-container';
+      case 2:
+        return '#read-container';
+      case 3:
+        return '#eat-container';
+      case 4:
+        return '#buy-container';
     }
   };
 
   // Toggle completed checkbox
-  const checkboxClicked = function() {
-    const id = $(this).parent().data('id');
+  const checkboxClicked = function () {
+    const id = $(this).parent().parent().data('id');
     const completed = $(this).is(':checked');
 
     $.ajax({
@@ -40,19 +52,23 @@ $(document).ready(function() {
   };
 
   // Create HTML to display each item
-  const createItem = function(item) {
+  const createItem = function (item) {
     const displayItem = `
-      <div class="item-container list-item list-group-item" data-id="${item.item_id}">
+      <div id="item-container" class="list-item list-group-item list-group-item-action" data-id="${item.item_id}">
+        <span>
           <input class="form-check-input completed" type="checkbox" name="completed" id="item_${item.item_id}">
-          <div class="flex-grow-1"><label class="form-check-label item" for="completed">${escape(item.item_description)}</label></div>
-          <i class="bi bi-pencil-square edit" data-bs-toggle="modal" data-bs-target="#editModal"></i>
+          <label class="form-check-label item" for="completed">${escape(item.item_description)}</label>
+        </span>
+        <span>
+          <i class="fas fa-edit edit" data-bs-toggle="modal" data-bs-target="#editModal"></i>
+        </span>
       </div>
     `;
     return displayItem;
   };
 
   // Place item in appropriate category container
-  const renderItems = function(items) {
+  const renderItems = function (items) {
     $('#watch-container').empty();
     $('#read-container').empty();
     $('#eat-container').empty();
@@ -61,7 +77,7 @@ $(document).ready(function() {
     for (const item of items) {
       const category = getCategoryName(item.category_id);
       const $item = createItem(item);
-      $(`#${category}-container`).append($item);
+      $(category).append($item);
 
       // Set completed items to checked
       if (item.completed) {
@@ -74,7 +90,7 @@ $(document).ready(function() {
   };
 
   // Display existing items on page load
-  const loadItems = function() {
+  const loadItems = function () {
     $.ajax('/users/1/items', {
       method: 'GET',
       dataType: 'JSON'
@@ -88,7 +104,7 @@ $(document).ready(function() {
   loadItems();
 
   // Add a new item
-  $('#newItem').on('submit', function(event) {
+  $('#newItem').on('submit', function (event) {
     event.preventDefault();
     $('#error').hide();
 
@@ -101,31 +117,21 @@ $(document).ready(function() {
       url: '/users/1/items',
       method: 'POST',
       data: $(this).serialize(),
-    }).then((items) => {
-      const index = items.items.length - 1;
-      const newItemCategoryId = items.items[index].category_id;
-      newItemCateogry = getCategoryName(newItemCategoryId);
-
+    }).then(() => {
       loadItems();
       $('#new-item-text').val('').focus();
-
-      // Display message
-      $('#confirm').show().html(`<i class="far fa-check-circle"></i> The item was added to the <strong>${newItemCateogry}</strong> category.`);
-      setTimeout(function() {
-        $("#confirm").hide({}, 5000)
-      }, 5000);
     }).catch((err) => {
       console.log('Error: ', err);
     });
   });
 
   // Link item_id to item in container
-  $('#category-container').on('click', '.item-container', function(event) {
+  $('#category-container').on('click', '#item-container', function (event) {
     modalStateId = event.currentTarget.dataset.id;
   });
 
   // Delete item
-  $('#delete').on('click', function(event) {
+  $('#delete').on('click', function (event) {
     event.preventDefault();
 
     $.ajax({
@@ -139,7 +145,7 @@ $(document).ready(function() {
   });
 
   // Pre-populate edit form
-  $(window).on('shown.bs.modal', function() {
+  $(window).on('shown.bs.modal', function () {
     $('#editModal').modal('show');
     let isComplete = false;
 
@@ -162,7 +168,7 @@ $(document).ready(function() {
   });
 
   // Edit item
-  $('#editItem').on('submit', function(event) {
+  $('#editItem').on('submit', function (event) {
     event.preventDefault();
     const description = $('#edit-description').val();
     const category = $('#edit-category').val();

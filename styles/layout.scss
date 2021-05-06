@@ -137,3 +137,11 @@ input[type=checkbox]:checked + div label.item {
   font-size: 55px;
   color: $primary;
 }
+
+// Drag and drop styles
+#item-container.ui-sortable-helper {
+
+}
+#item-container.ui-sortable-placeholder {
+
+  }
