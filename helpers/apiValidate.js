@@ -16,6 +16,8 @@ const apiValidate = function(query, queryResult) {
   const filteredQuery = filter(query);
   const filteredQueryResult = filter(queryResult);
 
+  console.log('line 19: filtered query result: ', filteredQueryResult);
+
   //Compare strings for matches
   for (const item1 of filteredQuery) {
     for (const item2 of filteredQueryResult) {
