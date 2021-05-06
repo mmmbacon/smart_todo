@@ -103,9 +103,10 @@ $(document).ready(function() {
 
     // Form validation: empty item
     if (!$('#new-item-text').val().trim()) {
-      return $('#error').show().html('<i class="fas fa-exclamation-triangle"></i><strong>Oops!</strong> You forgot to type something...');
+      $('#error').show(500).html('<i class="fas fa-exclamation-triangle"></i><strong>Oops!</strong> You forgot to type something...');
+      $('#error').delay(3000).hide(500);
+      return;
     }
-
     $.ajax({
       url: '/users/1/items',
       method: 'POST',
@@ -120,7 +121,7 @@ $(document).ready(function() {
 
       // Display confirmation message
       $('#confirm').show(500).html(`<i class="far fa-check-circle"></i> The item was added to the <strong>${newItemCategory}</strong> category.`);
-      $("#confirm").delay(3000).hide(1000);
+      $('#confirm').delay(3000).hide(500);
     }).catch((err) => {
       console.log('Error: ', err);
     });

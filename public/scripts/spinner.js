@@ -11,18 +11,12 @@ $(document)
     $loading.find('.progress-bar').addClass('visible progress-bar-rgb progress-bar-striped progress-bar-animated');
     $loading.find('.progress-bar').removeClass('invisible');
     $loading.find('.progress-bar').text('Waving the magic wand');
-    $loading.show(1000, function() {
-      $hippo.addClass('svg-rgb');
-    });
   })
   .ajaxStop(function() {
-
-    $loading.hide(1000, function() {
-      $loading.find('.progress-bar').removeClass('visible progress-bar-rgb progress-bar-striped progress-bar-animated');
-      $loading.find('.progress-bar').addClass('invisible');
-      $loading.find('.progress-bar').text('');
-      $hippo.removeClass('svg-rgb');
-    });
+    $loading.find('.progress-bar').removeClass('visible progress-bar-rgb progress-bar-striped progress-bar-animated');
+    $loading.find('.progress-bar').addClass('invisible');
+    $loading.find('.progress-bar').text('');
+    $hippo.removeClass('svg-rgb');
   });
 
-$('#progress-bar-container').append($loading);
+$('#alert-container').append($loading);
