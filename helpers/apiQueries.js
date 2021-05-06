@@ -143,7 +143,6 @@ const getLocation = function () {
         if (error) rej(error);
         const location = [];
         location.push(JSON.parse(body).city, JSON.parse(body).region);
-        // console.log('location', location);
         res(location);
       }
     );

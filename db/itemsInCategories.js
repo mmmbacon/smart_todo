@@ -7,7 +7,7 @@ const db = require('./db');
  * @param { string } direction The direction to filter (ASC = Ascending, DESC = Descending) Default: DESC
  * @returns { object } object holding all items and their counts, sorted by parameters 2 and 3
  */
-const itemsInCategories = function(userId, orderBy, direction) {
+const itemsInCategories = function (userId, orderBy, direction) {
 
   if (!userId) {
     return Promise.resolve([]);
@@ -42,15 +42,15 @@ const itemsInCategories = function(userId, orderBy, direction) {
     queryString += `ASC;`;
   }
 
-  console.log(queryString);
+  // console.log(queryString);
 
   const params = [`${userId}`];
 
   return db.query(queryString, params)
-    .then((res)=> {
+    .then((res) => {
       return res.rows;
     })
-    .catch((err)=> {
+    .catch((err) => {
       return err;
     });
 };
