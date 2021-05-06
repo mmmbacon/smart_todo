@@ -170,12 +170,8 @@ This isn't something to stress out about, keep coding away but find some time to
 
 ## Timeline
 
-0:00 - 0:30: Introductions
-  Brandon - Hi I'm Brandon. I come from a background in engineering and construction. 
-  Lily - Introduce yourself. 
-  Brianna 
 
-0:30 - 3:00: User Perspective
+0:00 - 3:30: User Perspective
 
   BM - Hold up, technical difficulties...
 
@@ -213,19 +209,19 @@ This isn't something to stress out about, keep coding away but find some time to
 
   L - Hey I noticed a typo in one of your existing items. Can you edit items?
 
-  B - No problem. That's an easy fix. I just click the little edit icon and change the name... While I'm in here I can also change the completed status if I like... or I can change the category. For example, maybe I want to buy Aladdin. (On VHS, if I'm you and still living in the stone age).... 
+  B - Yes, that's an easy fix. I just click the little edit icon and change the name... While I'm in here I can also change the category if I like--for example, maybe I want to buy Aladdin.... I can also change the completed status if I like... If I hit save... the lists update.
 
   BM - Edit the alladin description, category, and completion status. Save the item. 
 
   L - Hey I seen a deletion option in the edit window. 
 
-  B - Yes. Let's say I heard that Alladin was terrible and change my mind about buying it. I can take it off my list....Now that I'm not watching Aladdin, I have a hole in my Friday. Maybe I'll check out Hitchhikers Guide to the Galaxy'.
+  B - Yes. Let's say I heard that Alladin was terrible and change my mind about buying it. I can take it off my list....Now that I'm not watching Aladdin, I have a hole in my Friday. Maybe I'll add Hitchhikers Guide to the Galaxy'.
 
   BM - Delete Alladin item.
 
-  L - What if I wanted to read the book first?
+  L - Isn't that a movie and a book? How will it know which category to put it in?
 
-  B - You can edit it through the edit dialog that I showed you earlier, or just grab the item and drag it into a new category.
+  B - If the app finds that something is both a movie and book, it'll assign it to the category I use most often--assuming that if I have 20 movies on my list and 0 books, I probably like watching TV better than I like reading. If I actually did want the book, I can change the category through the edit dialog that I showed you earlier, or I can just grab the item and drag it into a new category.
 
   BM - Move hitchhikers guide into books.
 
