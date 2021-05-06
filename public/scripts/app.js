@@ -100,13 +100,22 @@ $(document).ready(function() {
   $('#newItem').on('submit', function(event) {
     event.preventDefault();
     $('#error').hide();
+    const newItem = $('#new-item-text').val();
 
     // Form validation: empty item
-    if (!$('#new-item-text').val().trim()) {
-      $('#error').show(500).html('<i class="fas fa-exclamation-triangle"></i><strong>Oops!</strong> You forgot to type something...');
+    if (!newItem.trim()) {
+      $('#error').show(500).html('<i class="fas fa-exclamation-triangle"></i>Oops! You forgot to type something.');
       $('#error').delay(3000).hide(500);
       return;
     }
+
+    // Form validation: character limit
+    if (newItem.length > 255) {
+      $('#error').show(500).html('<i class="fas fa-exclamation-triangle"></i>Oops! Your item is too long.');
+      $('#error').delay(3000).hide(500);
+      return;
+    }
+
     $.ajax({
       url: '/users/1/items',
       method: 'POST',
@@ -193,11 +202,7 @@ $(document).ready(function() {
 
   //Drag and drop
   $(".connected-sortable").sortable({
-
     receive: function(event, ui) {
-      // console.log('modal state id: ', event.target.dataset.id);
-      // console.log('i am here', 'event is', event, 'ui is', ui, 'event.target', event.target);
-
       let holder = null;
       if (event.target.id === 'read-container') {
         holder = "Books";
@@ -218,8 +223,6 @@ $(document).ready(function() {
         data: {
           category_name: holder,
         }
-      }).then(() => {
-        // loadItems();
       }).catch((err) => {
         console.log('Error: ', err);
       });
