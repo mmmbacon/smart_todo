@@ -4,13 +4,12 @@ VALUES
 (1, 3, 'Drink a cappucino',                               now(), false ),
 (1, 4, 'Buy a new sofa',                                  now(), false ),
 (1, 2, 'Read The Hobbit',                                 now(), false ),
-(1, 1, 'Watch Aladdin on Disney Plus',                    now(), false ),
+(1, 1, 'Watch Alladin on Disney Plus',                    now(), false ),
 (1, 3, 'Drink bubble tea',                               now(), false ),
 (1, 4, 'Get that Vacuum mom mentioned',                   now(), false ),
 (1, 4, 'new watch',                                       now(), false ),
 (1, 4, 'new hat',                                         now(), false ),
 (1, 4, 'new socks',                                       now(), false ),
 (1, 4, 'Shoes',                                           now(), false ),
-(1, 2, 'Hitchhikers Guide to the Galaxy',                 now(), false ),
 (1, 2, 'The big hungry bear',                             now(), false );
 

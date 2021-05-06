@@ -171,13 +171,17 @@ This isn't something to stress out about, keep coding away but find some time to
 ## Timeline
 
 0:00 - 0:30: Introductions
-  Brandon
-  Brianna
-  Lily
+  Brandon - Hi I'm Brandon. I come from a background in engineering and construction. 
+  Lily - Introduce yourself. 
+  Brianna 
 
 0:30 - 3:00: User Perspective
 
-  B - Hey Lily, have you seen that new movie on Netflix called Mitchell's versus the Machines?
+  BM - Hold up, technical difficulties...
+
+  Awkard silence.
+
+  B - Well While we are waiting... Lily, have you seen that new movie on Netflix called Mitchell's versus the Machines?
 
   L - No, I haven't, but that sounds SUPER interesting. Let me just write this down on my trusty old pen and paper.
 
