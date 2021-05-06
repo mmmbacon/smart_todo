@@ -25,7 +25,6 @@ module.exports = (db) => {
       .catch((error) => {
         console.log(error);
         response.status(500).json({ error: error.message });
-        //should figure out how to trigger this for testing
       });
   });
 
@@ -79,7 +78,6 @@ module.exports = (db) => {
 
     //Convenience variables for params and user input. If the user doesn't set description or completed, set the variables to null so the updateItem function will run OK
     const userId = request.params.userid;
-    //BUG ALERT! BUG ALERT! FIXFIX: the itemId is coming in as null from drag and drop editing, so the database isn't updating with the proper category.
     const itemId = request.params.itemid;
     const categoryName = request.body.category_name ? request.body.category_name : null;
     const description = request.body.item_description ? request.body.item_description : null;

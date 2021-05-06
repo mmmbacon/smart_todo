@@ -32,7 +32,6 @@ const isItAMovie = function (userEntry) {
         );
 
         if (matchScore > querySensitivity) {
-          //keyword match between userinput and api return--api return contains ANY keywords. Something more complicated won't even work--we don't have enough control
           console.log("IMBD found the title:", movieTitle);
           res("Movies");
         }

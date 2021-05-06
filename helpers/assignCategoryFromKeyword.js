@@ -20,6 +20,6 @@ const assignCategoryFromKeyword = function (userEntry) {
 //test cases
 
 // console.log(assignCategoryFromKeyword("burn after reading"));
-console.log(assignCategoryFromKeyword("ReAd the hobbit"));
+// console.log(assignCategoryFromKeyword("ReAd the hobbit"));
 
 module.exports = assignCategoryFromKeyword;

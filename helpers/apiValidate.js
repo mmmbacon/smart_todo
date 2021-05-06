@@ -6,7 +6,7 @@ const filter = require("./filterArticles");
  * @param {array}} queryResult The result from the API
  * @returns {number} Score between 0 and n
  */
-const apiValidate = function(query, queryResult) {
+const apiValidate = function (query, queryResult) {
   if (!query || !queryResult) {
     return undefined;
   }
@@ -21,17 +21,17 @@ const apiValidate = function(query, queryResult) {
   //Compare strings for matches
   for (const item1 of filteredQuery) {
     for (const item2 of filteredQueryResult) {
-      console.log('item1: ', item1, 'item2: ', item2);
+      // console.log('item1: ', item1, 'item2: ', item2);
       if (item1 === item2) {
         score++;
       }
     }
   }
 
-  console.log('Computed Match Score: ', score);
-  console.log('Query: ', filteredQuery);
-  console.log('Query Result Length: ', filteredQueryResult.length);
-  console.log('Query Result: ', filteredQueryResult);
+  // console.log('Computed Match Score: ', score);
+  // console.log('Query: ', filteredQuery);
+  // console.log('Query Result Length: ', filteredQueryResult.length);
+  // console.log('Query Result: ', filteredQueryResult);
 
   //Return a normalized score
   return score / filteredQueryResult.length;

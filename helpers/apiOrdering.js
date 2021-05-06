@@ -1,6 +1,6 @@
 const { isItAMovie, isItABook, isItDining } = require("./apiQueries.js");
 const createItem = require("../db/createItem");
-const priority = null; //stretch FIXFIX
+const priority = null; //stretch
 
 //Call apis in this order: dining then book then movie
 const dbmOrder = function (userEntry, userId, response) {
