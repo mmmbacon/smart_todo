@@ -153,7 +153,7 @@ const getLocation = function () {
 
 //Check the user to-do against the yelp database to determine if it's a restaurant
 const isItDining = function (userEntry) {
-  const querySensitivity = 0.5;
+  const querySensitivity = 0.3;
 
   return getLocation()
     .then((res) => {

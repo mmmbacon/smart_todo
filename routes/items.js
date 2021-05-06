@@ -11,10 +11,6 @@ const orderCategoriesByPopularity = require("../helpers/orderCategoriesByPopular
 
 const router = express.Router();
 const {
-  bdmOrder,
-  bmdOrder,
-  mbdOrder,
-  mdbOrder,
   dbmOrder,
   dmbOrder,
 } = require("../helpers/apiOrdering");

@@ -1,5 +1,3 @@
-const _ = require("lodash");
-
 const orderCategoriesByPopularity = function (object) {
   const orderedCategoriesArray = [];
 
