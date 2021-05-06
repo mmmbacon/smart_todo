@@ -78,8 +78,8 @@ $(document).ready(function() {
     $.ajax('/users/1/items', {
       method: 'GET',
       dataType: 'JSON'
-    }).then((items) => {
-      renderItems((items.items));
+    }).then(({ items }) => {
+      renderItems((items));
     }).catch((err) => {
       console.log('Error: ', err);
     });
@@ -101,9 +101,9 @@ $(document).ready(function() {
       url: '/users/1/items',
       method: 'POST',
       data: $(this).serialize(),
-    }).then((items) => {
-      const index = items.items.length - 1;
-      const newItemCategoryId = items.items[index].category_id;
+    }).then((item) => {
+      const index = items.length - 1;
+      const newItemCategoryId = items[index].category_id;
       newItemCateogry = getCategoryName(newItemCategoryId);
 
       loadItems();
@@ -140,22 +140,20 @@ $(document).ready(function() {
 
   // Pre-populate edit form
   $(window).on('shown.bs.modal', function() {
-    $('#editModal').modal('show');
-    let isComplete = false;
+    // Reset category selection
+    $(`select#edit-category option`).removeAttr('selected');
 
     $.ajax({
       url: `/users/1/items/${modalStateId}`,
       method: 'GET',
-    }).then((items) => {
-      $('input[name="edit-description"]').val(`${items.item.item_description}`);
+    }).then(({ item }) => {
+      $('input[name="edit-description"]').val(`${item.item_description}`);
 
-      $(`select#edit-category option[value="${items.item.category_name}"]`).attr('selected', 'selected');
+      $(`select#edit-category option[value="${item.category_name}"]`).attr('selected', 'selected');
 
-      if (items.item.completed) {
-        isComplete = true;
-      }
+      $('#edit-completed').prop('checked', item.completed);
 
-      $('#edit-completed').prop('checked', isComplete);
+      $('#editModal').modal('show');
     }).catch((err) => {
       console.log('Error: ', err);
     });
