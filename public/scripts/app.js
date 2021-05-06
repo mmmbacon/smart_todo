@@ -119,7 +119,7 @@ $(document).ready(function() {
       $('#new-item-text').val('').focus();
 
       // Display confirmation message
-      $('#confirm').show().html(`<i class="far fa-check-circle"></i> The item was added to the <strong>${newItemCateogry}</strong> category.`);
+      $('#confirm').show().html(`<i class="far fa-check-circle"></i> The item was added to the <strong>${newItemCategory}</strong> category.`);
       setTimeout(function() {
         $("#confirm").hide({}, 5000);
       }, 5000);
