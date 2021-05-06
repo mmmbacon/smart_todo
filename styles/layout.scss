@@ -65,6 +65,10 @@ i.fas {
   justify-content: space-between;
 }
 
+.list-group {
+  padding-bottom: 10px;
+}
+
 i.edit {
   padding: 0 0 0 .75em;
   font-size: 1.15em;
@@ -110,6 +114,7 @@ input[type=checkbox]:checked + div label.item {
 
 svg{
   fill: #363537;
+  filter: drop-shadow(2px 2px 8px rgba(0,0,0,0.2));
 }
 
 .svg-rgb{
@@ -152,27 +157,32 @@ svg{
   14% {
     fill: #a82def;
     stroke: #a82def;
+    transform: rotate(-5deg);
   }
   28% {
     fill: #ef2d56;
     stroke: #ef2d56;
+    transform: rotate(5deg);
   }
   42% {
     fill: #ed7d3a;
     stroke: #ed7d3a;
+    transform: rotate(-5deg);
   }
   56% {
     fill: #8cd867;
     stroke: #8cd867;
-    transform: rotate(-5deg);
+    transform: rotate(5deg);
   }
   70% {
     fill: #2fbf71;
     stroke: #2fbf71;
+    transform: rotate(-5deg);
   }
   84% {
     fill: #2f61bf;
     stroke: #2f61bf;
+    transform: rotate(5deg);
   }
   100% {
     fill: #363537;
@@ -222,6 +232,8 @@ svg{
 
 #logo {
   font-family: 'Sniglet', cursive;
-  font-size: 55px;
+  font-size: 65px;
   color: $primary;
+  margin-left: -10px;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
 }
