@@ -76,7 +76,7 @@ i.edit {
   }
 }
 
-input[type=checkbox]:checked + div.label.item {
+input[type=checkbox]:checked + div label.item {
   text-decoration: line-through;
 }
 
