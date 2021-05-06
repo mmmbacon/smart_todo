@@ -9,11 +9,7 @@ const filteredArticles = function(sentence) {
   const articles = ['the', 'as', 'a'];
 
   if (sentence) {
-    let cleaned = sentence.replace(/-/, ''); //Remove hyphens
-    cleaned     = sentence.replace(/\'/, ''); //Remove apostrophe
-    console.log(cleaned);
-    cleaned     = sentence.replace(/^\s+/, ''); //Remove Leading Spaces
-    cleaned     = sentence.replace(/\s+$/, ''); //Remove Trailing Spaces
+    let cleaned = sentence.replace(/-|'|^\s+|\s+$/, ''); //Remove hyphens, apostrophes, leading and trailing spaces
 
     const lowerCase = cleaned.toLowerCase();
     const splitSentence = lowerCase.split(' '); //Array of words
