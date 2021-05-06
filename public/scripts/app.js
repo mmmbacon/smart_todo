@@ -101,15 +101,15 @@ $(document).ready(function() {
       url: '/users/1/items',
       method: 'POST',
       data: $(this).serialize(),
-    }).then((item) => {
-      const index = items.length - 1;
-      const newItemCategoryId = items[index].category_id;
+    }).then((items) => {
+      const index = items.items.length - 1;
+      const newItemCategoryId = items.items[index].category_id;
       newItemCateogry = getCategoryName(newItemCategoryId);
 
       loadItems();
       $('#new-item-text').val('').focus();
 
-      // Display message
+      // Display confirmation message
       $('#confirm').show().html(`<i class="far fa-check-circle"></i> The item was added to the <strong>${newItemCateogry}</strong> category.`);
       setTimeout(function() {
         $("#confirm").hide({}, 5000)
@@ -182,5 +182,3 @@ $(document).ready(function() {
     });
   });
 });
-
-
