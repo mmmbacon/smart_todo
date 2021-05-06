@@ -181,10 +181,6 @@ This isn't something to stress out about, keep coding away but find some time to
 
   Awkard silence.
 
-  B - Well While we are waiting... Lily, have you seen that new movie on Netflix called Mitchell's versus the Machines?
-
-awkward silence
-
   B - Wellllll, while we're waiting, Lily, have you seen that new movie on Netflix called Mitchell's versus the Machines?
 
   L - No, Brianna, I haven't, but that sounds SUPER interesting. Let me just write this down with my trusty old pen and paper.
@@ -193,29 +189,27 @@ awkward silence
 
   L - Well what do you use? 
 
-  B - I am SO glad you asked. I just found this new app called Hippo. It's a super smart todo list thatwill automatically sort tasks into categories. 
+  B - I am SO glad you asked. I just found this new app called Hippo. It's a super smart todo list that'll automatically sort tasks into categories. 
 
   BM - Screenshare
 
   L - I don't believe it. 
 
-  B - Let me show you how it works. All I need to do is type in the name of something I want to watch, read, eat or purchase, and the app will automatically categorize the item.
-
-  B - If I type in Mitchell's vs the Machines and submit... The app will automatically figure out what category the item belongs in and add it.
+  B - Let me show you how it works. All I need to do is type in the name of something I want to watch, read, eat or buy, and the app will automatically categorize the item. For example, if I type in Mitchell's vs the Machines and hit the add new item button... The app will automatically figure out what category the item belongs in and add it.
 
   BM - Type out and submit entry WATCH Mitchell's vs the Machines. 
   
-    (correct) Wait for the API to return. - "Wow! look at that dancing hippo." Note the dancing hippo
+    (correct) Wait for the API to return. - "Wow! look at that dancing hippo." Only Lily gets to talk about the dancing hippo
 
   L - You put the word watch there, that seems like cheating, so...
 
-  B - Here, I'll put in a restaraunt this time. How about red lobtser?
+  B - Here, I'll put in a restaraunt this time. How about Red Lobster?
 
   BM - Type out and submit entry Red Lobster. 
 
-  B - (Note the dancing hippo) There, it still works.
+  B -  There, it still works.
 
-    (correct) Wait for the API to return. - "Wow! look at that dancing hippo."
+    (correct) Wait for the API to return. - "Wow! look at that dancing hippo." Only Lily will talk about the dancing hippo
 
   L - Hey I noticed a typo in one of your existing items. Can you edit items?
 
@@ -225,13 +219,9 @@ awkward silence
 
   L - Hey I seen a deletion option in the edit window. 
 
-  B - Yes. Let's say I heard that Alladin was terrible and change my mind about buying it. I can take it off my list.
+  B - Yes. Let's say I heard that Alladin was terrible and change my mind about buying it. I can take it off my list....Now that I'm not watching Aladdin, I have a hole in my Friday. Maybe I'll check out Hitchhikers Guide to the Galaxy'.
 
   BM - Delete Alladin item.
-
-  B - Now that I'm not watching Aladdin, I have a hole in my Friday. Maybe I'll check out Hitchhikers Guide to the Galaxy'. 
-
-  (incorrect) Wait for the API to return.
 
   L - What if I wanted to read the book first?
 
