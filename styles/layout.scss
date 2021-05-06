@@ -1,11 +1,11 @@
 // See: https://sass-lang.com/
 
-body {
-  background-color: #EEE;
+@import 'variables';
 
-  h1 {
-    color: #244751;
-  }
+body {
+  background-color: #eee;
+  color: $primary;
+  font-family: 'Montserrat', sans-serif;
 }
 
 main {
@@ -14,11 +14,48 @@ main {
   padding: 2em;
 }
 
+/* Add new item styles */
+
+#new-item {
+  margin: 0;
+  padding: 0;
+}
+
+#new-item-text {
+  margin-right: .5em;
+}
+
 #error {
   display: none;
 }
 
-/* Whitespace after Font Awesome icons */
+#confirm {
+  display: none;
+}
+
+/* Category header styles */
+
+.active {
+  border: none;
+}
+
+#watch {
+  background-color: $to_watch;
+}
+
+#read {
+  background-color:$to_read;
+}
+
+#eat {
+  background-color: $to_eat;
+}
+
+#buy {
+  background-color:$to_buy;
+}
+
+/* List item styles */
 i.fas {
   padding-right: .75em;
 }
@@ -30,16 +67,37 @@ i.fas {
 
 i.edit {
   padding: 0 0 0 .75em;
+  font-size: 1.15em;
 
   &:hover {
-    color: #ff0000;
+    color: $light;
     cursor: pointer;
+    font-size: 1.15em;
   }
 }
 
-input[type=checkbox]:checked + label.item{
+input[type=checkbox]:checked + div label.item {
   text-decoration: line-through;
+}
+
+.form-check-label {
+  padding-left: 10px;
+}
+
+.form-check-input {
+  min-width: 1.15em;
+  min-height: 1.15em;
+
+  &:checked {
+    background-color: $light;
+    color: #fff;
+    min-width: 1.15em;
+    min-height: 1.15em;
+    border: none;
   }
+}
+
+/* Modal styles */
 
 .modal-footer {
   display: flex;
@@ -133,4 +191,37 @@ svg{
   100% {
     transform: rotate(5deg)
   }
+}
+/* Button styles */
+
+.btn-outline-primary {
+  border-color: $primary;
+  color: $primary;
+
+  &:hover {
+    background-color: $primary;
+  }
+}
+
+.btn-primary {
+  border-color: $primary;
+  background-color: $primary;
+
+  &:hover {
+    border-color: $light;
+    background-color: $light;
+  }
+}
+
+/* Nav styles */
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+#logo {
+  font-family: 'Sniglet', cursive;
+  font-size: 55px;
+  color: $primary;
 }

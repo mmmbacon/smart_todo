@@ -1,14 +1,3 @@
-// $(() => {
-//   $.ajax({
-//     method: "GET",
-//     url: "/api/users"
-//   }).done((users) => {
-//     for(user of users) {
-//       $("<div>").text(user.name).appendTo($("body"));
-//     }
-//   });;
-// });
-
 $(document).ready(function() {
   // To carry item_id into the modal
   let modalStateId = null;
@@ -24,19 +13,19 @@ $(document).ready(function() {
   const getCategoryName = function(categoryId) {
     switch (categoryId) {
     case 1:
-      return '#watch-container';
+      return 'watch';
     case 2:
-      return '#read-container';
+      return 'read';
     case 3:
-      return '#eat-container';
+      return 'eat';
     case 4:
-      return '#buy-container';
+      return 'buy';
     }
   };
 
   // Toggle completed checkbox
   const checkboxClicked = function() {
-    const id = $(this).parent().parent().data('id');
+    const id = $(this).parent().data('id');
     const completed = $(this).is(':checked');
 
     $.ajax({
@@ -53,14 +42,10 @@ $(document).ready(function() {
   // Create HTML to display each item
   const createItem = function(item) {
     const displayItem = `
-      <div id="item-container" class="list-item list-group-item list-group-item-action" data-id="${item.item_id}">
-        <span>
+      <div class="item-container list-item list-group-item" data-id="${item.item_id}">
           <input class="form-check-input completed" type="checkbox" name="completed" id="item_${item.item_id}">
-          <label class="form-check-label item" for="completed">${escape(item.item_description)}</label>
-        </span>
-        <span>
-          <i class="fas fa-edit edit" data-bs-toggle="modal" data-bs-target="#editModal"></i>
-        </span>
+          <div class="flex-grow-1"><label class="form-check-label item" for="completed">${escape(item.item_description)}</label></div>
+          <i class="bi bi-pencil-square edit" data-bs-toggle="modal" data-bs-target="#editModal"></i>
       </div>
     `;
     return displayItem;
@@ -76,13 +61,12 @@ $(document).ready(function() {
     for (const item of items) {
       const category = getCategoryName(item.category_id);
       const $item = createItem(item);
-      $(category).append($item);
+      $(`#${category}-container`).append($item);
 
-      // Check off completed items
+      // Set completed items to checked
       if (item.completed) {
         $(`#item_${item.item_id}`).prop('checked', true);
       }
-
     }
 
     // Listen for checkbox click
@@ -117,16 +101,26 @@ $(document).ready(function() {
       url: '/users/1/items',
       method: 'POST',
       data: $(this).serialize(),
-    }).then(() => {
+    }).then((items) => {
+      const index = items.items.length - 1;
+      const newItemCategoryId = items.items[index].category_id;
+      newItemCateogry = getCategoryName(newItemCategoryId);
+
       loadItems();
       $('#new-item-text').val('').focus();
+
+      // Display message
+      $('#confirm').show().html(`<i class="far fa-check-circle"></i> The item was added to the <strong>${newItemCateogry}</strong> category.`);
+      setTimeout(function() {
+        $("#confirm").hide({}, 5000)
+      }, 5000);
     }).catch((err) => {
       console.log('Error: ', err);
     });
   });
 
   // Link item_id to item in container
-  $('#category-container').on('click', '#item-container', function(event) {
+  $('#category-container').on('click', '.item-container', function(event) {
     modalStateId = event.currentTarget.dataset.id;
   });
 
@@ -144,9 +138,33 @@ $(document).ready(function() {
     });
   });
 
+  // Pre-populate edit form
+  $(window).on('shown.bs.modal', function() {
+    $('#editModal').modal('show');
+    let isComplete = false;
+
+    $.ajax({
+      url: `/users/1/items/${modalStateId}`,
+      method: 'GET',
+    }).then((items) => {
+      $('input[name="edit-description"]').val(`${items.item.item_description}`);
+
+      $(`select#edit-category option[value="${items.item.category_name}"]`).attr('selected', 'selected');
+
+      if (items.item.completed) {
+        isComplete = true;
+      }
+
+      $('#edit-completed').prop('checked', isComplete);
+    }).catch((err) => {
+      console.log('Error: ', err);
+    });
+  });
+
   // Edit item
   $('#editItem').on('submit', function(event) {
     event.preventDefault();
+    const description = $('#edit-description').val();
     const category = $('#edit-category').val();
     const completed = $('#edit-completed').is(':checked');
 
@@ -154,11 +172,11 @@ $(document).ready(function() {
       url: `/users/1/items/${modalStateId}`,
       method: 'PUT',
       data: {
+        item_description: description,
         category_name: category,
         completed: completed,
       }
     }).then(() => {
-      console.log(category, completed);
       loadItems();
       $('#editModal').modal('hide');
     }).catch((err) => {

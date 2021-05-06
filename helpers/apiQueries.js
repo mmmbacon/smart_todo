@@ -2,11 +2,10 @@ const request = require("request"); //for use isItAMovie and isItABook
 const yelp = require("yelp-fusion"); //for use in isItDining
 const apiValidate = require("./apiValidate");
 
-//FIXFIX These functions work but aren't transfering to the frontend?
+//do not say we have nothing These functions work but aren't transfering to the frontend?
 
 //Check the user to-do against the IMBD database to determine if it's a movie
-const isItAMovie = function(userEntry) {
-
+const isItAMovie = function (userEntry) {
   const querySensitivity = 0.5;
 
   const options = {
@@ -21,13 +20,18 @@ const isItAMovie = function(userEntry) {
   };
 
   return new Promise((res, rej) => {
-    request(options, function(error, response, body) {
+    request(options, function (error, response, body) {
       if (error) rej(error);
       if (JSON.parse(body).title) {
         const movieTitle = JSON.parse(body).title;
         const matchScore = apiValidate(userEntry, movieTitle);
 
-        console.log('Movie score: ', matchScore, 'Movie Sensitivity: ', querySensitivity);
+        console.log(
+          "Movie score: ",
+          matchScore,
+          "Movie Sensitivity: ",
+          querySensitivity
+        );
 
         if (matchScore > querySensitivity) {
           //keyword match between userinput and api return--api return contains ANY keywords. Something more complicated won't even work--we don't have enough control
@@ -67,14 +71,13 @@ const isItAMovie = function(userEntry) {
 // });
 
 //Check the user to-do against the Google Books database to determine if it's a book
-const isItABook = function(userEntry) {
-
+const isItABook = function (userEntry) {
   const querySensitivity = 0.8;
 
   return new Promise((res, rej) => {
     request(
       `https://www.googleapis.com/books/v1/volumes?q=intitle:${userEntry}&key=${process.env.BOOK_KEY}`,
-      function(error, response, body) {
+      function (error, response, body) {
         if (error) rej(error);
 
         let bookTitle = "";
@@ -82,7 +85,12 @@ const isItABook = function(userEntry) {
           bookTitle = JSON.parse(body).items[0].volumeInfo.title;
           const matchScore = apiValidate(userEntry, bookTitle);
 
-          console.log('Book score: ', matchScore, 'Book Sensitivity: ', querySensitivity);
+          console.log(
+            "Book score: ",
+            matchScore,
+            "Book Sensitivity: ",
+            querySensitivity
+          );
 
           if (matchScore > querySensitivity) {
             console.log("Google found the book title:", bookTitle);
@@ -130,11 +138,11 @@ const isItABook = function(userEntry) {
 // });
 
 //Get the user's location based on their IP address (used as a helper in isItDining)
-const getLocation = function() {
+const getLocation = function () {
   return new Promise((res, rej) => {
     request(
       "https://extreme-ip-lookup.com/json/",
-      function(error, response, body) {
+      function (error, response, body) {
         if (error) rej(error);
         const location = [];
         location.push(JSON.parse(body).city, JSON.parse(body).region);
@@ -146,8 +154,7 @@ const getLocation = function() {
 };
 
 //Check the user to-do against the yelp database to determine if it's a restaurant
-const isItDining = function(userEntry) {
-
+const isItDining = function (userEntry) {
   const querySensitivity = 0.5;
 
   return getLocation()
@@ -173,7 +180,12 @@ const isItDining = function(userEntry) {
             diningName = response.jsonBody.businesses[0].name;
             const matchScore = apiValidate(userEntry, diningName);
 
-            console.log('Restaraunt score: ', matchScore, 'Restaurant Sensitivity: ', querySensitivity);
+            console.log(
+              "Restaraunt score: ",
+              matchScore,
+              "Restaurant Sensitivity: ",
+              querySensitivity
+            );
 
             if (matchScore > querySensitivity) {
               console.log("Yelp found the restaurant name:", diningName);
