@@ -3,11 +3,11 @@ $(document).ready(function () {
   $(init);
 
   function init() {
-    //Bug alert!! Can't drag and drop if the list is empty
     $("#read-container, #watch-container, #eat-container, #buy-container").sortable({
       connectWith: ".connected-sortable",
     }).disableSelection();
   }
+
   // To carry item_id into the modal
   let modalStateId = null;
 
@@ -189,6 +189,40 @@ $(document).ready(function () {
     }).catch((err) => {
       console.log('Error: ', err);
     });
+  });
+
+  //Drag and drop
+  $(".connected-sortable").sortable({
+
+    receive: function (event, ui) {
+      console.log('i am here', 'event is', event, 'ui is', ui, 'event.target', event.target)
+      let holder = null;
+      if (event.target.id === 'read-container') {
+        holder = "Books";
+      }
+      if (event.target.id === 'watch-container') {
+        holder = "Movies";
+      }
+      if (event.target.id === 'eat-container') {
+        holder = "Dining";
+      }
+      if (event.target.id === 'buy-container') {
+        holder = "Products";
+      }
+      $.ajax({
+        url: `/users/1/items/${modalStateId}`,
+        method: 'PUT',
+        data: {
+          category_name: holder,
+        }
+      }).then(() => {
+        // loadItems();
+      }).catch((err) => {
+        console.log('Error: ', err);
+      });
+
+
+    }
   });
 
 });
