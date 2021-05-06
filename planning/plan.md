@@ -17,11 +17,12 @@ Users should be able to change a category of an item in case it was mis-categori
 
 ### TODO
 
-* Come up with a cool name
-* Update package.json with proper info
-* README.md with Screenshots
-* Develop Schedule / Timeline
-* Look into cookies / hard coded routes
+* Come up with a cool name ✅
+* Update package.json with proper info 
+* README.md with Screenshots ✅
+* Develop Schedule / Timeline ✅
+* Look into cookies / hard coded routes ✅
+* Clean up comments, extra code, Lint
 
 ### Details / Ideas
 
@@ -34,9 +35,13 @@ Users should be able to change a category of an item in case it was mis-categori
 
 ### Stretch
 
-* Fetch information for an item when you click it
-* Use Keywords to filter automatically
+* Fetch information for an item when you click it ✅
+* Use Keywords to filter automatically ✅
 * JSDocs? 
+* Spinner
+* 1) Alerts - Bootstrap
+* 2) Priority 
+* 3) Drag-n-drop
 
 ### Roadmap
 
@@ -62,30 +67,30 @@ Users should be able to change a category of an item in case it was mis-categori
   * Bootstrap / SASS Interface research ✅
   * Placeholder Data for Front End ✅
 
-* Build REST API Endpoints (brianna)
-* Build SQL Queries (brandon)
+* Build REST API Endpoints (brianna) ✅
+* Build SQL Queries (brandon) ✅
 
-* Vendor API interface(s)
-  * Wrap up tonight
-  * Needs optimizing (Discussion on making more accurate queries)
-  * Lily and Brandon to help out
-* AJAX Queries
-  * Edit & Delete outstanding
+* Vendor API interface(s) ✅
+  * Wrap up tonight ✅
+  * Needs optimizing (Discussion on making more accurate queries) ✅ (pending testing as well)
+  * Lily and Brandon to help out ✅
+* AJAX Queries 
+  * Edit & Delete outstanding ✅
   * Get and Post ✅
 
 * Styling
   * Wednesday
-  * Bootstrap
-  * Bootstrap theming
-  * Needs work and cleanup
-  * Logo 
-  * Name Finalization (Hippo)
-  * Font selection
-  * Coolors.co Color
+  * Bootstrap ✅
+  * Bootstrap theming (Decided to just override styles)
+  * Needs work and cleanup ✅
+  * Logo ✅
+  * Name Finalization (Hippo) ✅
+  * Font selection ✅
+  * Coolors.co Color ✅
 
 * TESTING!! (M&C?, Walkthrough)
   * Test Thursday
-  * Unit Testing
+  * Unit Testing ✅
   * Functionality Testing
 
 * Presentation Planning

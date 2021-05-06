@@ -45,3 +45,92 @@ input[type=checkbox]:checked + label.item{
   display: flex;
   justify-content: space-between;
 }
+
+.progress-bar-rgb{
+  animation: rgb infinite 3s;
+}
+
+svg{
+  fill: #363537;
+}
+
+.svg-rgb{
+  animation: rgbfill infinite 3s;
+}
+
+.invisible{
+  opacity: 0;
+}
+
+.visible{
+  opacity: 1;
+}
+
+// .logo {
+//   width: 75px;
+//   height: 75px;
+//   background-color: red;
+//   -webkit-mask-image: url(../public/images/HIPPO_LOGO.svg);
+//   mask-image: url(../public/images/HIPPO_LOGO.svg);
+// }
+
+@keyframes rgb{
+  0% { background-color: #363537;}
+  14% { background-color: #a82def;}
+  28% { background-color: #ef2d56;}
+  42% { background-color: #ed7d3a;}
+  56% { background-color: #8cd867;}
+  70% { background-color: #2fbf71;}
+  84% { background-color: #2f61bf;}
+  100% { background-color: #363537;}
+}
+
+@keyframes rgbfill{
+  0% {
+    fill: #363537;
+    stroke: #363537;
+    transform: rotate(5deg);
+  }
+  14% {
+    fill: #a82def;
+    stroke: #a82def;
+  }
+  28% {
+    fill: #ef2d56;
+    stroke: #ef2d56;
+  }
+  42% {
+    fill: #ed7d3a;
+    stroke: #ed7d3a;
+  }
+  56% {
+    fill: #8cd867;
+    stroke: #8cd867;
+    transform: rotate(-5deg);
+  }
+  70% {
+    fill: #2fbf71;
+    stroke: #2fbf71;
+  }
+  84% {
+    fill: #2f61bf;
+    stroke: #2f61bf;
+  }
+  100% {
+    fill: #363537;
+    stroke: #363537;
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes dance {
+  0% {
+    transform: rotate(5deg)
+  }
+  50% {
+    transform: rotate(-5deg)
+  }
+  100% {
+    transform: rotate(5deg)
+  }
+}
