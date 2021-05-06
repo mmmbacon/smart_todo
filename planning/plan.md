@@ -170,18 +170,13 @@ This isn't something to stress out about, keep coding away but find some time to
 
 ## Timeline
 
-0:00 - 0:30: Introductions
-  Brandon - Hi I'm Brandon. I come from a background in engineering and construction. 
-  Lily - Introduce yourself. 
-  Brianna 
-
-0:30 - 3:00: User Perspective
+0:30 - 3:30: User Perspective
 
   BM - Hold up, technical difficulties...
 
   Awkard silence.
 
-  B - Wellllll, while we're waiting, Lily, have you seen that new movie on Netflix called Mitchell's versus the Machines?
+  B - Wellllll, while we're waiting for Brandon, Lily, have you seen that new movie on Netflix called Mitchell's versus the Machines?
 
   L - No, Brianna, I haven't, but that sounds SUPER interesting. Let me just write this down with my trusty old pen and paper.
 
@@ -235,15 +230,21 @@ This isn't something to stress out about, keep coding away but find some time to
 
   B - Not a problem. The app is fully responsive.
 
-  L - Wow! That is so incredible. I won't be needing my pen and paper anymore (throws book). Welcome to 2021.
+  L - Wow! That is so incredible. I won't be needing my pen and paper anymore (throws book). Welcome to 2021. I wonder who the geniuses are behind this marvellous creation?
 
 
-4:00 - 5:00: Roles, Why we chose this project, and challenges
+3:30 - 5:00: Why we chose this project, Roles, and challenges
 
-  * Roles
-    * Brandon
-    * Brianna
-    * Lily
+  Well let me tell you. Brianna, Lily and I developed this single page application because we wanted an opportunity to work with multiple APIs and challenge our existing knowledge. We split the core work vertically. Brianna was responsible for REST API, Lily worked on Front-End, and I developed the database. Planning, stretch work and styling was accomplished together in group sessions.
+  
+  Some challenges we faced as a team were branching and merging with GIT, working with individual technology implementations and how to make the app "smart". We were able to solve these challenges by using effective planning, peer programming, communication and researching library documentation. 
+
+  If you're wondering why we called the app hippo. The hippocampus is one of the parts of the brain associated with memory, and also because hippos are super cool. 
+
+  Thank you for your attention.
+
+
+
 
   * GIT workflow
       * Branching, Merge conflicts -> *Communication, planning workflow, practice and reading docs*
