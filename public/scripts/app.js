@@ -54,7 +54,7 @@ $(document).ready(function() {
     const displayItem = `
       <div class="item-container list-item list-group-item" data-id="${item.item_id}">
           <input class="form-check-input completed" type="checkbox" name="completed" id="item_${item.item_id}">
-          <div class="flex-grow-1"><label class="form-check-label item" for="completed">${escape(item.item_description)}</label></div>
+          <div class="flex-grow-1"><label class="form-check-label item text-break" for="completed">${escape(item.item_description)}</label></div>
           <i class="bi bi-pencil-square edit" data-bs-toggle="modal" data-bs-target="#editModal"></i>
       </div>
     `;

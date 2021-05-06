@@ -85,11 +85,6 @@ input[type=checkbox]:checked + div label.item {
   text-decoration: line-through;
 }
 
-label.item {
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-}
-
 .form-check-label {
   padding-left: 10px;
 }
