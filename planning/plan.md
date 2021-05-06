@@ -183,61 +183,70 @@ This isn't something to stress out about, keep coding away but find some time to
 
   B - Well While we are waiting... Lily, have you seen that new movie on Netflix called Mitchell's versus the Machines?
 
-  L - No, I haven't, but that sounds SUPER interesting. Let me just write this down on my trusty old pen and paper.
+awkward silence
 
-  B - What?! You're still using pen and paper, you are such a luddite. It's 2021.
+  B - Wellllll, while we're waiting, Lily, have you seen that new movie on Netflix called Mitchell's versus the Machines?
+
+  L - No, Brianna, I haven't, but that sounds SUPER interesting. Let me just write this down with my trusty old pen and paper.
+
+  B - What?! You're still using pen and paper? It's 2021.
 
   L - Well what do you use? 
 
-  B - I'm glad you asked. I just found this new app called Hippo. It's a super smart todo list that will automatically categorize tasks you need or want to accomplish. 
+  B - I am SO glad you asked. I just found this new app called Hippo. It's a super smart todo list thatwill automatically sort tasks into categories. 
 
   BM - Screenshare
 
   L - I don't believe it. 
 
-  B - Let me show you. Here are four categories of things I need to do. All I need to do is input the name of something I would like to watch, read, eat or purchase, and the app will automatically categorize the item.
+  B - Let me show you how it works. All I need to do is type in the name of something I want to watch, read, eat or purchase, and the app will automatically categorize the item.
 
-  B - For example, let's add that movie you mentioned into the list. I just input the title of the movie into the input and submit it. The app will reach out into the internet and automatically figure out what category the item belongs in.
+  B - If I type in Mitchell's vs the Machines and submit... The app will automatically figure out what category the item belongs in and add it.
 
-  BM - Type out and submit entry Mitchell's vs the Machines. 
+  BM - Type out and submit entry WATCH Mitchell's vs the Machines. 
   
-    (correct) Wait for the API to return. - "Wow! look at that dancing hippo."
+    (correct) Wait for the API to return. - "Wow! look at that dancing hippo." Note the dancing hippo
 
-  L - Hmmm, ok. Maybe you got lucky.
+  L - You put the word watch there, that seems like cheating, so...
 
-  B - Here, i'll put in a restaraunt this time. 
+  B - Here, I'll put in a restaraunt this time. How about red lobtser?
 
   BM - Type out and submit entry Red Lobster. 
+
+  B - (Note the dancing hippo) There, it still works.
 
     (correct) Wait for the API to return. - "Wow! look at that dancing hippo."
 
   L - Hey I noticed a typo in one of your existing items. Can you edit items?
 
-  B - No problem. That's an easy fix. While i'm in here I can also edit the completion status. 
+  B - No problem. That's an easy fix. I just click the little edit icon and change the name... While I'm in here I can also change the completed status if I like... or I can change the category. For example, maybe I want to buy Aladdin. (On VHS, if I'm you and still living in the stone age).... 
 
   BM - Edit the alladin description, category, and completion status. Save the item. 
 
   L - Hey I seen a deletion option in the edit window. 
 
-  B - Yeah, in fact my mom already got me this vacuum for my birthday so I can delete this one from the list. 
+  B - Yes. Let's say I heard that Alladin was terrible and change my mind about buying it. I can take it off my list.
 
-  BM - Delete vacuum item.
+  BM - Delete Alladin item.
 
-  B - Let's add another movie I really want to watch. 
-
-  BM - Add 'Hitchhikers Guide to the Galaxy'. 
+  B - Now that I'm not watching Aladdin, I have a hole in my Friday. Maybe I'll check out Hitchhikers Guide to the Galaxy'. 
 
   (incorrect) Wait for the API to return.
 
   L - What if I wanted to read the book first?
 
-  B - You can edit it through the edit dialog, or just grab the item and drag it into a new category.
+  B - You can edit it through the edit dialog that I showed you earlier, or just grab the item and drag it into a new category.
 
   BM - Move hitchhikers guide into books.
 
-  B - Another way to mark items as completed is to click the checkbox to the left of the item. 
+  B - Another shortcut is to mark items as completed by clicking the checkbox to the left of the item.
+  
+  L - Can I use this app on my phone? Sometimes I get recommendations while I'm on the go.
 
-  L - Wow! That is so incredible (throws book). 
+  B - Not a problem. The app is fully responsive.
+
+  L - Wow! That is so incredible. I won't be needing my pen and paper anymore (throws book). Welcome to 2021.
+
 
 4:00 - 5:00: Roles, Why we chose this project, and challenges
 
