@@ -1,30 +1,39 @@
-$(document).ready(function() {
+$(document).ready(function () {
+  //Drag and drop
+  $(init);
+
+  function init() {
+    $("#read-container, #watch-container, #eat-container, #buy-container").sortable({
+      connectWith: ".connected-sortable",
+    }).disableSelection();
+  }
+
   // To carry item_id into the modal
   let modalStateId = null;
 
   // Prevent cross-site scripting
-  const escape = function(str) {
+  const escape = function (str) {
     let div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
   };
 
   // Assign category name to item based on id
-  const getCategoryName = function(categoryId) {
+  const getCategoryName = function (categoryId) {
     switch (categoryId) {
-    case 1:
-      return 'watch';
-    case 2:
-      return 'read';
-    case 3:
-      return 'eat';
-    case 4:
-      return 'buy';
+      case 1:
+        return 'watch';
+      case 2:
+        return 'read';
+      case 3:
+        return 'eat';
+      case 4:
+        return 'buy';
     }
   };
 
   // Toggle completed checkbox
-  const checkboxClicked = function() {
+  const checkboxClicked = function () {
     const id = $(this).parent().data('id');
     const completed = $(this).is(':checked');
 
@@ -40,7 +49,7 @@ $(document).ready(function() {
   };
 
   // Create HTML to display each item
-  const createItem = function(item) {
+  const createItem = function (item) {
     const displayItem = `
       <div class="item-container list-item list-group-item" data-id="${item.item_id}">
           <input class="form-check-input completed" type="checkbox" name="completed" id="item_${item.item_id}">
@@ -52,7 +61,7 @@ $(document).ready(function() {
   };
 
   // Place item in appropriate category container
-  const renderItems = function(items) {
+  const renderItems = function (items) {
     $('#watch-container').empty();
     $('#read-container').empty();
     $('#eat-container').empty();
@@ -74,7 +83,7 @@ $(document).ready(function() {
   };
 
   // Display existing items on page load
-  const loadItems = function() {
+  const loadItems = function () {
     $.ajax('/users/1/items', {
       method: 'GET',
       dataType: 'JSON'
@@ -88,7 +97,7 @@ $(document).ready(function() {
   loadItems();
 
   // Add a new item
-  $('#newItem').on('submit', function(event) {
+  $('#newItem').on('submit', function (event) {
     event.preventDefault();
     $('#error').hide();
 
@@ -111,7 +120,7 @@ $(document).ready(function() {
 
       // Display confirmation message
       $('#confirm').show().html(`<i class="far fa-check-circle"></i> The item was added to the <strong>${newItemCateogry}</strong> category.`);
-      setTimeout(function() {
+      setTimeout(function () {
         $("#confirm").hide({}, 5000)
       }, 5000);
     }).catch((err) => {
@@ -120,12 +129,12 @@ $(document).ready(function() {
   });
 
   // Link item_id to item in container
-  $('#category-container').on('click', '.item-container', function(event) {
+  $('#category-container').on('click', '.item-container', function (event) {
     modalStateId = event.currentTarget.dataset.id;
   });
 
   // Delete item
-  $('#delete').on('click', function(event) {
+  $('#delete').on('click', function (event) {
     event.preventDefault();
 
     $.ajax({
@@ -139,7 +148,7 @@ $(document).ready(function() {
   });
 
   // Pre-populate edit form
-  $(window).on('shown.bs.modal', function() {
+  $(window).on('shown.bs.modal', function () {
     // Reset category selection
     $(`select#edit-category option`).removeAttr('selected');
 
@@ -160,7 +169,7 @@ $(document).ready(function() {
   });
 
   // Edit item
-  $('#editItem').on('submit', function(event) {
+  $('#editItem').on('submit', function (event) {
     event.preventDefault();
     const description = $('#edit-description').val();
     const category = $('#edit-category').val();
@@ -180,6 +189,40 @@ $(document).ready(function() {
     }).catch((err) => {
       console.log('Error: ', err);
     });
+  });
+
+  //Drag and drop
+  $(".connected-sortable").sortable({
+
+    receive: function (event, ui) {
+      console.log('i am here', 'event is', event, 'ui is', ui, 'event.target', event.target)
+      let holder = null;
+      if (event.target.id === 'read-container') {
+        holder = "Books";
+      }
+      if (event.target.id === 'watch-container') {
+        holder = "Movies";
+      }
+      if (event.target.id === 'eat-container') {
+        holder = "Dining";
+      }
+      if (event.target.id === 'buy-container') {
+        holder = "Products";
+      }
+      $.ajax({
+        url: `/users/1/items/${modalStateId}`,
+        method: 'PUT',
+        data: {
+          category_name: holder,
+        }
+      }).then(() => {
+        // loadItems();
+      }).catch((err) => {
+        console.log('Error: ', err);
+      });
+
+
+    }
   });
 
 });

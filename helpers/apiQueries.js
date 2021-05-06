@@ -2,8 +2,6 @@ const request = require("request"); //for use isItAMovie and isItABook
 const yelp = require("yelp-fusion"); //for use in isItDining
 const apiValidate = require("./apiValidate");
 
-//do not say we have nothing These functions work but aren't transfering to the frontend?
-
 //Check the user to-do against the IMBD database to determine if it's a movie
 const isItAMovie = function (userEntry) {
   const querySensitivity = 0.5;
@@ -155,7 +153,7 @@ const getLocation = function () {
 
 //Check the user to-do against the yelp database to determine if it's a restaurant
 const isItDining = function (userEntry) {
-  const querySensitivity = 0.5;
+  const querySensitivity = 0.3;
 
   return getLocation()
     .then((res) => {
