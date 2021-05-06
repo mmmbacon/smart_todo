@@ -1,11 +1,11 @@
 // See: https://sass-lang.com/
 
-body {
-  background-color: #EEE;
+@import 'variables';
 
-  h1 {
-    color: #244751;
-  }
+body {
+  background-color: #eee;
+  color: $primary;
+  font-family: 'Montserrat', sans-serif;
 }
 
 main {
@@ -14,11 +14,48 @@ main {
   padding: 2em;
 }
 
+/* Add new item styles */
+
+#new-item {
+  margin: 0;
+  padding: 0;
+}
+
+#new-item-text {
+  margin-right: .5em;
+}
+
 #error {
   display: none;
 }
 
-/* Whitespace after Font Awesome icons */
+#confirm {
+  display: none;
+}
+
+/* Category header styles */
+
+.active {
+  border: none;
+}
+
+#watch {
+  background-color: $to_watch;
+}
+
+#read {
+  background-color:$to_read;
+}
+
+#eat {
+  background-color: $to_eat;
+}
+
+#buy {
+  background-color:$to_buy;
+}
+
+/* List item styles */
 i.fas {
   padding-right: .75em;
 }
@@ -30,18 +67,173 @@ i.fas {
 
 i.edit {
   padding: 0 0 0 .75em;
+  font-size: 1.15em;
 
   &:hover {
-    color: #ff0000;
+    color: $light;
     cursor: pointer;
+    font-size: 1.15em;
   }
 }
 
-input[type=checkbox]:checked + label.item{
+input[type=checkbox]:checked + div label.item {
   text-decoration: line-through;
+}
+
+.form-check-label {
+  padding-left: 10px;
+}
+
+.form-check-input {
+  min-width: 1.15em;
+  min-height: 1.15em;
+
+  &:checked {
+    background-color: $light;
+    color: #fff;
+    min-width: 1.15em;
+    min-height: 1.15em;
+    border: none;
   }
+}
+
+/* Modal styles */
 
 .modal-footer {
   display: flex;
   justify-content: space-between;
+}
+
+.progress-bar-rgb{
+  animation: rgb infinite 3s;
+}
+
+svg{
+  fill: #363537;
+}
+
+.svg-rgb{
+  animation: rgbfill infinite 3s;
+}
+
+.invisible{
+  opacity: 0;
+}
+
+.visible{
+  opacity: 1;
+}
+
+// .logo {
+//   width: 75px;
+//   height: 75px;
+//   background-color: red;
+//   -webkit-mask-image: url(../public/images/HIPPO_LOGO.svg);
+//   mask-image: url(../public/images/HIPPO_LOGO.svg);
+// }
+
+@keyframes rgb{
+  0% { background-color: #363537;}
+  14% { background-color: #a82def;}
+  28% { background-color: #ef2d56;}
+  42% { background-color: #ed7d3a;}
+  56% { background-color: #8cd867;}
+  70% { background-color: #2fbf71;}
+  84% { background-color: #2f61bf;}
+  100% { background-color: #363537;}
+}
+
+@keyframes rgbfill{
+  0% {
+    fill: #363537;
+    stroke: #363537;
+    transform: rotate(5deg);
+  }
+  14% {
+    fill: #a82def;
+    stroke: #a82def;
+  }
+  28% {
+    fill: #ef2d56;
+    stroke: #ef2d56;
+  }
+  42% {
+    fill: #ed7d3a;
+    stroke: #ed7d3a;
+  }
+  56% {
+    fill: #8cd867;
+    stroke: #8cd867;
+    transform: rotate(-5deg);
+  }
+  70% {
+    fill: #2fbf71;
+    stroke: #2fbf71;
+  }
+  84% {
+    fill: #2f61bf;
+    stroke: #2f61bf;
+  }
+  100% {
+    fill: #363537;
+    stroke: #363537;
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes dance {
+  0% {
+    transform: rotate(5deg)
+  }
+  50% {
+    transform: rotate(-5deg)
+  }
+  100% {
+    transform: rotate(5deg)
+  }
+}
+/* Button styles */
+
+.btn-outline-primary {
+  border-color: $primary;
+  color: $primary;
+
+  &:hover {
+    background-color: $primary;
+  }
+}
+
+.btn-primary {
+  border-color: $primary;
+  background-color: $primary;
+
+  &:hover {
+    border-color: $light;
+    background-color: $light;
+  }
+}
+
+/* Nav styles */
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+#logo {
+  font-family: 'Sniglet', cursive;
+  font-size: 55px;
+  color: $primary;
+}
+
+// Drag and drop styles
+#item-container.ui-sortable-helper {
+  box-shadow: 3px 3px 8px rgba(0,0,0,0.8);
+}
+#item-container.ui-sortable-placeholder {
+  box-shadow: 3px 3px 8px rgba(0,0,0,0.8);
+
+}
+.connected-sortable {
+   min-height: 10vh;
 }

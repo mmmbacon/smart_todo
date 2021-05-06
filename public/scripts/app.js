@@ -1,31 +1,40 @@
-$(document).ready(function() {
+$(document).ready(function () {
+  //Drag and drop
+  $(init);
+
+  function init() {
+    $("#read-container, #watch-container, #eat-container, #buy-container").sortable({
+      connectWith: ".connected-sortable",
+    }).disableSelection();
+  }
+
   // To carry item_id into the modal
   let modalStateId = null;
 
   // Prevent cross-site scripting
-  const escape = function(str) {
+  const escape = function (str) {
     let div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
   };
 
   // Assign category name to item based on id
-  const getCategoryName = function(categoryId) {
+  const getCategoryName = function (categoryId) {
     switch (categoryId) {
-    case 1:
-      return '#watch-container';
-    case 2:
-      return '#read-container';
-    case 3:
-      return '#eat-container';
-    case 4:
-      return '#buy-container';
+      case 1:
+        return 'watch';
+      case 2:
+        return 'read';
+      case 3:
+        return 'eat';
+      case 4:
+        return 'buy';
     }
   };
 
   // Toggle completed checkbox
-  const checkboxClicked = function() {
-    const id = $(this).parent().parent().data('id');
+  const checkboxClicked = function () {
+    const id = $(this).parent().data('id');
     const completed = $(this).is(':checked');
 
     $.ajax({
@@ -40,23 +49,19 @@ $(document).ready(function() {
   };
 
   // Create HTML to display each item
-  const createItem = function(item) {
+  const createItem = function (item) {
     const displayItem = `
-      <div id="item-container" class="list-item list-group-item list-group-item-action" data-id="${item.item_id}">
-        <span>
+      <div class="item-container list-item list-group-item" data-id="${item.item_id}">
           <input class="form-check-input completed" type="checkbox" name="completed" id="item_${item.item_id}">
-          <label class="form-check-label item" for="completed">${escape(item.item_description)}</label>
-        </span>
-        <span>
-          <i class="fas fa-edit edit" data-bs-toggle="modal" data-bs-target="#editModal"></i>
-        </span>
+          <div class="flex-grow-1"><label class="form-check-label item" for="completed">${escape(item.item_description)}</label></div>
+          <i class="bi bi-pencil-square edit" data-bs-toggle="modal" data-bs-target="#editModal"></i>
       </div>
     `;
     return displayItem;
   };
 
   // Place item in appropriate category container
-  const renderItems = function(items) {
+  const renderItems = function (items) {
     $('#watch-container').empty();
     $('#read-container').empty();
     $('#eat-container').empty();
@@ -65,7 +70,7 @@ $(document).ready(function() {
     for (const item of items) {
       const category = getCategoryName(item.category_id);
       const $item = createItem(item);
-      $(category).append($item);
+      $(`#${category}-container`).append($item);
 
       // Set completed items to checked
       if (item.completed) {
@@ -78,12 +83,12 @@ $(document).ready(function() {
   };
 
   // Display existing items on page load
-  const loadItems = function() {
+  const loadItems = function () {
     $.ajax('/users/1/items', {
       method: 'GET',
       dataType: 'JSON'
-    }).then((items) => {
-      renderItems((items.items));
+    }).then(({ items }) => {
+      renderItems((items));
     }).catch((err) => {
       console.log('Error: ', err);
     });
@@ -92,7 +97,7 @@ $(document).ready(function() {
   loadItems();
 
   // Add a new item
-  $('#newItem').on('submit', function(event) {
+  $('#newItem').on('submit', function (event) {
     event.preventDefault();
     $('#error').hide();
 
@@ -105,21 +110,31 @@ $(document).ready(function() {
       url: '/users/1/items',
       method: 'POST',
       data: $(this).serialize(),
-    }).then(() => {
+    }).then((items) => {
+      const index = items.items.length - 1;
+      const newItemCategoryId = items.items[index].category_id;
+      newItemCateogry = getCategoryName(newItemCategoryId);
+
       loadItems();
       $('#new-item-text').val('').focus();
+
+      // Display confirmation message
+      $('#confirm').show().html(`<i class="far fa-check-circle"></i> The item was added to the <strong>${newItemCateogry}</strong> category.`);
+      setTimeout(function () {
+        $("#confirm").hide({}, 5000)
+      }, 5000);
     }).catch((err) => {
       console.log('Error: ', err);
     });
   });
 
   // Link item_id to item in container
-  $('#category-container').on('click', '#item-container', function(event) {
+  $('#category-container').on('click', '.item-container', function (event) {
     modalStateId = event.currentTarget.dataset.id;
   });
 
   // Delete item
-  $('#delete').on('click', function(event) {
+  $('#delete').on('click', function (event) {
     event.preventDefault();
 
     $.ajax({
@@ -133,30 +148,28 @@ $(document).ready(function() {
   });
 
   // Pre-populate edit form
-  $(window).on('shown.bs.modal', function() {
-    $('#editModal').modal('show');
-    let isComplete = false;
+  $(window).on('shown.bs.modal', function () {
+    // Reset category selection
+    $(`select#edit-category option`).removeAttr('selected');
 
     $.ajax({
       url: `/users/1/items/${modalStateId}`,
       method: 'GET',
-    }).then((items) => {
-      $('input[name="edit-description"]').val(`${items.item.item_description}`);
+    }).then(({ item }) => {
+      $('input[name="edit-description"]').val(`${item.item_description}`);
 
-      $(`select#edit-category option[value="${items.item.category_name}"]`).attr('selected', 'selected');
+      $(`select#edit-category option[value="${item.category_name}"]`).attr('selected', 'selected');
 
-      if (items.item.completed) {
-        isComplete = true;
-      }
+      $('#edit-completed').prop('checked', item.completed);
 
-      $('#edit-completed').prop('checked', isComplete);
+      $('#editModal').modal('show');
     }).catch((err) => {
       console.log('Error: ', err);
     });
   });
 
   // Edit item
-  $('#editItem').on('submit', function(event) {
+  $('#editItem').on('submit', function (event) {
     event.preventDefault();
     const description = $('#edit-description').val();
     const category = $('#edit-category').val();
@@ -177,6 +190,39 @@ $(document).ready(function() {
       console.log('Error: ', err);
     });
   });
+
+  //Drag and drop
+  $(".connected-sortable").sortable({
+
+    receive: function (event, ui) {
+      console.log('i am here', 'event is', event, 'ui is', ui, 'event.target', event.target)
+      let holder = null;
+      if (event.target.id === 'read-container') {
+        holder = "Books";
+      }
+      if (event.target.id === 'watch-container') {
+        holder = "Movies";
+      }
+      if (event.target.id === 'eat-container') {
+        holder = "Dining";
+      }
+      if (event.target.id === 'buy-container') {
+        holder = "Products";
+      }
+      $.ajax({
+        url: `/users/1/items/${modalStateId}`,
+        method: 'PUT',
+        data: {
+          category_name: holder,
+        }
+      }).then(() => {
+        // loadItems();
+      }).catch((err) => {
+        console.log('Error: ', err);
+      });
+
+
+    }
+  });
+
 });
-
-

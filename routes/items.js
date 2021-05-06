@@ -79,23 +79,30 @@ module.exports = (db) => {
 
   //Edit individual item route
   router.put("/:userid/items/:itemid", (request, response) => {
-    console.log("request.body.item_description", request.body.item_description);
-    updateItem(
-      request.params.userid,
-      request.params.itemid,
-      request.body.category_name,
-      request.body.item_description,
-      request.body.completed,
-      null,
-      null
-    )
+    console.log("request.body", request.body);
+
+    //Convenience variables for params and user input. If the user doesn't set description or completed, set the variables to null so the updateItem function will run OK
+    const userId = request.params.userid;
+    //BUG ALERT! BUG ALERT! FIXFIX: the itemId is coming in as null from drag and drop editing, so the database isn't updating with the proper category.
+    const itemId = request.params.itemid;
+    const categoryName = request.body.category_name ? request.body.category_name : null;
+    const description = request.body.item_description ? request.body.item_description : null;
+    const completed = request.body.completed ? request.body.completed : null;
+    const dateDue = null;
+    const priority = null;
+    console.log('categoryName', categoryName, 'descriptipn', description, 'completed', completed)
+
+    updateItem(userId, itemId, categoryName, description, completed, dateDue, priority)
       .then((items) => {
+        console.log('If we make it into this then, the parameters are:', userId, itemId, categoryName, description, completed, dateDue, priority)
         response.json({ items });
+        return;
       })
       .catch((error) => {
         console.log(error);
         response.status(500).json({ error: error.message });
       });
+
   });
 
   /////Delete individual item route
