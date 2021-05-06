@@ -8,7 +8,7 @@ const assignCategoryFromKeyword = function (userEntry) {
     category = "Movies";
   }
 
-  if (userEntry.match(/dining|eat/i)) {
+  if (userEntry.match(/dining|eat|drink/i)) {
     category = "Dining";
   }
   if (userEntry.match(/product|buy|new|get/i)) {
