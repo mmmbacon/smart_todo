@@ -1,17 +1,17 @@
 const assignCategoryFromKeyword = function (userEntry) {
   category = "";
-  if (userEntry.match(/book|read/)) {
+  if (userEntry.match(/book|read/i)) {
     category = "Books";
   }
 
-  if (userEntry.match(/movie|watch/)) {
+  if (userEntry.match(/movie|watch/i)) {
     category = "Movies";
   }
 
-  if (userEntry.match(/dining|eat/)) {
+  if (userEntry.match(/dining|eat/i)) {
     category = "Dining";
   }
-  if (userEntry.match(/product|buy/)) {
+  if (userEntry.match(/product|buy|new|get/i)) {
     category = "Products";
   }
   return category;
@@ -20,6 +20,6 @@ const assignCategoryFromKeyword = function (userEntry) {
 //test cases
 
 // console.log(assignCategoryFromKeyword("burn after reading"));
-// console.log(assignCategoryFromKeyword("word reading"));
+console.log(assignCategoryFromKeyword("ReAd the hobbit"));
 
 module.exports = assignCategoryFromKeyword;
