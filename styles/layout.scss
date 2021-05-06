@@ -56,6 +56,7 @@ main {
 }
 
 /* List item styles */
+
 i.fas {
   padding-right: .75em;
 }
@@ -108,12 +109,22 @@ input[type=checkbox]:checked + div label.item {
   justify-content: space-between;
 }
 
+// .logo {
+//   width: 75px;
+//   height: 75px;
+//   background-color: red;
+//   -webkit-mask-image: url(../public/images/HIPPO_LOGO.svg);
+//   mask-image: url(../public/images/HIPPO_LOGO.svg);
+// }
+
+/* Progress bar styles */
+
 .progress-bar-rgb{
   animation: rgb infinite 3s;
 }
 
 svg{
-  fill: #363537;
+  fill: $primary;
   filter: drop-shadow(2px 2px 8px rgba(0,0,0,0.2));
 }
 
@@ -129,29 +140,21 @@ svg{
   opacity: 1;
 }
 
-// .logo {
-//   width: 75px;
-//   height: 75px;
-//   background-color: red;
-//   -webkit-mask-image: url(../public/images/HIPPO_LOGO.svg);
-//   mask-image: url(../public/images/HIPPO_LOGO.svg);
-// }
-
 @keyframes rgb{
-  0% { background-color: #363537;}
+  0% { background-color: $primary;}
   14% { background-color: #a82def;}
-  28% { background-color: #ef2d56;}
-  42% { background-color: #ed7d3a;}
-  56% { background-color: #8cd867;}
-  70% { background-color: #2fbf71;}
+  28% { background-color: $to_watch;}
+  42% { background-color: $to_read;}
+  56% { background-color: $to_eat;}
+  70% { background-color: $to_buy;}
   84% { background-color: #2f61bf;}
-  100% { background-color: #363537;}
+  100% { background-color: $primary;}
 }
 
 @keyframes rgbfill{
   0% {
-    fill: #363537;
-    stroke: #363537;
+    fill: $primary;
+    stroke: $primary;
     transform: rotate(5deg);
   }
   14% {
@@ -160,23 +163,23 @@ svg{
     transform: rotate(-5deg);
   }
   28% {
-    fill: #ef2d56;
-    stroke: #ef2d56;
+    fill: $to_watch;
+    stroke: $to_watch;
     transform: rotate(5deg);
   }
   42% {
-    fill: #ed7d3a;
-    stroke: #ed7d3a;
+    fill: $to_read;
+    stroke: $to_read;
     transform: rotate(-5deg);
   }
   56% {
-    fill: #8cd867;
-    stroke: #8cd867;
+    fill: $to_eat;
+    stroke: $to_eat;
     transform: rotate(5deg);
   }
   70% {
-    fill: #2fbf71;
-    stroke: #2fbf71;
+    fill: $to_buy;
+    stroke: $to_buy;
     transform: rotate(-5deg);
   }
   84% {
@@ -185,8 +188,8 @@ svg{
     transform: rotate(5deg);
   }
   100% {
-    fill: #363537;
-    stroke: #363537;
+    fill: $primary;
+    stroke: $primary;
     transform: rotate(5deg);
   }
 }
@@ -200,26 +203,6 @@ svg{
   }
   100% {
     transform: rotate(5deg)
-  }
-}
-/* Button styles */
-
-.btn-outline-primary {
-  border-color: $primary;
-  color: $primary;
-
-  &:hover {
-    background-color: $primary;
-  }
-}
-
-.btn-primary {
-  border-color: $primary;
-  background-color: $primary;
-
-  &:hover {
-    border-color: $light;
-    background-color: $light;
   }
 }
 
@@ -238,14 +221,16 @@ svg{
   text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
 }
 
-// Drag and drop styles
+/* Drag and drop styles */
+
 #item-container.ui-sortable-helper {
   box-shadow: 3px 3px 8px rgba(0,0,0,0.8);
 }
+
 #item-container.ui-sortable-placeholder {
   box-shadow: 3px 3px 8px rgba(0,0,0,0.8);
-
 }
+
 .connected-sortable {
-   min-height: 10vh;
+  min-height: 10vh;
 }
