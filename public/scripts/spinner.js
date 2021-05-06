@@ -11,7 +11,6 @@ $(document)
     $loading.find('.progress-bar').addClass('visible progress-bar-rgb progress-bar-striped progress-bar-animated');
     $loading.find('.progress-bar').removeClass('invisible');
     $loading.find('.progress-bar').text('Waving the magic wand');
-    $hippo.addClass('svg-rgb');
   })
   .ajaxStop(function() {
     $loading.find('.progress-bar').removeClass('visible progress-bar-rgb progress-bar-striped progress-bar-animated');
@@ -20,4 +19,4 @@ $(document)
     $hippo.removeClass('svg-rgb');
   });
 
-$('#progress-bar-container').append($loading);
+$('#alert-container').append($loading);
