@@ -42,7 +42,8 @@ $(document).ready(function() {
       method: 'PUT',
       data: {
         completed: completed,
-      }
+      },
+      timeout: 5000,
     }).catch((err) => {
       console.log('Error: ', err);
     });
@@ -86,7 +87,8 @@ $(document).ready(function() {
   const loadItems = function() {
     $.ajax('/users/1/items', {
       method: 'GET',
-      dataType: 'JSON'
+      dataType: 'JSON',
+      timeout: 5000,
     }).then(({ items }) => {
       renderItems((items));
     }).catch((err) => {
@@ -120,6 +122,7 @@ $(document).ready(function() {
       url: '/users/1/items',
       method: 'POST',
       data: $(this).serialize(),
+      timeout: 5000,
     }).then((items) => {
       const index = items.items.length - 1;
       const newItemCategoryId = items.items[index].category_id;
@@ -149,6 +152,7 @@ $(document).ready(function() {
     $.ajax({
       url: `/users/1/items/${modalStateId}`,
       method: 'DELETE',
+      timeout: 5000,
     }).then((items) => {
       renderItems(items.items);
     }).catch((err) => {
@@ -164,6 +168,7 @@ $(document).ready(function() {
     $.ajax({
       url: `/users/1/items/${modalStateId}`,
       method: 'GET',
+      timeout: 5000,
     }).then(({ item }) => {
       $('input[name="edit-description"]').val(`${item.item_description}`);
 
@@ -191,7 +196,8 @@ $(document).ready(function() {
         item_description: description,
         category_name: category,
         completed: completed,
-      }
+      },
+      timeout: 5000,
     }).then(() => {
       loadItems();
       $('#editModal').modal('hide');
@@ -222,7 +228,8 @@ $(document).ready(function() {
         method: 'PUT',
         data: {
           category_name: holder,
-        }
+        },
+        timeout: 5000,
       }).catch((err) => {
         console.log('Error: ', err);
       });
