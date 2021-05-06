@@ -102,6 +102,7 @@ module.exports = (db) => {
 
     //Convenience variables for params and user input. If the user doesn't set description or completed, set the variables to null so the updateItem function will run OK
     const userId = request.params.userid;
+    //BUG ALERT! BUG ALERT! FIXFIX: the itemId is coming in as null from drag and drop editing, so the database isn't updating with the proper category.
     const itemId = request.params.itemid;
     const categoryName = request.body.category_name ? request.body.category_name : null;
     const description = request.body.item_description ? request.body.item_description : null;
@@ -112,7 +113,7 @@ module.exports = (db) => {
 
     updateItem(userId, itemId, categoryName, description, completed, dateDue, priority)
       .then((items) => {
-        console.log('are we making it into the then? New categoryName is:', categoryName)
+        console.log('If we make it into this then, the parameters are:', userId, itemId, categoryName, description, completed, dateDue, priority)
         response.json({ items });
         return;
       })
