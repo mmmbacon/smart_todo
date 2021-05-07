@@ -115,9 +115,7 @@ input[type=checkbox]:checked + div label.item {
 //   background-color: red;
 //   -webkit-mask-image: url(../public/images/HIPPO_LOGO.svg);
 //   mask-image: url(../public/images/HIPPO_LOGO.svg);
-// }
-
-/* Progress bar styles */
+// }Progress
 
 .progress-bar-rgb{
   animation: rgb infinite 3s;
@@ -132,13 +130,6 @@ svg{
   animation: rgbfill infinite 3s;
 }
 
-.invisible{
-  opacity: 0;
-}
-
-.visible{
-  opacity: 1;
-}
 
 @keyframes rgb{
   0% { background-color: $primary;}

@@ -173,7 +173,7 @@ This isn't something to stress out about, keep coding away but find some time to
 
 0:00 - 3:30: User Perspective
 
-  BM - Hold up, technical difficulties...
+  <BM - Hold up, technical difficulties...
 
   Awkard silence.
 
@@ -187,13 +187,13 @@ This isn't something to stress out about, keep coding away but find some time to
 
   B - I am SO glad you asked. I just found this new app called Hippo. It's a super smart todo list that'll automatically sort tasks into categories. 
 
-  BM - Screenshare
+  <BM - Screenshare
 
   L - I don't believe it. 
 
   B - Let me show you how it works. All I need to do is type in the name of something I want to watch, read, eat or buy, and the app will automatically categorize the item. For example, if I type in Mitchell's vs the Machines and hit the add new item button... The app will automatically figure out what category the item belongs in and add it.
 
-  BM - Type out and submit entry 
+  <BM - Type out and submit entry 
   WATCH Mitchell's vs the Machines. 
   
     (correct) Wait for the API to return. - "Wow! look at that dancing hippo." Only Lily gets to talk about the dancing hippo
@@ -202,7 +202,7 @@ This isn't something to stress out about, keep coding away but find some time to
 
   B - Here, I'll put in a restaraunt this time. How about Red Lobster?
 
-  BM - Type out and submit entry Red Lobster. 
+  <BM - Type out and submit entry Red Lobster. 
 
   B -  There, it still works.
 
@@ -212,23 +212,23 @@ This isn't something to stress out about, keep coding away but find some time to
 
   B - Yes, that's an easy fix. I just click the little edit icon and change the name... While I'm in here I can also change the category if I like--for example, maybe I want to buy Aladdin.... I can also change the completed status if I like... If I hit save... the lists update.
 
-  BM - Edit the alladin description, category, and completion status. Save the item. 
+  <BM - Edit the alladin description, category, and completion status. Save the item. 
 
   L - Hey I seen a deletion option in the edit window. 
 
   B - Yes. Let's say I heard that Alladin was terrible and change my mind about buying it. I can take it off my list....
   
-  BM - Delete Alladin item.
+  <BM - Delete Alladin item.
 
   Now that I'm not watching Aladdin, I have a hole in my Friday. Maybe I'll add Hitchhikers Guide to the Galaxy'.
 
-  BM - Add Hitchhikers guide to the galaxy
+  <BM - Add Hitchhikers guide to the galaxy
 
   L - Isn't that a movie and a book? How will it know which category to put it in?
 
   B - If the app finds that something is both a movie and book, it'll assign it to the category I use most often--assuming that if I have 20 movies on my list and 0 books, I probably like watching TV better than I like reading. If I actually did want the book, I can change the category through the edit dialog that I showed you earlier, or I can just grab the item and drag it into a new category.
 
-  BM - Move hitchhikers guide into books.
+  <BM - Move hitchhikers guide into books.
 
   B - Another shortcut is to mark items as completed by clicking the checkbox to the left of the item.
   
@@ -241,13 +241,13 @@ This isn't something to stress out about, keep coding away but find some time to
 
 3:30 - 5:00: Why we chose this project, Roles, and challenges
 
-  Well let me tell you. Brianna, Lily and I developed this single page application because we wanted an opportunity to work with multiple APIs and challenge our existing knowledge. We split the core work vertically. Brianna was responsible for the back-end including REST API, Lily worked on Front-End, and I developed the database. Planning, stretch work and styling was accomplished together in group sessions.
+  <Well let me tell you. Brianna, Lily and I developed this single page application because we wanted an opportunity to work with multiple APIs and challenge our existing knowledge. We split the core work vertically. Brianna was responsible for the back-end including REST API, Lily worked on Front-End, and I developed the database. Planning, stretch work and styling was accomplished together in group sessions.
   
-  Some challenges we faced as a team were branching and merging with GIT, working with individual technology implementations and how to make the app "smart". We were able to solve these challenges by using effective planning, pair programming, communication and researching library documentation. 
+  <Some challenges we faced as a team were branching and merging with GIT, working with individual technology implementations and how to make the app "smart". We were able to solve these challenges by using effective planning, pair programming, communication and researching library documentation. 
 
-  If you're wondering why we called the app hippo. The hippocampus is one of the parts of the brain associated with memory, and also because hippos are super cool. 
+  <If you're wondering why we called the app hippo. The hippocampus is one of the parts of the brain associated with memory, and also because hippos are super cool. 
 
-  Thank you for your attention.
+  <Thank you for your attention. Does anyone have any recommendations for Brianna?
 
   4:24
 
