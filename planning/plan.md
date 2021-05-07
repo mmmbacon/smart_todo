@@ -193,7 +193,8 @@ This isn't something to stress out about, keep coding away but find some time to
 
   B - Let me show you how it works. All I need to do is type in the name of something I want to watch, read, eat or buy, and the app will automatically categorize the item. For example, if I type in Mitchell's vs the Machines and hit the add new item button... The app will automatically figure out what category the item belongs in and add it.
 
-  BM - Type out and submit entry WATCH Mitchell's vs the Machines. 
+  BM - Type out and submit entry 
+  WATCH Mitchell's vs the Machines. 
   
     (correct) Wait for the API to return. - "Wow! look at that dancing hippo." Only Lily gets to talk about the dancing hippo
 
@@ -215,9 +216,13 @@ This isn't something to stress out about, keep coding away but find some time to
 
   L - Hey I seen a deletion option in the edit window. 
 
-  B - Yes. Let's say I heard that Alladin was terrible and change my mind about buying it. I can take it off my list....Now that I'm not watching Aladdin, I have a hole in my Friday. Maybe I'll add Hitchhikers Guide to the Galaxy'.
-
+  B - Yes. Let's say I heard that Alladin was terrible and change my mind about buying it. I can take it off my list....
+  
   BM - Delete Alladin item.
+
+  Now that I'm not watching Aladdin, I have a hole in my Friday. Maybe I'll add Hitchhikers Guide to the Galaxy'.
+
+  BM - Add Hitchhikers guide to the galaxy
 
   L - Isn't that a movie and a book? How will it know which category to put it in?
 
@@ -236,15 +241,15 @@ This isn't something to stress out about, keep coding away but find some time to
 
 3:30 - 5:00: Why we chose this project, Roles, and challenges
 
-  Well let me tell you. Brianna, Lily and I developed this single page application because we wanted an opportunity to work with multiple APIs and challenge our existing knowledge. We split the core work vertically. Brianna was responsible for REST API, Lily worked on Front-End, and I developed the database. Planning, stretch work and styling was accomplished together in group sessions.
+  Well let me tell you. Brianna, Lily and I developed this single page application because we wanted an opportunity to work with multiple APIs and challenge our existing knowledge. We split the core work vertically. Brianna was responsible for the back-end including REST API, Lily worked on Front-End, and I developed the database. Planning, stretch work and styling was accomplished together in group sessions.
   
-  Some challenges we faced as a team were branching and merging with GIT, working with individual technology implementations and how to make the app "smart". We were able to solve these challenges by using effective planning, peer programming, communication and researching library documentation. 
+  Some challenges we faced as a team were branching and merging with GIT, working with individual technology implementations and how to make the app "smart". We were able to solve these challenges by using effective planning, pair programming, communication and researching library documentation. 
 
   If you're wondering why we called the app hippo. The hippocampus is one of the parts of the brain associated with memory, and also because hippos are super cool. 
 
   Thank you for your attention.
 
-
+  4:24
 
 
   * GIT workflow
