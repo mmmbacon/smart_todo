@@ -1,6 +1,6 @@
 hippo.
 =========
-Smart to-do lists.
+This project was created for the 2021 Lighthouse Labs Web Development Bootcamp. The app uses contextual hinting to do searches of 3 different APIs and return what it thinks is the best result for a todo list item. This allows the user to quickly add items to their list without much thinking and the app will do the work of deciding what category it belongs in. 
 
 ## Getting Started
 
